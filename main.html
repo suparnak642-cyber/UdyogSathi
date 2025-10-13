@@ -1,0 +1,772 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>UdyogSathi — Mini App (All Features)</title>
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* minimal extra styles */
+    :root {
+      --primary: #10B981;
+      --accent: #3B82F6;
+    }
+    .job-card { transition: transform .22s cubic-bezier(.2,.8,.2,1), box-shadow .22s; }
+    .job-card:hover { transform: translateY(-6px); box-shadow: 0 10px 30px rgba(2,6,23,.12); }
+    .toast { animation: slideIn .32s ease forwards; }
+    @keyframes slideIn { from { transform: translateY(12px); opacity: 0 } to { transform: translateY(0); opacity: 1 } }
+  </style>
+</head>
+<body class="bg-gray-50 min-h-screen antialiased text-gray-800" data-theme="light">
+
+  <!-- PAGE WRAPPER -->
+  <div class="max-w-6xl mx-auto p-4">
+
+    <!-- HEADER -->
+    <header class="flex items-center justify-between py-4">
+      <div class="flex items-center space-x-3">
+        <h1 class="text-2xl font-extrabold text-emerald-600">UdyogSathi</h1>
+        <span class="text-sm text-gray-500">Instant Local Jobs</span>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <button id="dark-toggle" class="px-3 py-2 rounded-md bg-gray-100 hover:bg-gray-200 text-sm">Dark</button>
+        <button id="notify-toggle" class="px-3 py-2 rounded-md bg-gray-100 hover:bg-gray-200 text-sm">Enable Notifications</button>
+        <button id="profile-open" class="px-3 py-2 rounded-md bg-emerald-600 text-white text-sm">Profile</button>
+      </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="bg-white rounded-xl p-6 shadow mb-6">
+      <div class="md:flex md:items-center md:justify-between">
+        <div>
+          <h2 class="text-3xl font-bold">Instant Income. No App. No Literacy.</h2>
+          <p class="text-gray-600 mt-2">Voice, missed-call & SMS friendly local micro-jobs. Try voice apply below.</p>
+        </div>
+
+        <div class="mt-4 md:mt-0 flex gap-3">
+          <button id="record-apply-btn" class="bg-emerald-600 text-white px-4 py-3 rounded-lg shadow">Voice Apply</button>
+          <button id="post-job-open" class="bg-blue-600 text-white px-4 py-3 rounded-lg shadow">Post Job</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- FILTERS & SEARCH -->
+    <section class="grid md:grid-cols-3 gap-4 mb-6">
+      <div class="md:col-span-2 bg-white p-4 rounded-xl shadow">
+        <div class="flex items-center gap-3">
+          <input id="search-input" type="search" placeholder="Search jobs, skills, locations..." class="flex-1 p-3 border rounded-lg" />
+          <select id="sort-select" class="p-3 border rounded-lg">
+            <option value="newest">Sort: Newest</option>
+            <option value="nearest">Sort: Nearest</option>
+            <option value="pay">Sort: Best Pay</option>
+          </select>
+          <button id="use-location" class="p-3 bg-gray-100 rounded-lg">Use My Location</button>
+        </div>
+
+        <!-- FILTER PILL LIST -->
+        <div class="mt-4 flex flex-wrap gap-2">
+          <button class="filter-pill p-2 px-3 bg-gray-100 rounded-full text-sm" data-filter="type:fulltime">Full-time</button>
+          <button class="filter-pill p-2 px-3 bg-gray-100 rounded-full text-sm" data-filter="type:parttime">Part-time</button>
+          <button class="filter-pill p-2 px-3 bg-gray-100 rounded-full text-sm" data-filter="pay:daily">Daily Pay</button>
+          <button class="filter-pill p-2 px-3 bg-gray-100 rounded-full text-sm" data-filter="skill:driving">Driving</button>
+          <button id="clear-filters" class="p-2 px-3 bg-red-100 text-red-700 rounded-full text-sm">Clear</button>
+        </div>
+      </div>
+
+      <div class="bg-white p-4 rounded-xl shadow">
+        <h4 class="font-semibold mb-2">Nearby / Location</h4>
+        <p id="location-display" class="text-sm text-gray-600">Not set</p>
+        <div class="mt-3 flex gap-2">
+          <input id="manual-location" placeholder="Enter city or pin" class="p-2 border rounded-lg flex-1" />
+          <button id="set-manual-location" class="p-2 bg-emerald-600 text-white rounded-lg">Set</button>
+        </div>
+        <hr class="my-3" />
+        <h5 class="font-semibold">Saved / Bookmarks</h5>
+        <div id="saved-count" class="text-sm text-gray-600 mt-1">0 saved jobs</div>
+      </div>
+    </section>
+
+    <!-- JOB LIST -->
+    <section id="jobs-area" class="grid md:grid-cols-2 gap-4 mb-6">
+      <!-- Job cards injected here -->
+    </section>
+
+    <!-- SUGGESTIONS + CHAT AREA -->
+    <section class="grid md:grid-cols-3 gap-4">
+      <div class="md:col-span-2 bg-white p-4 rounded-xl shadow">
+        <h4 class="font-semibold mb-3">Application History</h4>
+        <div id="applications-list" class="space-y-3 text-sm text-gray-700"></div>
+      </div>
+
+      <div class="bg-white p-4 rounded-xl shadow">
+        <h4 class="font-semibold">AI Suggestions</h4>
+        <div id="suggestions" class="space-y-2 mt-3"></div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="mt-8 text-center text-sm text-gray-500">
+      © 2025 UdyogSathi — Demo. For best results use Chrome/Edge and allow mic & notifications.
+    </footer>
+  </div>
+
+  <!-- PROFILE DRAWER (hidden) -->
+  <div id="profile-drawer" class="fixed inset-0 z-50 hidden">
+    <div class="absolute inset-0 bg-black/40" id="profile-drawer-bg"></div>
+    <aside class="absolute right-0 top-0 h-full w-full md:w-96 bg-white p-4 shadow-lg overflow-auto">
+      <div class="flex justify-between items-center">
+        <h3 class="font-bold text-lg">My Profile</h3>
+        <button id="profile-close" class="text-gray-600">Close</button>
+      </div>
+
+      <div class="mt-4 space-y-4">
+        <div class="flex items-center gap-3">
+          <img id="profile-avatar" src="" alt="avatar" class="w-16 h-16 rounded-full bg-gray-100 object-cover" />
+          <div class="flex-1">
+            <input id="profile-name" placeholder="Your name" class="p-2 border rounded w-full" />
+            <input id="profile-phone" placeholder="Phone" class="p-2 border rounded w-full mt-2" />
+          </div>
+        </div>
+
+        <div>
+          <label class="text-sm font-semibold">Role</label>
+          <select id="profile-role" class="w-full p-2 border rounded mt-1">
+            <option value="seeker">Job Seeker</option>
+            <option value="employer">Employer</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="text-sm font-semibold">Skills (comma separated)</label>
+          <input id="profile-skills" class="w-full p-2 border rounded mt-1" placeholder="e.g., driving,cook,security" />
+        </div>
+
+        <div>
+          <label class="text-sm font-semibold">Upload Avatar</label>
+          <input id="avatar-input" type="file" accept="image/*" class="mt-1" />
+        </div>
+
+        <div class="flex gap-2">
+          <button id="save-profile" class="flex-1 bg-emerald-600 text-white p-3 rounded">Save</button>
+          <button id="logout-btn" class="flex-1 bg-red-100 text-red-700 p-3 rounded">Clear</button>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- POST JOB MODAL -->
+  <div id="post-job-modal" class="fixed inset-0 z-50 hidden">
+    <div class="absolute inset-0 bg-black/40"></div>
+    <div class="absolute left-1/2 top-1/2 w-full max-w-2xl -translate-x-1/2 -translate-y-1/2 bg-white p-6 rounded-xl shadow">
+      <div class="flex justify-between items-center">
+        <h3 class="font-bold">Post a Job</h3>
+        <button id="post-close" class="text-gray-600">Close</button>
+      </div>
+
+      <form id="post-job-form" class="mt-4 grid gap-3">
+        <input name="title" placeholder="Job title" class="p-3 border rounded" required />
+        <input name="location" placeholder="Location (city / area)" class="p-3 border rounded" required />
+        <input name="salary" placeholder="Salary (e.g., ₹15,000/mo or ₹500/day)" class="p-3 border rounded" />
+        <select name="type" class="p-3 border rounded">
+          <option value="fulltime">Full-time</option>
+          <option value="parttime">Part-time</option>
+          <option value="daily">Daily</option>
+        </select>
+        <textarea name="desc" placeholder="Short description" class="p-3 border rounded"></textarea>
+        <div class="flex gap-2">
+          <button class="bg-blue-600 text-white px-4 py-2 rounded">Post Job</button>
+          <button type="button" id="post-simulate" class="bg-gray-100 px-4 py-2 rounded">Simulate Push</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- CHAT SIDEBAR (per-job) -->
+  <div id="chat-drawer" class="fixed right-0 top-0 h-full w-full md:w-96 z-40 hidden">
+    <div class="absolute inset-0 bg-black/30" id="chat-drawer-bg"></div>
+    <aside class="absolute right-0 top-0 h-full w-full md:w-96 bg-white flex flex-col">
+      <div class="p-4 border-b flex items-center justify-between">
+        <div>
+          <h4 id="chat-job-title" class="font-bold">Chat</h4>
+          <div id="chat-job-sub" class="text-xs text-gray-500"></div>
+        </div>
+        <div>
+          <button id="chat-close" class="text-gray-600">Close</button>
+        </div>
+      </div>
+
+      <div id="chat-messages" class="flex-1 overflow-auto p-4 space-y-3 bg-gray-50"></div>
+
+      <div class="p-4 border-t">
+        <div class="flex gap-2">
+          <input id="chat-input" class="flex-1 p-2 border rounded" placeholder="Type a message..." />
+          <button id="chat-send" class="bg-emerald-600 text-white px-4 py-2 rounded">Send</button>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Toast container -->
+  <div id="toast-container" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 space-y-2"></div>
+
+  <!-- SCRIPTS: all-in-one -->
+  <script>
+  /*******************************
+   * UdyogSathi Single-file App
+   * Features:
+   * - profile (localStorage)
+   * - search, filters, sorting
+   * - geolocation + manual location
+   * - chat threads per job
+   * - voice apply (record + speech recognition fallback)
+   * - notifications & toasts
+   * - post job form
+   * - recommendations (keyword match)
+   * - offline service worker & manifest (registered from blob)
+   *******************************/
+
+  /************* Mock Data *************/
+  const DEFAULT_JOBS = [
+    { id: 'J001', title: 'Delivery Runner (Bike)', location: 'Bandra, Mumbai', salary: '₹18,000 - ₹22,000/mo', type: 'fulltime', skills: ['driving','delivery'], createdAt: Date.now()-1000*60*60*24*2 },
+    { id: 'J002', title: 'Security Guard (Night Shift)', location: 'Whitefield, Bangalore', salary: '₹15,000/mo + Housing', type: 'fulltime', skills: ['security'], createdAt: Date.now()-1000*60*60*24*5 },
+    { id: 'J003', title: 'Restaurant Helper (Dishwashing)', location: 'Connaught Place, Delhi', salary: '₹12,000/mo + Meals', type: 'parttime', skills: ['kitchen'], createdAt: Date.now()-1000*60*60*6 },
+    { id: 'J004', title: 'Construction Laborer', location: 'Gachibowli, Hyderabad', salary: '₹800/day', type: 'daily', skills: ['manual'], createdAt: Date.now()-1000*60*60*2 },
+    { id: 'J005', title: 'Household Cook', location: 'Koregaon Park, Pune', salary: '₹10,000/mo (Part-time)', type: 'parttime', skills: ['cooking'], createdAt: Date.now()-1000*60*60*24 }
+  ];
+
+  /************* Utilities *************/
+  const $ = sel => document.querySelector(sel);
+  const $$ = sel => Array.from(document.querySelectorAll(sel));
+  const toast = (msg, opts={}) => {
+    const c = document.getElementById('toast-container');
+    const el = document.createElement('div');
+    el.className = 'toast bg-white p-3 rounded-lg shadow flex items-center gap-3';
+    el.innerHTML = `<div class="text-sm">${msg}</div>`;
+    c.appendChild(el);
+    setTimeout(()=> el.remove(), opts.duration || 3500);
+  };
+
+  /************* Persistence *************/
+  const store = {
+    getJobs(){ return JSON.parse(localStorage.getItem('us:jobs')||'null') || DEFAULT_JOBS.slice(); },
+    setJobs(jobs){ localStorage.setItem('us:jobs', JSON.stringify(jobs)); },
+    getProfile(){ return JSON.parse(localStorage.getItem('us:profile')||'null') || null; },
+    setProfile(p){ localStorage.setItem('us:profile', JSON.stringify(p)); },
+    getApplications(){ return JSON.parse(localStorage.getItem('us:apps')||'[]'); },
+    addApplication(app){ const a=this.getApplications(); a.unshift(app); localStorage.setItem('us:apps', JSON.stringify(a)); },
+    getChats(){ return JSON.parse(localStorage.getItem('us:chats')||'{}'); },
+    setChats(ch){ localStorage.setItem('us:chats', JSON.stringify(ch)); },
+    getSaved(){ return JSON.parse(localStorage.getItem('us:saved')||'[]'); },
+    toggleSaved(id){ const s=this.getSaved(); const i=s.indexOf(id); if(i===-1) s.push(id); else s.splice(i,1); localStorage.setItem('us:saved', JSON.stringify(s)); return s; }
+  };
+
+  /************* App State *************/
+  let state = {
+    jobs: store.getJobs(),
+    filters: new Set(),
+    query: '',
+    sort: 'newest',
+    location: null, // {lat,lng,city}
+    activeJob: null
+  };
+
+  /************* Render Jobs *************/
+  function renderJobs(){
+    const container = document.getElementById('jobs-area');
+    container.innerHTML = '';
+    let jobs = state.jobs.slice();
+
+    // apply search
+    if(state.query){
+      const q = state.query.toLowerCase();
+      jobs = jobs.filter(j => (j.title + ' ' + (j.location||'') + ' ' + (j.skills||[]).join(' ')).toLowerCase().includes(q));
+    }
+
+    // filters
+    if(state.filters.size){
+      state.filters.forEach(f => {
+        const [k,v] = f.split(':');
+        jobs = jobs.filter(j => {
+          if(k==='type') return j.type===v;
+          if(k==='skill') return (j.skills||[]).includes(v);
+          if(k==='pay' && v==='daily') return j.type==='daily';
+          return true;
+        });
+      });
+    }
+
+    // sort
+    if(state.sort==='newest') jobs.sort((a,b)=> b.createdAt - a.createdAt);
+    if(state.sort==='pay') {
+      // simple heuristic: prefer daily or higher textual salary
+      jobs.sort((a,b)=> (b.salary||'').length - (a.salary||'').length);
+    }
+    if(state.sort==='nearest' && state.location){
+      // naive: approximate by whether city string contains the user's city
+      jobs.sort((a,b)=> {
+        const loc = (state.location.city||'').toLowerCase();
+        const aHas = (a.location||'').toLowerCase().includes(loc) ? 0 : 1;
+        const bHas = (b.location||'').toLowerCase().includes(loc) ? 0 : 1;
+        return aHas - bHas;
+      });
+    }
+
+    if(jobs.length===0){
+      container.innerHTML = `<div class="bg-white p-6 rounded-xl shadow text-center text-gray-600">No jobs match your filters.</div>`;
+      return;
+    }
+
+    jobs.forEach(job => {
+      const card = document.createElement('article');
+      card.className = 'job-card bg-white p-4 rounded-xl shadow flex flex-col md:flex-row items-start gap-4';
+      card.innerHTML = `
+        <div class="flex-1">
+          <div class="flex items-center justify-between">
+            <h3 class="font-bold text-lg">${job.title}</h3>
+            <div class="text-xs text-gray-500">${new Date(job.createdAt).toLocaleDateString()}</div>
+          </div>
+          <p class="text-sm text-gray-600 mt-1">${job.location} • <span class="text-emerald-600 font-semibold">${job.salary || 'Salary negotiable'}</span></p>
+          <p class="text-sm text-gray-500 mt-2">${(job.desc||'')}</p>
+          <div class="mt-2 flex gap-2 flex-wrap">
+            ${(job.skills||[]).map(s=>`<span class="text-xs bg-gray-100 px-2 py-1 rounded">${s}</span>`).join('')}
+          </div>
+        </div>
+        <div class="flex flex-col gap-2 items-end">
+          <div class="flex gap-2">
+            <button class="apply-now bg-emerald-600 text-white px-3 py-2 rounded text-sm" data-id="${job.id}">Apply</button>
+            <button class="open-chat bg-gray-100 px-3 py-2 rounded text-sm" data-id="${job.id}">Chat</button>
+          </div>
+          <div class="flex gap-2 mt-2">
+            <button class="save-job p-2 border rounded text-sm" data-id="${job.id}">Save</button>
+            <button class="recommend-job p-2 border rounded text-sm" data-id="${job.id}">Suggest</button>
+          </div>
+        </div>
+      `;
+      container.appendChild(card);
+    });
+
+    // attach handlers
+    $$('.apply-now').forEach(btn=> btn.addEventListener('click', (e)=> {
+      const id = e.currentTarget.dataset.id;
+      handleApply(id);
+    }));
+    $$('.open-chat').forEach(btn=> btn.addEventListener('click', (e)=> {
+      openChat(e.currentTarget.dataset.id);
+    }));
+    $$('.save-job').forEach(btn=> btn.addEventListener('click', (e)=> {
+      const ids = store.toggleSaved(e.currentTarget.dataset.id);
+      document.getElementById('saved-count').textContent = `${ids.length} saved jobs`;
+      toast('Saved jobs updated');
+    }));
+    $$('.recommend-job').forEach(btn=> btn.addEventListener('click', (e)=> {
+      const j = state.jobs.find(x=> x.id===e.currentTarget.dataset.id);
+      showRecommendations(j);
+    }));
+  }
+
+  /************* Filters & Search *************/
+  $('#search-input').addEventListener('input', (e)=> {
+    state.query = e.target.value;
+    renderJobs();
+  });
+  $('#sort-select').addEventListener('change', (e)=> {
+    state.sort = e.target.value;
+    renderJobs();
+  });
+
+  $$('.filter-pill').forEach(btn => {
+    btn.addEventListener('click', ()=> {
+      const f = btn.dataset.filter;
+      if(state.filters.has(f)) { state.filters.delete(f); btn.classList.remove('bg-emerald-100'); }
+      else { state.filters.add(f); btn.classList.add('bg-emerald-100'); }
+      renderJobs();
+    });
+  });
+  $('#clear-filters').addEventListener('click', ()=> {
+    state.filters.clear();
+    $$('.filter-pill').forEach(b=> b.classList.remove('bg-emerald-100'));
+    renderJobs();
+  });
+
+  /************* Location Handling *************/
+  $('#use-location').addEventListener('click', ()=> {
+    if(!navigator.geolocation) return toast('Geolocation not supported');
+    navigator.geolocation.getCurrentPosition(pos => {
+      const {latitude:lat,longitude:lng} = pos.coords;
+      // naive reverse geocode using built-in Internationalization? no network; set city fallback
+      state.location = {lat,lng, city: 'Nearby'};
+      $('#location-display').textContent = `Detected location: ${lat.toFixed(3)}, ${lng.toFixed(3)}`;
+      renderJobs();
+      toast('Location set (approx).');
+    }, err => {
+      toast('Unable to detect location: ' + err.message);
+    }, {timeout:8000});
+  });
+
+  $('#set-manual-location').addEventListener('click', ()=> {
+    const v = $('#manual-location').value.trim();
+    if(!v) return toast('Enter a city or pin');
+    state.location = {city: v};
+    $('#location-display').textContent = `Manual: ${v}`;
+    renderJobs();
+    toast('Manual location set');
+  });
+
+  /************* Profile (localStorage) *************/
+  function openProfile(){
+    const p = store.getProfile();
+    $('#profile-avatar').src = p && p.avatar ? p.avatar : 'https://placehold.co/96x96?text=U';
+    $('#profile-name').value = p?.name || '';
+    $('#profile-phone').value = p?.phone || '';
+    $('#profile-role').value = p?.role || 'seeker';
+    $('#profile-skills').value = (p?.skills||[]).join(',');
+    document.getElementById('profile-drawer').classList.remove('hidden');
+  }
+  $('#profile-open').addEventListener('click', openProfile);
+  $('#profile-close').addEventListener('click', ()=> document.getElementById('profile-drawer').classList.add('hidden'));
+  $('#avatar-input').addEventListener('change', (e)=> {
+    const f = e.target.files[0];
+    if(!f) return;
+    const r = new FileReader();
+    r.onload = () => $('#profile-avatar').src = r.result;
+    r.readAsDataURL(f);
+  });
+  $('#save-profile').addEventListener('click', ()=> {
+    const profile = {
+      name: $('#profile-name').value.trim(),
+      phone: $('#profile-phone').value.trim(),
+      role: $('#profile-role').value,
+      skills: $('#profile-skills').value.split(',').map(s=>s.trim()).filter(Boolean),
+      avatar: $('#profile-avatar').src
+    };
+    store.setProfile(profile);
+    toast('Profile saved');
+    document.getElementById('profile-drawer').classList.add('hidden');
+  });
+  $('#logout-btn').addEventListener('click', ()=> {
+    localStorage.removeItem('us:profile');
+    toast('Profile cleared');
+    document.getElementById('profile-drawer').classList.add('hidden');
+  });
+
+  /************* Apply Flow (voice + manual) *************/
+  async function handleApply(jobId){
+    const job = state.jobs.find(j=> j.id===jobId);
+    if(!job) return;
+    const profile = store.getProfile();
+    if(!profile) {
+      toast('Please add profile first (click Profile)');
+      openProfile();
+      return;
+    }
+    // Simple modal-free confirmation: record optional voice or quick apply
+    const confirmed = confirm(`Apply for "${job.title}"? Click OK to send application (this is simulated).`);
+    if(!confirmed) return;
+    // Save application
+    const app = { jobId: job.id, title: job.title, appliedAt: Date.now(), profileName: profile.name || 'Anonymous' };
+    store.addApplication(app);
+    renderApplications();
+    toast('Application submitted — business will be notified (simulated).');
+
+    // send a mock notification
+    notify(`Applied to ${job.title}`, `Your application has been registered.`);
+  }
+
+  // Voice apply button triggers speech recognition (if available)
+  $('#record-apply-btn').addEventListener('click', async ()=>{
+    const p = store.getProfile();
+    if(!p){ toast('Add profile first'); openProfile(); return; }
+    if(!('webkitSpeechRecognition' in window || 'SpeechRecognition' in window)){
+      // fallback: use MediaRecorder to record and store locally (no server)
+      toast('Speech recognition not supported. Recording audio (saved locally).');
+      await recordAudioAndSave();
+      return;
+    }
+    // use speech recognition
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const rec = new SpeechRecognition();
+    rec.lang = 'en-IN';
+    rec.interimResults = false;
+    rec.maxAlternatives = 1;
+    toast('Start speaking now (listening)...');
+    rec.start();
+    rec.onresult = (ev)=> {
+      const text = ev.results[0][0].transcript;
+      toast('Captured: ' + text);
+      // Place a fake job application using the spoken text to pick job
+      const match = state.jobs.find(j => (j.title + ' ' + (j.skills||[]).join(' ')).toLowerCase().includes(text.toLowerCase().split(' ')[0]));
+      const chosen = match || state.jobs[0];
+      store.addApplication({ jobId: chosen.id, title: chosen.title, appliedAt: Date.now(), profileName: store.getProfile()?.name||'Anon', voiceText: text });
+      renderApplications();
+      notify('Voice Application Sent', `You applied to ${chosen.title}`);
+    };
+    rec.onerror = (e)=> { toast('Speech failed: ' + e.error); };
+    rec.onend = ()=> { /* done */ };
+  });
+
+  // simple MediaRecorder record fallback
+  function recordAudioAndSave(){
+    return new Promise(async (res, rej)=> {
+      if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        toast('Audio capture not supported');
+        return rej();
+      }
+      try{
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        const mr = new MediaRecorder(stream);
+        const chunks = [];
+        mr.ondataavailable = e => chunks.push(e.data);
+        mr.onstop = () => {
+          const blob = new Blob(chunks, { type: 'audio/webm' });
+          // store blob url for demo
+          const url = URL.createObjectURL(blob);
+          toast('Recording saved locally (temporary).');
+          // Save as application on first job for demo
+          const chosen = state.jobs[0];
+          store.addApplication({ jobId: chosen.id, title: chosen.title, appliedAt: Date.now(), profileName: store.getProfile()?.name||'Anon', voiceUrl: url });
+          renderApplications();
+          res();
+        };
+        mr.start();
+        toast('Recording... Click OK to stop (simulated).');
+        // naive stop after confirmation
+        if(confirm('Stop recording?')) mr.stop();
+      }catch(err){ toast('Mic error: ' + err.message); rej(err); }
+    });
+  }
+
+  /************* Applications & Suggested Jobs *************/
+  function renderApplications(){
+    const apps = store.getApplications();
+    const el = document.getElementById('applications-list');
+    el.innerHTML = '';
+    if(apps.length===0) el.innerHTML = `<div class="text-sm text-gray-500">No applications yet.</div>`;
+    apps.slice(0,10).forEach(a=>{
+      const d = document.createElement('div');
+      d.className = 'p-3 bg-gray-50 rounded';
+      d.innerHTML = `<div class="flex justify-between"><div><strong>${a.title}</strong><div class="text-xs text-gray-500">Applied ${new Date(a.appliedAt).toLocaleString()}</div></div><div class="text-xs text-gray-400">${a.profileName}</div></div>`;
+      el.appendChild(d);
+    });
+  }
+
+  function showRecommendations(job){
+    // quick "AI-like" suggestions: find other jobs with shared skills
+    const skills = job.skills || [];
+    const recs = state.jobs.filter(j => j.id !== job.id && (j.skills||[]).some(s=> skills.includes(s))).slice(0,3);
+    const el = document.getElementById('suggestions');
+    el.innerHTML = '';
+    if(recs.length===0) {
+      el.innerHTML = `<div class="text-sm text-gray-500">No similar recommendations found.</div>`;
+      return;
+    }
+    recs.forEach(r=> {
+      const d = document.createElement('div');
+      d.className = 'p-2 bg-gray-50 rounded';
+      d.innerHTML = `<div class="font-medium">${r.title}</div><div class="text-xs text-gray-500">${r.location} • ${r.salary}</div>`;
+      el.appendChild(d);
+    });
+  }
+
+  /************* Quick suggestions for specific job clicked *************/
+  function showRecommendations(job){
+    const el = document.getElementById('suggestions');
+    el.innerHTML = '';
+    // keyword-based: match any skill or word
+    const words = (job.title + ' ' + (job.skills||[]).join(' ')).toLowerCase().split(/\W+/).filter(Boolean);
+    const recs = state.jobs.filter(j => j.id!==job.id && words.some(w => (j.title + ' ' + (j.skills||[]).join(' ')).toLowerCase().includes(w))).slice(0,4);
+    if(recs.length===0) {
+      el.innerHTML = '<div class="text-sm text-gray-500">No suggestions found.</div>';
+      return;
+    }
+    recs.forEach(r=> {
+      const d = document.createElement('div');
+      d.className = 'p-2 rounded bg-gray-50';
+      d.innerHTML = `<div class="font-medium">${r.title}</div><div class="text-xs text-gray-500">${r.location}</div>`;
+      el.appendChild(d);
+    });
+  }
+
+  /************* Chat Threads (simple) *************/
+  function openChat(jobId){
+    const job = state.jobs.find(j=> j.id===jobId);
+    if(!job) return;
+    state.activeJob = job;
+    $('#chat-job-title').textContent = job.title;
+    $('#chat-job-sub').textContent = job.location + ' • ' + job.salary;
+    document.getElementById('chat-drawer').classList.remove('hidden');
+     renderChatMessages(jobId);
+  }
+  $('#chat-close').addEventListener('click', ()=> { document.getElementById('chat-drawer').classList.add('hidden'); });
+  $('#chat-send').addEventListener('click', ()=> {
+    const text = $('#chat-input').value.trim();
+    if(!text) return;
+    const jobId = state.activeJob.id;
+    const chats = store.getChats();
+    chats[jobId] = chats[jobId] || [];
+    chats[jobId].push({ from: 'user', text, at: Date.now() });
+    store.setChats(chats);
+    $('#chat-input').value = '';
+    renderChatMessages(jobId);
+    // simulate employer auto-reply
+    setTimeout(()=> {
+      const chats2 = store.getChats();
+      chats2[jobId].push({ from: 'employer', text: 'Thanks — we will call you soon.', at: Date.now() });
+      store.setChats(chats2);
+      renderChatMessages(jobId);
+      notify('Message reply', `Reply from ${state.activeJob.title}`);
+    }, 1500);
+  });
+
+  function renderChatMessages(jobId){
+    const container = document.getElementById('chat-messages');
+    const chats = store.getChats();
+    container.innerHTML = '';
+    (chats[jobId] || []).forEach(m => {
+      const b = document.createElement('div');
+      b.className = m.from==='user' ? 'text-right' : 'text-left';
+      b.innerHTML = `<div class="${m.from==='user' ? 'inline-block bg-emerald-600 text-white' : 'inline-block bg-white border'} p-2 rounded">${m.text}</div><div class="text-xs text-gray-400 mt-1">${new Date(m.at).toLocaleTimeString()}</div>`;
+      container.appendChild(b);
+    });
+    container.scrollTop = container.scrollHeight;
+  }
+
+  /************* Notifications *************/
+  $('#notify-toggle').addEventListener('click', async ()=> {
+    if(!('Notification' in window)) { toast('Notifications not supported'); return; }
+    const perm = await Notification.requestPermission();
+    if(perm==='granted') { toast('Notifications enabled'); notify('UdyogSathi', 'Notifications enabled'); }
+    else toast('Notifications blocked or dismissed');
+  });
+
+  function notify(title, body){
+    if('Notification' in window && Notification.permission === 'granted'){
+      new Notification(title, { body, icon: 'https://placehold.co/64x64/10B981/ffffff?text=U' });
+    } else {
+      // in-app toast fallback
+      toast(title + ' — ' + body);
+    }
+  }
+
+  /************* Post Job Form *************/
+  $('#post-job-open')?.addEventListener('click', ()=> document.getElementById('post-job-modal').classList.remove('hidden'));
+  $('#post-close')?.addEventListener('click', ()=> document.getElementById('post-job-modal').classList.add('hidden'));
+
+  $('#post-job-form').addEventListener('submit', (e)=> {
+    e.preventDefault();
+    const fd = new FormData(e.target);
+    const job = {
+      id: 'J' + Math.floor(Math.random()*90000+10000),
+      title: fd.get('title'),
+      location: fd.get('location'),
+      salary: fd.get('salary'),
+      type: fd.get('type'),
+      desc: fd.get('desc'),
+      skills: (fd.get('title')||'').toLowerCase().split(' ').slice(0,3),
+      createdAt: Date.now()
+    };
+    state.jobs.unshift(job);
+    store.setJobs(state.jobs);
+    renderJobs();
+    toast('Job posted (local demo).');
+    document.getElementById('post-job-modal').classList.add('hidden');
+  });
+  $('#post-simulate').addEventListener('click', ()=> {
+    // simulate that a new job pushed; create job from simple fields on form
+    const fd = new FormData($('#post-job-form'));
+    const job = {
+      id: 'J' + Math.floor(Math.random()*90000+10000),
+      title: fd.get('title') || 'Instant Gig — Urgent',
+      location: fd.get('location') || (state.location?.city || 'Nearby'),
+      salary: fd.get('salary') || '₹500/day',
+      type: fd.get('type') || 'daily',
+      desc: fd.get('desc') || 'Immediate joining',
+      skills: ['urgent'],
+      createdAt: Date.now()
+    };
+    state.jobs.unshift(job);
+    store.setJobs(state.jobs);
+    renderJobs();
+    toast('Simulated push: new job available');
+    notify('New nearby job', job.title);
+  });
+
+  /************* Saved jobs count init *************/
+  document.getElementById('saved-count').textContent = `${store.getSaved().length} saved jobs`;
+
+  /************* Render initial UI *************/
+  renderJobs();
+  renderApplications();
+
+  /************* Dark Mode *************/
+  const applyTheme = (t)=> {
+    if(t==='dark'){ document.documentElement.classList.add('dark'); document.body.classList.add('bg-gray-900','text-gray-100'); $('#dark-toggle').textContent='Light'; }
+    else { document.documentElement.classList.remove('dark'); document.body.classList.remove('bg-gray-900','text-gray-100'); $('#dark-toggle').textContent='Dark'; }
+  };
+  $('#dark-toggle').addEventListener('click', ()=> {
+    const cur = document.body.classList.contains('bg-gray-900') ? 'dark' : 'light';
+    applyTheme(cur==='dark' ? 'light' : 'dark');
+  });
+
+  /************* Service Worker & PWA (Blob-based for single-file) *************/
+  // create a minimal manifest as blob and link it
+  const manifest = {
+    name: "UdyogSathi Demo",
+    short_name: "UdyogSathi",
+    start_url: ".",
+    display: "standalone",
+    background_color: "#10B981",
+    icons: [{ src: "https://placehold.co/192x192/10B981/ffffff?text=U", sizes: "192x192", type: "image/png" }]
+  };
+  const mfBlob = new Blob([JSON.stringify(manifest)], {type:'application/json'});
+  const mfURL = URL.createObjectURL(mfBlob);
+  const link = document.createElement('link');
+  link.rel = 'manifest';
+  link.href = mfURL;
+  document.head.appendChild(link);
+
+  // Register service worker code from Blob (caches static shell + job data)
+  if('serviceWorker' in navigator){
+    const swCode = `
+      const CACHE='us-shell-v1';
+      const toCache=['/','index.html'];
+      self.addEventListener('install', e => {
+        self.skipWaiting();
+        e.waitUntil(caches.open(CACHE).then(c => c.addAll(toCache).catch(()=>{})));
+      });
+      self.addEventListener('fetch', e => {
+        if(e.request.method !== 'GET') return;
+        e.respondWith(caches.match(e.request).then(r => r || fetch(e.request).then(f=> { if(e.request.url.startsWith(self.location.origin)) caches.open(CACHE).then(c=> c.put(e.request,f.clone())); return f; }).catch(()=> caches.match('/')) ));
+      });
+    `;
+    const swBlob = new Blob([swCode], {type:'application/javascript'});
+    const swUrl = URL.createObjectURL(swBlob);
+    navigator.serviceWorker.register(swUrl).then(()=> console.log('SW registered from blob')).catch(err=> console.warn('SW reg fail', err));
+  }
+
+  // Prompt install only if available
+  let deferredPrompt;
+  window.addEventListener('beforeinstallprompt', (e)=> {
+    e.preventDefault();
+    deferredPrompt = e;
+    // show small install suggestion via toast
+    const btn = document.createElement('button');
+    btn.textContent = 'Install App';
+    btn.className = 'p-2 bg-emerald-600 text-white rounded';
+    btn.onclick = async ()=> {
+      deferredPrompt.prompt();
+      const choice = await deferredPrompt.userChoice;
+      if(choice.outcome==='accepted') toast('App installed or install initiated.');
+    };
+    document.getElementById('toast-container').appendChild(Object.assign(document.createElement('div'), { innerHTML: '<div class="bg-white p-3 rounded shadow">Install available</div>' }));
+  });
+
+  /************* Misc Helpers: expose for debug *************/
+  window._us = { state, store };
+
+  /************* End of Script *************/
+  </script>
+</body>
+</html>
