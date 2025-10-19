@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UdyogSathi | Post a Manual Job</title>
+    
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        // --- Tailwind Configuration (Updated for Dark Theme) ---
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'bg-darkest': '#111827', // Header/Footer (Slate 900)
+                        'bg-medium': '#1F2937',  // Main Body Background (Slate 800)
+                        'bg-light': '#374151',   // Form Card Background (Slate 700)
+                        'text-light': '#F3F4F6', // Primary Text Color (Gray 100)
+                        'accent-blue': '#6366F1', // Indigo-500
+                        'secondary-gold': '#FBBF24', // Amber-400
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    keyframes: {
+                        wave: {
+                            '0%, 100%': { transform: 'scale(1)', opacity: '1' },
+                            '50%': { transform: 'scale(1.05)', opacity: '0.8' },
+                        }
+                    },
+                    animation: {
+                        wave: 'wave 1.5s ease-in-out infinite',
+                    }
+                }
+            }
+        }
+
+        // --- Translation Data: Now including 'formHeader' ---
+        const translations = {
+            en: {
+                pageTitle: "Post a Manual Job",
+                selectLang: "Select Language",
+                formHeader: "Enter Job Details", // New Translation Key
+                jobTitleLabel: "Job Title/Role",
+                jobTitlePlaceholder: "E.g., Delivery Driver, Maid, Construction Worker",
+                descriptionLabel: "Job Description (Voice or Text)",
+                voiceButton: "Speak Now",
+                listeningMessage: "Listening... Speak clearly.",
+                stoppedMessage: "Voice input stopped.",
+                locationLabel: "Location",
+                locationPlaceholder: "City, Area Code",
+                salaryLabel: "Salary Offer (Monthly)",
+                salaryPlaceholder: "E.g., 15000 / Month",
+                contactNameLabel: "Employer Contact Name",
+                contactNamePlaceholder: "Your Name",
+                contactPhoneLabel: "Contact Phone Number",
+                contactPhonePlaceholder: "10-digit phone number",
+                postButton: "Post Job",
+                statusMessage: "Fill in all required fields above.",
+                footerText: "UdyogSathi is dedicated to connecting local workers with immediate job needs. Fast, Simple, Direct.",
+            },
+            hi: {
+                pageTitle: "मैन्युअल नौकरी पोस्ट करें",
+                selectLang: "भाषा चुने",
+                formHeader: "नौकरी का विवरण दर्ज करें", // New Translation Key
+                jobTitleLabel: "नौकरी का शीर्षक/भूमिका",
+                jobTitlePlaceholder: "उदाहरण: डिलीवरी ड्राइवर, नौकरानी, निर्माण कार्यकर्ता",
+                descriptionLabel: "नौकरी का विवरण (आवाज या पाठ)",
+                voiceButton: "अभी बोलें",
+                listeningMessage: "सुन रहा है... स्पष्ट रूप से बोलें।",
+                stoppedMessage: "आवाज इनपुट बंद हो गया।",
+                locationLabel: "स्थान",
+                locationPlaceholder: "शहर, क्षेत्र कोड",
+                salaryLabel: "वेतन प्रस्ताव (मासिक)",
+                salaryPlaceholder: "उदाहरण: 15000 / माह",
+                contactNameLabel: "नियोक्ता संपर्क नाम",
+                contactNamePlaceholder: "आपका नाम",
+                contactPhoneLabel: "संपर्क फ़ोन नंबर",
+                contactPhonePlaceholder: "10 अंकों का फ़ोन नंबर",
+                postButton: "नौकरी पोस्ट करें",
+                statusMessage: "ऊपर दिए गए सभी आवश्यक फ़ील्ड भरें।",
+                footerText: "उद्योगसाथी स्थानीय श्रमिकों को तत्काल नौकरी की ज़रूरतों से जोड़ने के लिए समर्पित है। तेज़, सरल, सीधा।",
+            },
+            mr: {
+                pageTitle: "मॅन्युअल नोकरी पोस्ट करा",
+                selectLang: "भाषा निवडा",
+                formHeader: "नोकरीचे तपशील प्रविष्ट करा", // New Translation Key
+                jobTitleLabel: "नोकरीचे शीर्षक/भूमिका",
+                jobTitlePlaceholder: "उदा. डिलिव्हरी ड्रायव्हर, मोलकरीण, बांधकाम कामगार",
+                descriptionLabel: "नोकरीचे वर्णन (आवाज किंवा मजकूर)",
+                voiceButton: "आता बोला",
+                listeningMessage: "ऐकत आहे... स्पष्टपणे बोला.",
+                stoppedMessage: "आवाज इनपुट थांबले.",
+                locationLabel: "ठिकाण",
+                locationPlaceholder: "शहर, क्षेत्र कोड",
+                salaryLabel: "वेतन ऑफर (मासिक)",
+                salaryPlaceholder: "उदा. 15000 / महिना",
+                contactNameLabel: "मालकाचे संपर्क नाव",
+                contactNamePlaceholder: "तुमचे नाव",
+                contactPhoneLabel: "संपर्क फोन नंबर",
+                contactPhonePlaceholder: "10 अंकी फोन नंबर",
+                postButton: "नोकरी पोस्ट करा",
+                statusMessage: "वर दिलेले सर्व आवश्यक फील्ड भरा.",
+                footerText: "उद्योगसाथी स्थानिक कामगारांना त्वरित नोकरीच्या गरजांशी जोडण्यासाठी समर्पित आहे. जलद, सोपे, थेट.",
+            },
+            bn: {
+                pageTitle: "ম্যানুয়াল চাকরি পোস্ট করুন",
+                selectLang: "ভাষা নির্বাচন করুন",
+                formHeader: "চাকরির বিবরণ লিখুন", // New Translation Key
+                jobTitleLabel: "চাকরির শিরোনাম/ভূমিকা",
+                jobTitlePlaceholder: "যেমন: ডেলিভারি ড্রাইভার, গৃহকর্মী, নির্মাণ শ্রমিক",
+                descriptionLabel: "চাকরির বিবরণ (ভয়েস বা টেক্সট)",
+                voiceButton: "এখনই কথা বলুন",
+                listeningMessage: "শুনছে... স্পষ্টভাবে কথা বলুন।",
+                stoppedMessage: "ভয়েস ইনপুট বন্ধ হয়েছে।",
+                locationLabel: "স্থান",
+                locationPlaceholder: "শহর, এরিয়া কোড",
+                salaryLabel: "বেতনের অফার (মাসিক)",
+                salaryPlaceholder: "যেমন: 15000 / মাস",
+                contactNameLabel: "নিয়োগকর্তার যোগাযোগের নাম",
+                contactNamePlaceholder: "আপনার নাম",
+                contactPhoneLabel: "যোগাযোগের ফোন নম্বর",
+                contactPhonePlaceholder: "10-সংখ্যার ফোন নম্বর",
+                postButton: "চাকরি পোস্ট করুন",
+                statusMessage: "উপরে দেওয়া সমস্ত প্রয়োজনীয় ফিল্ড পূরণ করুন।",
+                footerText: "উদ্যোগসাথী স্থানীয় কর্মীদের দ্রুত চাকরির প্রয়োজনের সাথে সংযুক্ত করতে নিবেদিত। দ্রুত, সহজ, সরাসরি।",
+            },
+            te: {
+                pageTitle: "మాన్యువల్ ఉద్యోగాన్ని పోస్ట్ చేయండి",
+                selectLang: "భాషను ఎంచుకోండి",
+                formHeader: "ఉద్యోగ వివరాలను నమోదు చేయండి", // New Translation Key
+                jobTitleLabel: "ఉద్యోగ శీర్షిక/పాత్ర",
+                jobTitlePlaceholder: "ఉదా: డెలివరీ డ్రైవర్, పనిమనిషి, నిర్మాణ కార్మికుడు",
+                descriptionLabel: "ఉద్యోగ వివరణ (వాయిస్ లేదా టెక్స్ట్)",
+                voiceButton: "ఇప్పుడు మాట్లాడండి",
+                listeningMessage: "వింటుంది... స్పష్టంగా మాట్లాడండి.",
+                stoppedMessage: "వాయిస్ ఇన్‌పుట్ ఆగిపోయింది.",
+                locationLabel: "స్థానం",
+                locationPlaceholder: "నగరం, ఏరియా కోడ్",
+                salaryLabel: "జీతం ఆఫర్ (నెలవారీ)",
+                salaryPlaceholder: "ఉదా: 15000 / నెలకు",
+                contactNameLabel: "యజమాని సంప్రదింపు పేరు",
+                contactNamePlaceholder: "మీ పేరు",
+                contactPhoneLabel: "సంప్రదింపు ఫోన్ నంబర్",
+                contactPhonePlaceholder: "10-అంకెల ఫోన్ నంబర్",
+                postButton: "ఉద్యోగాన్ని పోస్ట్ చేయండి",
+                statusMessage: "పైన అవసరమైన అన్ని ఫీల్డ్‌లను పూరించండి.",
+                footerText: "ఉద్యోగసాథి స్థానిక కార్మికులను తక్షణ ఉద్యోగ అవసరాలతో కనెక్ట్ చేయడానికి అంకితం చేయబడింది. వేగవంతమైనది, సరళమైనది, ప్రత్యక్షమైనది.",
+            },
+            ta: {
+                pageTitle: "கையேடு வேலையை இடுகையிடவும்",
+                selectLang: "மொழியைத் தேர்ந்தெடுக்கவும்",
+                formHeader: "வேலை விவரங்களை உள்ளிடவும்", // New Translation Key
+                jobTitleLabel: "வேலை தலைப்பு/பங்கு",
+                jobTitlePlaceholder: "எ.கா: டெலிவரி டிரைவர், வீட்டுப் பணிப்பெண், கட்டுமானத் தொழிலாளி",
+                descriptionLabel: "வேலை விளக்கம் (குரல் அல்லது உரை)",
+                voiceButton: "இப்போது பேசுங்கள்",
+                listeningMessage: "கேட்டுக் கொண்டிருக்கிறது... தெளிவாகப் பேசுங்கள்.",
+                stoppedMessage: "குரல் உள்ளீடு நிறுத்தப்பட்டது.",
+                locationLabel: "இருப்பிடம்",
+                locationPlaceholder: "நகரம், பகுதி குறியீடு",
+                salaryLabel: "சம்பள சலுகை (மாதாந்திர)",
+                salaryPlaceholder: "எ.கா: 15000 / மாதம்",
+                contactNameLabel: "முதலாளி தொடர்பு பெயர்",
+                contactNamePlaceholder: "உங்கள் பெயர்",
+                contactPhoneLabel: "தொடர்பு தொலைபேசி எண்",
+                contactPhonePlaceholder: "10 இலக்க தொலைபேசி எண்",
+                postButton: "வேலையை இடுகையிடவும்",
+                statusMessage: "மேலே உள்ள தேவையான அனைத்து புலங்களையும் நிரப்பவும்.",
+                footerText: "உத்யோக்சாத்தி உள்ளூர் தொழிலாளர்களை உடனடி வேலைத் தேவைகளுடன் இணைக்க அர்ப்பணிக்கப்பட்டுள்ளது. வேகமானது, எளிமையானது, நேரடியானது.",
+            }
+        };
+
+        let currentLang = 'en';
+
+        /**
+         * Updates all text content on the page based on the selected language.
+         */
+        const changeLanguage = (lang) => {
+            currentLang = lang;
+            const t = translations[lang];
+
+            // Update Header
+            document.getElementById('pageTitle').textContent = t.pageTitle;
+            document.getElementById('langSelectLabel').textContent = t.selectLang;
+
+            // Update Form Header (FIXED)
+            document.getElementById('formHeader').textContent = t.formHeader;
+
+            // Update Form Labels & Placeholders
+            document.getElementById('jobTitleLabel').textContent = t.jobTitleLabel;
+            document.getElementById('jobTitleInput').placeholder = t.jobTitlePlaceholder;
+
+            document.getElementById('descriptionLabel').textContent = t.descriptionLabel;
+            document.getElementById('voiceButton').textContent = t.voiceButton;
+
+            document.getElementById('locationLabel').textContent = t.locationLabel;
+            document.getElementById('locationInput').placeholder = t.locationPlaceholder;
+
+            document.getElementById('salaryLabel').textContent = t.salaryLabel;
+            document.getElementById('salaryInput').placeholder = t.salaryPlaceholder;
+
+            document.getElementById('contactNameLabel').textContent = t.contactNameLabel;
+            document.getElementById('contactNameInput').placeholder = t.contactNamePlaceholder;
+
+            document.getElementById('contactPhoneLabel').textContent = t.contactPhoneLabel;
+            document.getElementById('contactPhoneInput').placeholder = t.contactPhonePlaceholder;
+
+            // Update Buttons & Status
+            document.getElementById('postButton').textContent = t.postButton;
+            document.getElementById('statusMessage').textContent = t.statusMessage;
+
+            // Update Footer
+            document.getElementById('footerText').textContent = t.footerText;
+            
+            // Update Voice Recognition language setting
+            if(recognition) {
+                 recognition.lang = currentLang;
+            }
+        };
+
+        // --- Voice Command Logic ---
+        let recognition = null;
+        let isListening = false;
+        
+        const setupVoiceRecognition = () => {
+             // Check for browser compatibility (using prefixed versions for broader support)
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+            if (!SpeechRecognition) {
+                document.getElementById('voiceButton').textContent = "Voice Not Supported";
+                document.getElementById('voiceButton').disabled = true;
+                return;
+            }
+
+            recognition = new SpeechRecognition();
+            recognition.continuous = false; // Only get one result at a time
+            recognition.interimResults = false; // Only return final results
+            recognition.lang = currentLang;
+
+            recognition.onstart = () => {
+                isListening = true;
+                document.getElementById('voiceButton').classList.add('animate-pulse', 'bg-red-500');
+                document.getElementById('voiceStatus').textContent = translations[currentLang].listeningMessage;
+                document.getElementById('voiceStatus').classList.remove('hidden');
+                document.getElementById('voiceStatus').classList.add('text-red-500');
+            };
+
+            recognition.onresult = (event) => {
+                const transcript = event.results[0][0].transcript;
+                const descriptionField = document.getElementById('jobDescriptionTextarea');
+                descriptionField.value += (descriptionField.value ? ' ' : '') + transcript;
+            };
+
+            recognition.onend = () => {
+                isListening = false;
+                document.getElementById('voiceButton').classList.remove('animate-pulse', 'bg-red-500');
+                document.getElementById('voiceStatus').textContent = translations[currentLang].stoppedMessage;
+                document.getElementById('voiceStatus').classList.remove('text-red-500');
+                document.getElementById('voiceStatus').classList.add('text-gray-400'); // Changed to light gray for dark theme
+                setTimeout(() => {
+                    document.getElementById('voiceStatus').classList.add('hidden');
+                }, 2000);
+            };
+
+            recognition.onerror = (event) => {
+                console.error('Speech recognition error:', event.error);
+                document.getElementById('voiceStatus').textContent = `Error: ${event.error}`;
+                document.getElementById('voiceStatus').classList.remove('hidden');
+                document.getElementById('voiceButton').classList.remove('animate-pulse', 'bg-red-500');
+                isListening = false;
+            };
+        };
+
+        const startVoiceInput = () => {
+            if (recognition) {
+                if (isListening) {
+                    recognition.stop();
+                } else {
+                    // Update language setting just before starting
+                    recognition.lang = currentLang; 
+                    recognition.start();
+                }
+            }
+        };
+
+        // --- Form Submission (Mock) ---
+        const handlePostJob = () => {
+            const title = document.getElementById('jobTitleInput').value;
+            const location = document.getElementById('locationInput').value;
+            const description = document.getElementById('jobDescriptionTextarea').value;
+            const salary = document.getElementById('salaryInput').value;
+            const contactName = document.getElementById('contactNameInput').value;
+            const contactPhone = document.getElementById('contactPhoneInput').value;
+
+            if (!title || !location || !description || !salary || !contactName || !contactPhone) {
+                // Ensure error message is highly visible in dark theme
+                document.getElementById('statusMessage').textContent = "ERROR: Please fill in all required fields.";
+                document.getElementById('statusMessage').classList.add('text-red-400');
+                return;
+            }
+
+            // In a real app, you would send this data to Firestore or a server.
+            console.log("Job Post Data:", { title, location, description, salary, contactName, contactPhone });
+            
+            // Display Custom Success Message (Avoids alert())
+            const modal = document.getElementById('successModal');
+            modal.classList.remove('hidden');
+            document.getElementById('modalJobTitle').textContent = title;
+            
+            // Clear form after successful mock post
+            document.getElementById('jobPostForm').reset();
+            document.getElementById('statusMessage').textContent = translations[currentLang].statusMessage;
+            document.getElementById('statusMessage').classList.remove('text-red-400');
+        };
+
+        const closeModal = () => {
+            document.getElementById('successModal').classList.add('hidden');
+        };
+
+        // --- Initialization ---
+        document.addEventListener('DOMContentLoaded', () => {
+            // Set up event listener for language change
+            const langSelect = document.getElementById('langSelect');
+            langSelect.addEventListener('change', (e) => changeLanguage(e.target.value));
+
+            // Setup the voice recognition system
+            setupVoiceRecognition();
+
+            // Set the initial language (English default)
+            changeLanguage(currentLang);
+        });
+
+    </script>
+
+    <style>
+        /* Custom styles for a modern, clean dark look */
+        body {
+            background-color: #1F2937; /* bg-medium (Slate 800) */
+            color: #F3F4F6; /* text-light (Gray 100) */
+            font-family: 'Inter', sans-serif;
+        }
+        /* Style for the main container (Form Card) */
+        .form-container {
+            background-color: #374151; /* bg-light (Slate 700) */
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); /* Darker shadow for contrast */
+            transition: all 0.3s ease;
+        }
+        /* Style for text inputs, textareas, and select in dark mode */
+        input[type="text"], input[type="tel"], textarea, select {
+            background-color: #4B5563; /* Slate 600 */
+            color: #F3F4F6; /* Light text */
+            transition: all 0.3s ease;
+            border: 1px solid #4B5563;
+        }
+        /* Change placeholder color for visibility in dark mode */
+        ::placeholder {
+            color: #9CA3AF; /* Gray 400 */
+        }
+        input[type="text"]:focus, input[type="tel"]:focus, textarea:focus, select:focus {
+            border-color: #6366F1; /* Accent Blue */
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- Success Modal (Custom Alert) -->
+    <div id="successModal" class="fixed inset-0 bg-gray-900 bg-opacity-70 z-50 flex items-center justify-center hidden">
+        <div class="bg-bg-light p-8 rounded-xl shadow-2xl w-full max-w-md mx-4 transform transition-all scale-100 border border-green-600">
+            <div class="text-center text-text-light">
+                <svg class="mx-auto h-12 w-12 text-green-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <h3 class="mt-2 text-xl font-semibold">Job Posted Successfully!</h3>
+                <p class="mt-1 text-gray-300">Your manual job posting for "<span id="modalJobTitle" class="font-bold text-accent-blue"></span>" has been submitted.</p>
+                <p class="mt-2 text-sm text-gray-500">Local workers will be notified instantly.</p>
+                <div class="mt-5">
+                    <button onclick="closeModal()" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-accent-blue text-base font-medium text-white hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 focus:ring-offset-bg-light">
+                        Done
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Header & Language Selector -->
+    <header class="bg-bg-darkest shadow-xl sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
+            
+            <!-- Logo/Title -->
+            <a href="#" class="flex items-center space-x-2 text-xl font-extrabold text-accent-blue tracking-tight">
+                <span id="pageTitle">Post a Manual Job</span>
+            </a>
+
+            <!-- Language Dropdown -->
+            <div class="flex items-center space-x-2 text-text-light">
+                <label id="langSelectLabel" for="langSelect" class="text-sm font-medium text-gray-300 hidden sm:block">Select Language</label>
+                <select id="langSelect" class="block w-full py-2 px-3 border border-gray-600 bg-bg-light rounded-md shadow-sm focus:outline-none focus:ring-accent-blue focus:border-accent-blue sm:text-sm">
+                    <option value="en">English</option>
+                    <option value="hi">हिन्दी (Hindi)</option>
+                    <option value="mr">मराठी (Marathi)</option>
+                    <option value="bn">বাংলা (Bengali)</option>
+                    <option value="te">తెలుగు (Telugu)</option>
+                    <option value="ta">தமிழ் (Tamil)</option>
+                </select>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content: Job Posting Form -->
+    <main class="flex-grow py-12 md:py-20 bg-bg-medium">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="form-container p-6 sm:p-10">
+                <h2 class="text-3xl font-bold text-text-light mb-8" id="formHeader">Enter Job Details</h2>
+                
+                <form id="jobPostForm" onsubmit="event.preventDefault(); handlePostJob();">
+                    
+                    <!-- Job Title -->
+                    <div class="mb-6">
+                        <label id="jobTitleLabel" for="jobTitleInput" class="block text-sm font-medium text-gray-300">Job Title/Role</label>
+                        <input type="text" id="jobTitleInput" name="jobTitle" required 
+                               class="mt-1 block w-full rounded-lg px-4 py-2" 
+                               placeholder="E.g., Delivery Driver, Maid, Construction Worker">
+                    </div>
+
+                    <!-- Location -->
+                    <div class="mb-6">
+                        <label id="locationLabel" for="locationInput" class="block text-sm font-medium text-gray-300">Location</label>
+                        <input type="text" id="locationInput" name="location" required 
+                               class="mt-1 block w-full rounded-lg px-4 py-2" 
+                               placeholder="City, Area Code">
+                    </div>
+
+                    <!-- Salary Offer -->
+                    <div class="mb-6">
+                        <label id="salaryLabel" for="salaryInput" class="block text-sm font-medium text-gray-300">Salary Offer (Monthly)</label>
+                        <input type="text" id="salaryInput" name="salary" required 
+                               class="mt-1 block w-full rounded-lg px-4 py-2" 
+                               placeholder="E.g., 15000 / Month">
+                    </div>
+
+                    <!-- Job Description (Text Area with Voice Command) -->
+                    <div class="mb-6">
+                        <label id="descriptionLabel" for="jobDescriptionTextarea" class="block text-sm font-medium text-gray-300">Job Description (Voice or Text)</label>
+                        <textarea id="jobDescriptionTextarea" name="jobDescription" rows="4" required
+                                  class="mt-1 block w-full rounded-lg px-4 py-2 resize-none" 
+                                  placeholder="Describe the duties, timings, and other requirements clearly."></textarea>
+                        
+                        <div class="mt-3 flex justify-between items-center">
+                             <!-- Voice Button -->
+                            <button type="button" id="voiceButton" onclick="startVoiceInput()"
+                                class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-full shadow-sm text-white bg-accent-blue hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent-blue transition duration-300 focus:ring-offset-bg-light">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3.94-3.56 7-7.8 7S4.7 13.94 4.7 10H3c0 4.54 3.56 8.24 8 8.9V22h2v-3.1c4.44-.66 8-4.36 8-8.9h-1.7z"/>
+                                </svg>
+                                Speak Now
+                            </button>
+                            
+                            <!-- Voice Status Indicator -->
+                            <p id="voiceStatus" class="text-sm font-medium text-gray-400 hidden transition-all duration-300">Listening...</p>
+                        </div>
+                    </div>
+
+                    <!-- Contact Details -->
+                    <fieldset class="mt-8 border border-gray-600 p-6 rounded-xl space-y-6">
+                        <legend class="text-lg font-semibold text-text-light px-2">Contact Details</legend>
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            
+                            <div>
+                                <label id="contactNameLabel" for="contactNameInput" class="block text-sm font-medium text-gray-300">Employer Contact Name</label>
+                                <input type="text" id="contactNameInput" name="contactName" required 
+                                    class="mt-1 block w-full rounded-lg px-4 py-2" 
+                                    placeholder="Your Name">
+                            </div>
+
+                            <div>
+                                <label id="contactPhoneLabel" for="contactPhoneInput" class="block text-sm font-medium text-gray-300">Contact Phone Number</label>
+                                <input type="tel" id="contactPhoneInput" name="contactPhone" required 
+                                    class="mt-1 block w-full rounded-lg px-4 py-2" 
+                                    placeholder="10-digit phone number">
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <!-- Submit Button -->
+                    <div class="mt-10">
+                        <button id="postButton" type="submit" 
+                                class="w-full flex justify-center py-3 px-4 border border-transparent rounded-xl shadow-lg text-lg font-bold text-bg-darkest bg-secondary-gold hover:bg-amber-500 focus:outline-none focus:ring-4 focus:ring-offset-2 focus:ring-secondary-gold transition duration-300 focus:ring-offset-bg-medium">
+                            Post Job
+                        </button>
+                    </div>
+
+                    <!-- Status Message -->
+                    <p id="statusMessage" class="mt-4 text-center text-sm font-medium text-gray-400">
+                        Fill in all required fields above.
+                    </p>
+                </form>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-bg-darkest pt-8 pb-4 text-gray-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p id="footerText" class="text-sm text-gray-500">
+                UdyogSathi is dedicated to connecting local workers with immediate job needs. Fast, Simple, Direct.
+            </p>
+            <p class="text-xs text-gray-600 mt-4">&copy; 2025 UdyogSathi. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

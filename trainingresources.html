@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UdyogSathi | Training Resources</title>
+    
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        // --- Tailwind Configuration (Dark Theme) ---
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'bg-darkest': '#0D1117', // Header/Footer (Deep Dark)
+                        'bg-medium': '#161B22',  // Main Body Background
+                        'bg-light': '#21262D',   // Card Background
+                        'text-light': '#F0F6FC', // Primary Text Color
+                        'accent-blue': '#58A6FF', // Main Accent
+                        'secondary-gold': '#FBBF24', // Yellow Accent for highlights
+                        'status-green': '#3FB950', // Success Indicator
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+
+        // --- Translation Data ---
+        const translations = {
+            en: {
+                pageTitle: "UdyogSathi Training Academy",
+                selectLang: "Select Language",
+                heroHeading: "Upskill Today. Get Hired Tomorrow.",
+                heroSubheading: "Access free, essential training modules designed to boost your skills, improve workplace safety, and increase your earning potential.",
+                section1Title: "Core Professional Modules",
+                module1Title: "Safety & First Aid Certification",
+                module1Desc: "Learn essential workplace safety protocols, hazard recognition, and basic emergency first aid techniques relevant to construction, delivery, and home services.",
+                module2Title: "Client Communication Excellence",
+                module2Desc: "Master respectful client interaction, effective dispute resolution, and professional conduct to build trust and secure repeat business.",
+                module3Title: "Financial Literacy & Savings",
+                module3Desc: "Simple lessons on managing daily earnings, understanding savings, budgeting for the family, and accessing government financial schemes.",
+                section2Title: "Job-Specific Skill Guides",
+                guide1Title: "Plumbing Basics & Troubleshooting",
+                guide1Desc: "Step-by-step guides on fixing minor leaks, unclogging drains, and maintaining common household water fixtures.",
+                guide2Title: "Home Electrical Safety 101",
+                guide2Desc: "Non-technical guide on safe handling of minor electrical appliances and recognizing when to call a professional electrician.",
+                guide3Title: "Efficient Cleaning & Sanitation",
+                guide3Desc: "Best practices for professional cleaning, including use of disinfectants, efficient use of water, and time management for large spaces.",
+                section3Title: "Benefits of Certification",
+                benefit1Title: "Increased Profile Trust",
+                benefit1Desc: "Completed modules add verified badges to your profile, making you more visible and attractive to premium employers.",
+                benefit2Title: "Better Hourly Rates",
+                benefit2Desc: "Workers with certification badges typically qualify for 10-20% higher hourly rates compared to uncertified peers.",
+                ctaHeading: "Ready to Transform Your Career?",
+                ctaButton: "View All Modules",
+                footerText: "The Training Academy is committed to improving the lives and livelihoods of the community's workforce.",
+            },
+            hi: {
+                pageTitle: "उद्योगसाथी प्रशिक्षण अकादमी",
+                selectLang: "भाषा चुने",
+                heroHeading: "आज कौशल बढ़ाओ। कल नौकरी पाओ।",
+                heroSubheading: "अपने कौशल को बढ़ाने, कार्यस्थल की सुरक्षा में सुधार करने और अपनी कमाई की क्षमता बढ़ाने के लिए डिज़ाइन किए गए मुफ्त, आवश्यक प्रशिक्षण मॉड्यूल तक पहुंचें।",
+                section1Title: "मुख्य व्यावसायिक मॉड्यूल",
+                module1Title: "सुरक्षा और प्राथमिक चिकित्सा प्रमाणन",
+                module1Desc: "निर्माण, वितरण और घरेलू सेवाओं के लिए प्रासंगिक कार्यस्थल सुरक्षा प्रोटोकॉल, खतरों की पहचान और बुनियादी आपातकालीन प्राथमिक चिकित्सा तकनीकें सीखें।",
+                module2Title: "ग्राहक संचार उत्कृष्टता",
+                module2Desc: "विश्वास बनाने और दोहराए जाने वाले व्यवसाय को सुरक्षित करने के लिए सम्मानजनक ग्राहक बातचीत, प्रभावी विवाद समाधान और पेशेवर आचरण में महारत हासिल करें।",
+                module3Title: "वित्तीय साक्षरता और बचत",
+                module3Desc: "दैनिक कमाई के प्रबंधन, बचत को समझने, परिवार के लिए बजट बनाने और सरकारी वित्तीय योजनाओं तक पहुंचने पर सरल सबक।",
+                section2Title: "नौकरी-विशिष्ट कौशल मार्गदर्शिकाएँ",
+                guide1Title: "प्लंबिंग की मूल बातें और समस्या निवारण",
+                guide1Desc: "छोटे लीक को ठीक करने, नालियों को साफ करने और सामान्य घरेलू जल जुड़नार को बनाए रखने पर चरण-दर-चरण मार्गदर्शिकाएँ।",
+                guide2Title: "होम इलेक्ट्रिकल सुरक्षा 101",
+                guide2Desc: "छोटे बिजली के उपकरणों को सुरक्षित रूप से संभालने और पेशेवर इलेक्ट्रीशियन को कब बुलाना है, यह पहचानने पर गैर-तकनीकी मार्गदर्शिका।",
+                guide3Title: "कुशल सफाई और स्वच्छता",
+                guide3Desc: "पेशेवर सफाई के लिए सर्वोत्तम अभ्यास, जिसमें कीटाणुनाशकों का उपयोग, पानी का कुशल उपयोग और बड़े स्थानों के लिए समय प्रबंधन शामिल है।",
+                section3Title: "प्रमाणन के लाभ",
+                benefit1Title: "बढ़ा हुआ प्रोफ़ाइल विश्वास",
+                benefit1Desc: "पूरे किए गए मॉड्यूल आपकी प्रोफ़ाइल में सत्यापित बैज जोड़ते हैं, जिससे आप प्रीमियम नियोक्ताओं के लिए अधिक दृश्यमान और आकर्षक बन जाते हैं।",
+                benefit2Title: "बेहतर प्रति घंटा दरें",
+                benefit2Desc: "प्रमाणन बैज वाले श्रमिक आमतौर पर अप्रमाणित साथियों की तुलना में 10-20% अधिक प्रति घंटा दरों के लिए अर्हता प्राप्त करते हैं।",
+                ctaHeading: "अपना करियर बदलने के लिए तैयार हैं?",
+                ctaButton: "सभी मॉड्यूल देखें",
+                footerText: "प्रशिक्षण अकादमी समुदाय के कार्यबल के जीवन और आजीविका में सुधार के लिए प्रतिबद्ध है।",
+            },
+            mr: {
+                pageTitle: "उद्योगसाथी प्रशिक्षण अकादमी",
+                selectLang: "भाषा निवडा",
+                heroHeading: "आज कौशल्य वाढवा. उद्या नोकरी मिळवा.",
+                heroSubheading: "तुमचे कौशल्ये वाढवण्यासाठी, कामाच्या ठिकाणी सुरक्षितता सुधारण्यासाठी आणि तुमची कमाईची क्षमता वाढवण्यासाठी डिझाइन केलेले विनामूल्य, आवश्यक प्रशिक्षण मॉड्यूलमध्ये प्रवेश करा.",
+                section1Title: "मुख्य व्यावसायिक मॉड्यूल",
+                module1Title: "सुरक्षितता आणि प्रथमोपचार प्रमाणपत्र",
+                module1Desc: "बांधकाम, वितरण आणि गृह सेवांसाठी संबंधित आवश्यक कामाच्या ठिकाणी सुरक्षितता प्रोटोकॉल, धोका ओळखणे आणि मूलभूत आपत्कालीन प्रथमोपचार तंत्रे शिका.",
+                module2Title: "ग्राहक संवाद उत्कृष्टता",
+                module2Desc: "विश्वास निर्माण करण्यासाठी आणि पुन्हा व्यवसाय सुरक्षित करण्यासाठी आदरणीय क्लायंट संवाद, प्रभावी विवाद निराकरण आणि व्यावसायिक आचरणात प्रभुत्व मिळवा.",
+                module3Title: "आर्थिक साक्षरता आणि बचत",
+                module3Desc: "दैनंदिन कमाईचे व्यवस्थापन, बचत समजून घेणे, कुटुंबासाठी बजेट बनवणे आणि सरकारी आर्थिक योजनांमध्ये प्रवेश करणे यावर साधे धडे.",
+                section2Title: "नोकरी-विशिष्ट कौशल्य मार्गदर्शिका",
+                guide1Title: "प्लंबिंगची मूलतत्त्वे आणि समस्यानिवारण",
+                guide1Desc: "लहान गळती दुरुस्त करणे, ड्रेन साफ ​​करणे आणि सामान्य घरगुती पाणी फिक्स्चरची देखभाल करण्यावर चरण-दर-चरण मार्गदर्शिका.",
+                guide2Title: "होम इलेक्ट्रिकल सुरक्षितता 101",
+                guide2Desc: "लहान विद्युत उपकरणे सुरक्षितपणे हाताळणे आणि व्यावसायिक इलेक्ट्रिशियनला कधी कॉल करायचा हे ओळखणे यावरील गैर-तांत्रिक मार्गदर्शिका.",
+                guide3Title: "कार्यक्षम स्वच्छता आणि स्वच्छता",
+                guide3Desc: "व्यावसायिक स्वच्छतेसाठी सर्वोत्तम पद्धती, ज्यात जंतुनाशकांचा वापर, पाण्याचा कार्यक्षम वापर आणि मोठ्या जागांसाठी वेळेचे व्यवस्थापन समाविष्ट आहे.",
+                section3Title: "प्रमाणपत्राचे फायदे",
+                benefit1Title: "वाढलेला प्रोफाइल विश्वास",
+                benefit1Desc: "पूर्ण केलेले मॉड्यूल तुमच्या प्रोफाइलमध्ये सत्यापित बॅज जोडतात, ज्यामुळे तुम्ही प्रीमियम मालकांसाठी अधिक दृश्यमान आणि आकर्षक बनता.",
+                benefit2Title: "चांगले तासाचे दर",
+                benefit2Desc: "प्रमाणपत्र बॅज असलेले कामगार सामान्यतः अप्रमाणित सहकाऱ्यांपेक्षा 10-20% जास्त तासाचे दर मिळवण्यास पात्र ठरतात.",
+                ctaHeading: "तुमचे करिअर बदलण्यासाठी तयार आहात?",
+                ctaButton: "सर्व मॉड्यूल पहा",
+                footerText: "प्रशिक्षण अकादमी समुदायाच्या कार्यबलचे जीवनमान आणि उपजीविका सुधारण्यासाठी वचनबद्ध आहे.",
+            },
+            bn: {
+                pageTitle: "উদ্যোগসাথী প্রশিক্ষণ অ্যাকাডেমি",
+                selectLang: "ভাষা নির্বাচন করুন",
+                heroHeading: "আজ দক্ষতা বাড়ান। কাল চাকরি পান।",
+                heroSubheading: "আপনার দক্ষতা বাড়াতে, কর্মক্ষেত্রের নিরাপত্তা উন্নত করতে এবং আপনার উপার্জনের সম্ভাবনা বাড়ানোর জন্য ডিজাইন করা বিনামূল্যে, প্রয়োজনীয় প্রশিক্ষণ মডিউলগুলিতে অ্যাক্সেস করুন।",
+                section1Title: "মূল পেশাদার মডিউল",
+                module1Title: "নিরাপত্তা এবং প্রাথমিক চিকিৎসা সার্টিফিকেশন",
+                module1Desc: "নির্মাণ, বিতরণ এবং হোম পরিষেবাগুলির জন্য প্রাসঙ্গিক কর্মক্ষেত্রের নিরাপত্তা প্রোটোকল, বিপদ শনাক্তকরণ এবং মৌলিক জরুরী প্রাথমিক চিকিৎসা কৌশলগুলি শিখুন।",
+                module2Title: "ক্লায়েন্ট যোগাযোগের শ্রেষ্ঠত্ব",
+                module2Desc: "বিশ্বাস তৈরি করতে এবং পুনরাবৃত্তিমূলক ব্যবসা সুরক্ষিত করতে সম্মানজনক ক্লায়েন্ট ইন্টারঅ্যাকশন, কার্যকর বিরোধ নিষ্পত্তি এবং পেশাদার আচরণে দক্ষতা অর্জন করুন।",
+                module3Title: "আর্থিক সাক্ষরতা এবং সঞ্চয়",
+                module3Desc: "দৈনিক উপার্জন পরিচালনা, সঞ্চয় বোঝা, পরিবারের জন্য বাজেট তৈরি করা এবং সরকারী আর্থিক স্কিমগুলিতে অ্যাক্সেস করার বিষয়ে সহজ পাঠ।",
+                section2Title: "চাকরি-নির্দিষ্ট দক্ষতা নির্দেশিকা",
+                guide1Title: "প্লাম্বিং বেসিকস এবং সমস্যা সমাধান",
+                guide1Desc: "ছোটখাটো লিক মেরামত, ড্রেন পরিষ্কার করা এবং সাধারণ গৃহস্থালী জলের ফিক্সচার রক্ষণাবেক্ষণের বিষয়ে ধাপে ধাপে নির্দেশিকা।",
+                guide2Title: "হোম ইলেকট্রিক্যাল নিরাপত্তা 101",
+                guide2Desc: "ছোট বৈদ্যুতিক সরঞ্জাম নিরাপদে পরিচালনা এবং কখন একজন পেশাদার ইলেক্ট্রিশিয়ানকে ডাকতে হবে তা সনাক্ত করার বিষয়ে অ-প্রযুক্তিগত নির্দেশিকা।",
+                guide3Title: "দক্ষ পরিষ্করণ এবং স্যানিটেশন",
+                guide3Desc: "পেশাদার পরিষ্কারের জন্য সেরা অনুশীলন, যার মধ্যে জীবাণুনাশক ব্যবহার, জলের দক্ষ ব্যবহার এবং বড় স্থানগুলির জন্য সময় ব্যবস্থাপনা অন্তর্ভুক্ত।",
+                section3Title: "সার্টিফিকেশনের সুবিধা",
+                benefit1Title: "বর্ধিত প্রোফাইল বিশ্বাস",
+                benefit1Desc: "সম্পূর্ণ মডিউলগুলি আপনার প্রোফাইলে যাচাইকৃত ব্যাজ যোগ করে, যা আপনাকে প্রিমিয়াম নিয়োগকর্তাদের কাছে আরও দৃশ্যমান এবং আকর্ষণীয় করে তোলে।",
+                benefit2Title: "উন্নত ঘন্টার হার",
+                benefit2Desc: "সার্টিফিকেশন ব্যাজ সহ কর্মীরা সাধারণত অ-সার্টিফাইড সহকর্মীদের তুলনায় 10-20% বেশি ঘন্টার হারের জন্য যোগ্য হন।",
+                ctaHeading: "আপনার কর্মজীবন পরিবর্তন করতে প্রস্তুত?",
+                ctaButton: "সমস্ত মডিউল দেখুন",
+                footerText: "প্রশিক্ষণ অ্যাকাডেমি সম্প্রদায়ের কর্মজীবনের জীবন ও জীবিকা উন্নত করতে প্রতিশ্রুতিবদ্ধ।",
+            },
+            te: {
+                pageTitle: "ఉద్యోగ్సాథి శిక్షణ అకాడమీ",
+                selectLang: "భాషను ఎంచుకోండి",
+                heroHeading: "ఈరోజు నైపుణ్యాన్ని పెంచుకోండి. రేపు ఉద్యోగం పొందండి.",
+                heroSubheading: "మీ నైపుణ్యాలను పెంచడానికి, కార్యాలయ భద్రతను మెరుగుపరచడానికి మరియు మీ సంపాదన సామర్థ్యాన్ని పెంచడానికి రూపొందించబడిన ఉచిత, అవసరమైన శిక్షణ మాడ్యూల్స్‌ను యాక్సెస్ చేయండి.",
+                section1Title: "ప్రధాన వృత్తిపరమైన మాడ్యూల్స్",
+                module1Title: "భద్రత మరియు ప్రథమ చికిత్స ధృవీకరణ",
+                module1Desc: "నిర్మాణం, డెలివరీ మరియు గృహ సేవల కోసం సంబంధించిన అవసరమైన కార్యాలయ భద్రతా ప్రోటోకాల్‌లు, ప్రమాద గుర్తింపు మరియు ప్రాథమిక అత్యవసర ప్రథమ చికిత్స పద్ధతులను తెలుసుకోండి.",
+                module2Title: "క్లయింట్ కమ్యూనికేషన్ ఎక్సలెన్స్",
+                module2Desc: "విశ్వాసాన్ని పెంచడానికి మరియు పునరావృత వ్యాపారాన్ని సురక్షితం చేయడానికి గౌరవప్రదమైన క్లయింట్ ఇంటరాక్షన్, ప్రభావవంతమైన వివాద పరిష్కారం మరియు వృత్తిపరమైన ప్రవర్తనలో నైపుణ్యం సాధించండి.",
+                module3Title: "ఆర్థిక అక్షరాస్యత మరియు పొదుపు",
+                module3Desc: "రోజువారీ ఆదాయాన్ని నిర్వహించడం, పొదుపును అర్థం చేసుకోవడం, కుటుంబం కోసం బడ్జెట్ చేయడం మరియు ప్రభుత్వ ఆర్థిక పథకాలను యాక్సెస్ చేయడంపై సాధారణ పాఠాలు.",
+                section2Title: "ఉద్యోగానికి సంబంధించిన నైపుణ్య మార్గదర్శకాలు",
+                guide1Title: "ప్లంబింగ్ బేసిక్స్ మరియు ట్రబుల్షూటింగ్",
+                guide1Desc: "చిన్న లీక్‌లను పరిష్కరించడం, డ్రైన్‌లను శుభ్రం చేయడం మరియు సాధారణ గృహ నీటి ఫర్నిచర్‌ను నిర్వహించడంపై దశల వారీ మార్గదర్శకాలు.",
+                guide2Title: "హోమ్ ఎలక్ట్రికల్ భద్రత 101",
+                guide2Desc: "చిన్న విద్యుత్ ఉపకరణాలను సురక్షితంగా నిర్వహించడం మరియు ఎప్పుడు ప్రొఫెషనల్ ఎలక్ట్రీషియన్‌ను పిలవాలి అనే దానిపై సాంకేతికత లేని మార్గదర్శకం.",
+                guide3Title: "సమర్థవంతమైన శుభ్రపరచడం మరియు పారిశుధ్యం",
+                guide3Desc: "కీటక నాశకాలను ఉపయోగించడం, నీటిని సమర్థవంతంగా ఉపయోగించడం మరియు పెద్ద ప్రాంతాల కోసం సమయాన్ని నిర్వహించడం సహా వృత్తిపరమైన శుభ్రపరచడం కోసం ఉత్తమ పద్ధతులు.",
+                section3Title: "ధృవీకరణ యొక్క ప్రయోజనాలు",
+                benefit1Title: "పెరిగిన ప్రొఫైల్ నమ్మకం",
+                benefit1Desc: "పూర్తి చేసిన మాడ్యూల్స్ మీ ప్రొఫైల్‌కు ధృవీకరించబడిన బ్యాడ్జ్‌లను జోడిస్తాయి, మిమ్మల్ని ప్రీమియం యజమానులకు మరింత కనిపించేలా మరియు ఆకర్షణీయంగా చేస్తాయి.",
+                benefit2Title: "మెరుగైన గంటల రేట్లు",
+                benefit2Desc: "ధృవీకరణ బ్యాడ్జ్‌లు ఉన్న కార్మికులు సాధారణంగా ధృవీకరణ లేని వారి కంటే 10-20% ఎక్కువ గంటల రేట్లకు అర్హత పొందుతారు.",
+                ctaHeading: "మీ వృత్తిని మార్చడానికి సిద్ధంగా ఉన్నారా?",
+                ctaButton: "అన్ని మాడ్యూల్స్‌ను వీక్షించండి",
+                footerText: "శిక్షణ అకాడమీ సమాజంలోని శ్రామిక శక్తి యొక్క జీవితాలను మరియు జీవనోపాధిని మెరుగుపరచడానికి కట్టుబడి ఉంది.",
+            },
+            ta: {
+                pageTitle: "உத்யோக்சாத்தி பயிற்சி அகாடமி",
+                selectLang: "மொழியைத் தேர்ந்தெடுக்கவும்",
+                heroHeading: "இன்று திறனை மேம்படுத்துங்கள். நாளை வேலை பெறுங்கள்.",
+                heroSubheading: "உங்கள் திறன்களை அதிகரிக்கவும், பணியிட பாதுகாப்பை மேம்படுத்தவும், உங்கள் சம்பாதிக்கும் திறனை அதிகரிக்கவும் வடிவமைக்கப்பட்ட இலவச, அத்தியாவசிய பயிற்சி தொகுதிகளை அணுகவும்.",
+                section1Title: "முக்கிய தொழில்முறை தொகுதிகள்",
+                module1Title: "பாதுகாப்பு மற்றும் முதலுதவி சான்றிதழ்",
+                module1Desc: "கட்டுமானம், விநியோகம் மற்றும் வீட்டுச் சேவைகளுக்கு பொருத்தமான அத்தியாவசிய பணியிட பாதுகாப்பு நெறிமுறைகள், ஆபத்து அங்கீகாரம் மற்றும் அடிப்படை அவசர முதலுதவி நுட்பங்களைக் கற்றுக்கொள்ளுங்கள்.",
+                module2Title: "வாடிக்கையாளர் தொடர்பு சிறப்பு",
+                module2Desc: "நம்பிக்கையை உருவாக்கவும் மற்றும் மீண்டும் மீண்டும் வணிகத்தைப் பாதுகாக்கவும் மரியாதைக்குரிய வாடிக்கையாளர் தொடர்பு, பயனுள்ள தகராறு தீர்வு மற்றும் தொழில்முறை நடத்தை ஆகியவற்றில் தேர்ச்சி பெறுங்கள்.",
+                module3Title: "நிதி கல்வியறிவு மற்றும் சேமிப்பு",
+                module3Desc: "தினசரி வருவாயை நிர்வகித்தல், சேமிப்பைப் புரிந்துகொள்வது, குடும்பத்திற்கான வரவு செலவுத் திட்டம் மற்றும் அரசு நிதி திட்டங்களை அணுகுவது பற்றிய எளிய பாடங்கள்.",
+                section2Title: "வேலை சார்ந்த திறன் வழிகாட்டிகள்",
+                guide1Title: "பிளம்பிங் அடிப்படைகள் மற்றும் சிக்கல் தீர்க்கும்",
+                guide1Desc: "சிறு கசிவுகளை சரிசெய்தல், வடிகால்களை அடைப்பு நீக்குதல் மற்றும் பொதுவான வீட்டு நீர் சாதனங்களை பராமரித்தல் பற்றிய படிப்படியான வழிகாட்டிகள்.",
+                guide2Title: "வீட்டு மின்சார பாதுகாப்பு 101",
+                guide2Desc: "சிறு மின் சாதனங்களை பாதுகாப்பாக கையாளுதல் மற்றும் ஒரு தொழில்முறை மின்சார நிபுணரை எப்போது அழைக்க வேண்டும் என்பதை அங்கீகரிப்பது பற்றிய தொழில்நுட்பம் அல்லாத வழிகாட்டி.",
+                guide3Title: "திறமையான சுத்தம் மற்றும் சுகாதாரம்",
+                guide3Desc: "தொழில்முறை சுத்தம் செய்வதற்கான சிறந்த நடைமுறைகள், இதில் கிருமிநாசினிகள் பயன்பாடு, தண்ணீரை திறமையாக பயன்படுத்துதல் மற்றும் பெரிய இடங்களுக்கான நேர மேலாண்மை ஆகியவை அடங்கும்.",
+                section3Title: "சான்றிதழின் நன்மைகள்",
+                benefit1Title: "அதிகரித்த சுயவிவர நம்பிக்கை",
+                benefit1Desc: "முடிக்கப்பட்ட தொகுதிகள் உங்கள் சுயவிவரத்தில் சரிபார்க்கப்பட்ட பேட்ஜ்களைச் சேர்க்கின்றன, இது பிரீமியம் முதலாளிகளுக்கு உங்களை மேலும் தெரியும் மற்றும் கவர்ச்சிகரமானதாக ஆக்குகிறது.",
+                benefit2Title: "சிறந்த மணிநேர விகிதங்கள்",
+                benefit2Desc: "சான்றிதழ் பேட்ஜ்கள் கொண்ட தொழிலாளர்கள் பொதுவாக சான்றிதழ் இல்லாத சகாக்களை விட 10-20% அதிக மணிநேர விகிதங்களுக்கு தகுதி பெறுகிறார்கள்.",
+                ctaHeading: "உங்கள் தொழிலை மாற்றத் தயாரா?",
+                ctaButton: "அனைத்து தொகுதிகளையும் காண்க",
+                footerText: "பயிற்சி அகாடமி சமூகத்தின் பணியாளர்களின் வாழ்க்கையையும் வாழ்வாதாரத்தையும் மேம்படுத்த உறுதிபூண்டுள்ளது.",
+            }
+        };
+
+        let currentLang = 'en';
+
+        /**
+         * Updates all text content on the page based on the selected language.
+         */
+        const changeLanguage = (lang) => {
+            currentLang = lang;
+            const t = translations[lang];
+
+            // Update all text elements by ID
+            document.title = t.pageTitle + " | UdyogSathi";
+            document.getElementById('pageTitle').textContent = t.pageTitle;
+            document.getElementById('langSelectLabel').textContent = t.selectLang;
+            
+            document.getElementById('heroHeading').textContent = t.heroHeading;
+            document.getElementById('heroSubheading').textContent = t.heroSubheading;
+            
+            document.getElementById('section1Title').textContent = t.section1Title;
+            document.getElementById('module1Title').textContent = t.module1Title;
+            document.getElementById('module1Desc').textContent = t.module1Desc;
+            document.getElementById('module2Title').textContent = t.module2Title;
+            document.getElementById('module2Desc').textContent = t.module2Desc;
+            document.getElementById('module3Title').textContent = t.module3Title;
+            document.getElementById('module3Desc').textContent = t.module3Desc;
+
+            document.getElementById('section2Title').textContent = t.section2Title;
+            document.getElementById('guide1Title').textContent = t.guide1Title;
+            document.getElementById('guide1Desc').textContent = t.guide1Desc;
+            document.getElementById('guide2Title').textContent = t.guide2Title;
+            document.getElementById('guide2Desc').textContent = t.guide2Desc;
+            document.getElementById('guide3Title').textContent = t.guide3Title;
+            document.getElementById('guide3Desc').textContent = t.guide3Desc;
+
+            document.getElementById('section3Title').textContent = t.section3Title;
+            document.getElementById('benefit1Title').textContent = t.benefit1Title;
+            document.getElementById('benefit1Desc').textContent = t.benefit1Desc;
+            document.getElementById('benefit2Title').textContent = t.benefit2Title;
+            document.getElementById('benefit2Desc').textContent = t.benefit2Desc;
+
+            document.getElementById('ctaHeading').textContent = t.ctaHeading;
+            document.getElementById('ctaButton').textContent = t.ctaButton;
+            document.getElementById('footerText').textContent = t.footerText;
+        };
+
+        // --- Initialization ---
+        document.addEventListener('DOMContentLoaded', () => {
+            // Set up event listener for language change
+            const langSelect = document.getElementById('langSelect');
+            langSelect.addEventListener('change', (e) => changeLanguage(e.target.value));
+
+            // Set the initial language (English default)
+            changeLanguage(currentLang);
+        });
+
+    </script>
+
+    <style>
+        /* Custom styles for a modern, clean dark look */
+        body {
+            background-color: #161B22; /* bg-medium */
+            color: #F0F6FC; /* text-light */
+            font-family: 'Inter', sans-serif;
+        }
+        .header-bg {
+            background-color: #0D1117; /* bg-darkest */
+        }
+        .card {
+            background-color: #21262D; /* bg-light */
+            border: 1px solid #30363D;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+        }
+        .module-card:hover {
+            border-color: #58A6FF; /* accent-blue on hover */
+            transform: translateY(-2px);
+        }
+        .guide-card:hover {
+            border-color: #FBBF24; /* secondary-gold on hover */
+            transform: translateY(-2px);
+        }
+        .section-separator {
+            border-color: #30363D;
+        }
+        .icon-lg {
+            width: 2.5rem;
+            height: 2.5rem;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- Header & Language Selector -->
+    <header class="header-bg shadow-xl sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
+            
+            <!-- Logo/Title -->
+            <a href="#" class="flex items-center space-x-2 text-xl font-extrabold text-accent-blue tracking-tight">
+                <span id="pageTitle">UdyogSathi Training Academy</span>
+            </a>
+
+            <!-- Language Dropdown -->
+            <div class="flex items-center space-x-2 text-text-light">
+                <label id="langSelectLabel" for="langSelect" class="text-sm font-medium text-gray-300 hidden sm:block">Select Language</label>
+                <select id="langSelect" class="block w-full py-2 px-3 border border-gray-600 bg-bg-light rounded-lg shadow-sm focus:outline-none focus:ring-accent-blue focus:border-accent-blue sm:text-sm">
+                    <option value="en">English</option>
+                    <option value="hi">हिन्दी (Hindi)</option>
+                    <option value="mr">मराठी (Marathi)</option>
+                    <option value="bn">বাংলা (Bengali)</option>
+                    <option value="te">తెలుగు (Telugu)</option>
+                    <option value="ta">தமிழ் (Tamil)</option>
+                </select>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow py-12 md:py-16 bg-bg-medium">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Hero Section -->
+            <div class="text-center mb-16">
+                <h1 id="heroHeading" class="text-4xl sm:text-5xl font-extrabold text-secondary-gold mb-4">
+                    Upskill Today. Get Hired Tomorrow.
+                </h1>
+                <p id="heroSubheading" class="text-xl text-gray-400 max-w-2xl mx-auto">
+                    Access free, essential training modules designed to boost your skills, improve workplace safety, and increase your earning potential.
+                </p>
+            </div>
+
+            <!-- Section 1: Core Professional Modules -->
+            <div class="mb-16">
+                <h2 id="section1Title" class="text-3xl font-bold text-text-light mb-8 border-b-2 border-accent-blue pb-3">
+                    Core Professional Modules
+                </h2>
+                <div class="grid md:grid-cols-3 gap-8">
+                    
+                    <!-- Module 1: Safety -->
+                    <div class="card module-card p-6 rounded-xl space-y-3 cursor-pointer">
+                        <svg class="icon-lg text-accent-blue" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-3zm-1 15h2v-6h-2v6zm0-8h2V7h-2v2z"/></svg>
+                        <h3 id="module1Title" class="text-xl font-semibold text-text-light">Safety & First Aid Certification</h3>
+                        <p id="module1Desc" class="text-gray-400 text-sm">Learn essential workplace safety protocols, hazard recognition, and basic emergency first aid techniques relevant to construction, delivery, and home services.</p>
+                    </div>
+
+                    <!-- Module 2: Communication -->
+                    <div class="card module-card p-6 rounded-xl space-y-3 cursor-pointer">
+                        <svg class="icon-lg text-accent-blue" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-1 12H5v-2h14v2zm0-3H5V7h14v3z"/></svg>
+                        <h3 id="module2Title" class="text-xl font-semibold text-text-light">Client Communication Excellence</h3>
+                        <p id="module2Desc" class="text-gray-400 text-sm">Master respectful client interaction, effective dispute resolution, and professional conduct to build trust and secure repeat business.</p>
+                    </div>
+
+                    <!-- Module 3: Finance -->
+                    <div class="card module-card p-6 rounded-xl space-y-3 cursor-pointer">
+                        <svg class="icon-lg text-accent-blue" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm0-4h-2V7h2v8z"/></svg>
+                        <h3 id="module3Title" class="text-xl font-semibold text-text-light">Financial Literacy & Savings</h3>
+                        <p id="module3Desc" class="text-gray-400 text-sm">Simple lessons on managing daily earnings, understanding savings, budgeting for the family, and accessing government financial schemes.</p>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="section-separator my-12">
+
+            <!-- Section 2: Job-Specific Skill Guides -->
+            <div class="mb-16">
+                <h2 id="section2Title" class="text-3xl font-bold text-text-light mb-8 border-b-2 border-secondary-gold pb-3">
+                    Job-Specific Skill Guides
+                </h2>
+                <div class="grid md:grid-cols-3 gap-8">
+                    
+                    <!-- Guide 1: Plumbing -->
+                    <div class="card guide-card p-6 rounded-xl space-y-3 cursor-pointer">
+                        <svg class="icon-lg text-secondary-gold" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM8 17H6v-2h2v2zm6 0h-2v-2h2v2zm4 0h-2v-2h2v2zm-6-4H6v-2h2v2zm6 0h-2v-2h2v2zm4 0h-2v-2h2v2zm-6-4H6V7h2v2zm6 0h-2V7h2v2zm4 0h-2V7h2v2z"/></svg>
+                        <h3 id="guide1Title" class="text-xl font-semibold text-text-light">Plumbing Basics & Troubleshooting</h3>
+                        <p id="guide1Desc" class="text-gray-400 text-sm">Step-by-step guides on fixing minor leaks, unclogging drains, and maintaining common household water fixtures.</p>
+                    </div>
+
+                    <!-- Guide 2: Electrical -->
+                    <div class="card guide-card p-6 rounded-xl space-y-3 cursor-pointer">
+                        <svg class="icon-lg text-secondary-gold" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M13 12h7v2h-7zm0-4h7v2h-7zM3 14h7v2H3zm0-4h7v2H3zm0-4h7v2H3zm13 10h-7v2h7v-2zM3 18h7v2H3z"/></svg>
+                        <h3 id="guide2Title" class="text-xl font-semibold text-text-light">Home Electrical Safety 101</h3>
+                        <p id="guide2Desc" class="text-gray-400 text-sm">Non-technical guide on safe handling of minor electrical appliances and recognizing when to call a professional electrician.</p>
+                    </div>
+
+                    <!-- Guide 3: Cleaning -->
+                    <div class="card guide-card p-6 rounded-xl space-y-3 cursor-pointer">
+                        <svg class="icon-lg text-secondary-gold" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm-9-2V7H3v3h3zm0 4v-3H3v3h3zm0 4v-3H3v3h3zM9 19h10v-2H9v2zM9 15h10v-2H9v2zM9 7v2h10V7H9z"/></svg>
+                        <h3 id="guide3Title" class="text-xl font-semibold text-text-light">Efficient Cleaning & Sanitation</h3>
+                        <p id="guide3Desc" class="text-gray-400 text-sm">Best practices for professional cleaning, including use of disinfectants, efficient use of water, and time management for large spaces.</p>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="section-separator my-12">
+
+            <!-- Section 3: Benefits -->
+            <div class="mb-16">
+                <h2 id="section3Title" class="text-3xl font-bold text-text-light text-center mb-10">
+                    Benefits of Certification
+                </h2>
+                <div class="grid md:grid-cols-2 gap-8">
+                    
+                    <!-- Benefit 1: Trust -->
+                    <div class="card p-6 rounded-xl text-center space-y-3">
+                        <svg class="icon-lg mx-auto text-status-green" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-1 15h2v2h-2v-2zm0-10h2V6h-2v10z"/></svg>
+                        <h3 id="benefit1Title" class="text-xl font-semibold text-status-green">Increased Profile Trust</h3>
+                        <p id="benefit1Desc" class="text-gray-400 text-sm">Completed modules add verified badges to your profile, making you more visible and attractive to premium employers.</p>
+                    </div>
+
+                    <!-- Benefit 2: Rate -->
+                    <div class="card p-6 rounded-xl text-center space-y-3">
+                        <svg class="icon-lg mx-auto text-status-green" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M18 13v-3c-1.1 0-2 .9-2 2h-4c0-1.1-.9-2-2-2v3h-4v-3c-1.1 0-2 .9-2 2H2v-3c0-1.1-.9-2-2-2V4c0-1.1-.9-2-2-2zm0 8v-3h-4v-2h4v-3h2v8z"/></svg>
+                        <h3 id="benefit2Title" class="text-xl font-semibold text-status-green">Better Hourly Rates</h3>
+                        <p id="benefit2Desc" class="text-gray-400 text-sm">Workers with certification badges typically qualify for 10-20% higher hourly rates compared to uncertified peers.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Call to Action -->
+            <div class="card p-10 text-center rounded-xl bg-secondary-gold/20 border-secondary-gold/50">
+                <h2 id="ctaHeading" class="text-3xl font-bold text-secondary-gold mb-5">
+                    Ready to Transform Your Career?
+                </h2>
+                <a href="trmodules.html" class="inline-block py-3 px-8 text-lg font-bold rounded-full text-bg-darkest bg-accent-blue hover:bg-[#79bfff] transition duration-300 shadow-xl">
+                    <span id="ctaButton">View All Modules</span>
+                </a>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="header-bg pt-8 pb-4 text-gray-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p id="footerText" class="text-sm text-gray-500">
+                The Training Academy is committed to improving the lives and livelihoods of the community's workforce.
+            </p>
+            <p class="text-xs text-gray-600 mt-4">&copy; 2025 UdyogSathi. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

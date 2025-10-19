@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UdyogSathi | Search Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'bg-dark': '#0F172A', // Slate-900, primary background
+                        'surface-dark': '#1E293B', // Slate-800, card/sidebar surface
+                        'text-light': '#F1F5F9', // Slate-100, main text
+                        'accent-primary': '#A78BFA', // NEW: Violet-400, vibrant accent
+                        'accent-dark': '#0F172A', // Secondary dark for high contrast borders
+                        'skill-tag': '#2DD4BF', // NEW: Teal-400 for skilled tag
+                        'unskill-tag': '#FB923C', // NEW: Orange-400 for unskilled tag
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0F172A;
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        
+        /* --- Navbar Style for Scroll Effect --- */
+        .navbar-scrolled {
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            background-color: rgba(30, 41, 59, 0.95); /* Slightly lighter dark surface */
+            backdrop-filter: blur(8px);
+        }
+
+        /* --- Job Card Style Enhancement --- */
+        .job-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid transparent;
+        }
+        .job-card:hover {
+            /* Subtle lift and border glow on hover - using Violet */
+            transform: translateY(-4px); 
+            border-color: #A78BFA;
+            box-shadow: 0 10px 20px rgba(167, 139, 250, 0.15), 0 0 15px rgba(167, 139, 250, 0.1); 
+        }
+        
+        /* --- CTA Button Style Enhancement --- */
+        .cta-primary {
+            background-color: #A78BFA; /* Violet */
+            transition: all 0.3s ease;
+        }
+        .cta-primary:hover {
+            background-color: #7C3AED; /* Darker Violet */
+            transform: translateY(-1px); 
+            box-shadow: 0 5px 15px rgba(167, 139, 250, 0.5); 
+        }
+
+        /* Input Focus Styling */
+        input:focus, select:focus {
+            --tw-ring-color: #A78BFA !important;
+            border-color: #A78BFA !important;
+        }
+
+        /* Custom scrollbar for dark mode */
+        .job-list-container::-webkit-scrollbar {
+            width: 8px;
+        }
+        .job-list-container::-webkit-scrollbar-track {
+            background: #1e293b;
+            border-radius: 10px;
+        }
+        .job-list-container::-webkit-scrollbar-thumb {
+            background: #475569;
+            border-radius: 10px;
+        }
+        .job-list-container::-webkit-scrollbar-thumb:hover {
+            background: #64748B;
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- Lucide Icons (Used for better aesthetics than generic SVGs) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Navigation Bar (Scroll-Aware) -->
+    <nav id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-300 py-4 bg-surface-dark border-b border-gray-700">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+            
+            <a href="index.html" class="flex items-center space-x-2 text-2xl font-black tracking-tight">
+                <!-- Icon for UdyogSathi -->
+                <svg class="h-8 w-8 text-accent-primary" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l-10 5v10l10 5 10-5v-10l-10-5zm0 18v-5m0-10l-6 3m6-3l6 3m-6 0l-3 1.5m6-1.5l3 1.5"/></svg>
+                <span class="text-text-light">Udyog</span><span class="text-accent-primary">Sathi</span>
+            </a>
+
+            <!-- Desktop Menu Links -->
+            <div class="hidden md:flex space-x-8 text-sm font-medium">
+                <a href="index.html" class="text-gray-400 hover:text-accent-primary transition duration-200">Home</a>
+                <a href="#" class="text-accent-primary font-bold transition duration-200">Find Jobs</a>
+            </div>
+
+            <!-- CTA Button -->
+            <div class="flex items-center space-x-4">
+                <a href="postjob.html" class="px-5 py-2 text-sm font-bold text-bg-dark rounded-full cta-primary shadow-lg shadow-violet-400/30">
+                    Post Job
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Area: Search and Results -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-16">
+        
+        <!-- Large, Focused Search Block -->
+        <div class="text-center mb-10">
+            <h1 class="text-5xl font-extrabold text-text-light mb-4 tracking-tight">Find Your Career Trajectory</h1>
+            <p class="text-xl text-gray-400 max-w-3xl mx-auto">Instant access to high-demand skilled and unskilled work across all sectors in India.</p>
+        </div>
+
+        <!-- Search Bar in a unified block -->
+        <div class="bg-surface-dark p-6 md:p-8 rounded-2xl shadow-2xl mb-12 border border-gray-700">
+            <div class="flex flex-col md:flex-row gap-4 items-center">
+                
+                <!-- Search Input -->
+                <div class="flex-grow w-full">
+                    <div class="relative">
+                        <i data-lucide="search" class="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-500"></i>
+                        <input type="text" id="search-query" placeholder="Search by role, company, or keyword (e.g., Welder, Bangalore)..." 
+                               class="w-full bg-bg-dark text-text-light border border-gray-700 rounded-xl pl-10 pr-4 py-3 text-lg placeholder-gray-500 focus:ring-accent-primary focus:border-accent-primary transition duration-200">
+                    </div>
+                </div>
+
+                <!-- Search Button -->
+                <button class="w-full md:w-auto px-8 py-3 text-lg font-bold text-bg-dark rounded-xl cta-primary shadow-md">
+                    Search
+                </button>
+            </div>
+        </div>
+
+        <!-- Job Results and Sidebar Layout -->
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            
+            <!-- Filter Sidebar (Left Column - 1/4 width) -->
+            <aside class="lg:col-span-1 hidden lg:block">
+                <div class="bg-surface-dark p-6 rounded-xl shadow-lg space-y-6 sticky top-28 border border-gray-700">
+                    <h3 class="text-xl font-bold text-text-light border-b border-gray-700 pb-3 mb-4 flex items-center">
+                         <i data-lucide="filter" class="w-5 h-5 mr-2 text-accent-primary"></i>
+                        Advanced Filters
+                    </h3>
+
+                    <!-- Location Filter -->
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-400 mb-2">Location</label>
+                        <select id="location-sidebar" class="w-full bg-bg-dark text-text-light border border-gray-700 rounded-lg p-3 text-sm transition duration-200">
+                            <option value="">Any Location</option>
+                            <option value="mumbai">Mumbai</option>
+                            <option value="delhi">New Delhi</option>
+                            <option value="bangalore">Bangalore</option>
+                            <option value="chennai">Chennai</option>
+                        </select>
+                    </div>
+
+                    <!-- Job Type Filter (Skilled/Unskilled) -->
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-400 mb-2">Category</label>
+                        <div class="space-y-2">
+                            <label class="flex items-center text-sm text-text-light"><input type="checkbox" class="rounded text-skill-tag mr-2 focus:ring-skill-tag bg-gray-700 border-gray-600"> Skilled Trades</label>
+                            <label class="flex items-center text-sm text-text-light"><input type="checkbox" class="rounded text-unskill-tag mr-2 focus:ring-unskill-tag bg-gray-700 border-gray-600"> General Labor</label>
+                            <label class="flex items-center text-sm text-text-light"><input type="checkbox" class="rounded text-accent-primary mr-2 focus:ring-accent-primary bg-gray-700 border-gray-600"> WFH / Remote</label>
+                        </div>
+                    </div>
+
+                    <!-- Salary Range Filter -->
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-400 mb-2">Max Salary (INR/Month)</label>
+                        <input type="range" min="10000" max="150000" value="40000" step="5000" id="salary-range" class="w-full accent-accent-primary">
+                        <div class="flex justify-between text-xs text-gray-500 mt-2">
+                            <span>₹10K</span>
+                            <span id="salary-display" class="font-bold text-accent-primary">₹40K</span>
+                            <span>₹150K+</span>
+                        </div>
+                    </div>
+
+                    <button class="w-full px-4 py-2 text-sm font-semibold text-bg-dark rounded-lg cta-primary">Apply Filters</button>
+                    <button class="w-full px-4 py-2 text-sm font-semibold text-text-light bg-gray-700 rounded-lg hover:bg-gray-600 transition duration-200">Clear Filters</button>
+                </div>
+            </aside>
+
+            <!-- Job Results List (Right Column - 3/4 width) -->
+            <section class="lg:col-span-3">
+                <div class="flex justify-between items-center mb-6">
+                    <p class="text-md text-gray-400 font-medium">Found <span class="font-bold text-text-light">124</span> matching opportunities.</p>
+                    <div class="flex items-center space-x-2">
+                        <i data-lucide="chevrons-up-down" class="w-4 h-4 text-gray-400"></i>
+                        <select class="p-2 bg-surface-dark border border-gray-700 rounded-lg text-sm text-gray-300">
+                            <option>Sort by: Best Match</option>
+                            <option>Sort by: Latest Post</option>
+                            <option>Sort by: Salary (High)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Job List Container - Fixed height for better scroll management -->
+                <div class="job-list-container space-y-4 max-h-[85vh] overflow-y-auto pr-2">
+                    
+                    <!-- SKILLED Job Card (Teal Accent) -->
+                    <div class="job-card bg-surface-dark p-6 rounded-xl flex flex-col md:flex-row justify-between items-start md:items-center">
+                        <div class="md:flex-grow">
+                            <h3 class="text-xl font-bold text-text-light hover:text-accent-primary transition duration-200">Frontend Developer</h3>
+                            <p class="text-sm text-gray-500 mb-2">Precision Manufacturing Co. · Pune, MH</p>
+                            
+                            <!-- Tags and Details -->
+                            <div class="flex flex-wrap items-center space-x-4 text-sm mt-3 text-gray-400">
+                                <span class="flex items-center">
+                                    <i data-lucide="indian-rupee" class="w-4 h-4 mr-1 text-skill-tag"></i>
+                                    ₹50K - ₹65K / Month
+                                </span>
+                                <span class="flex items-center">
+                                    <i data-lucide="clock" class="w-4 h-4 mr-1 text-skill-tag"></i>
+                                    Full-Time
+                                </span>
+                                <span class="flex items-center">
+                                    <i data-lucide="map-pin" class="w-4 h-4 mr-1 text-skill-tag"></i>
+                                    On-Site
+                                </span>
+                                <span class="text-xs font-semibold inline-block py-1 px-3 rounded-full bg-skill-tag/20 text-skill-tag border border-skill-tag/50">SKILLED TRADE</span>
+                            </div>
+                        </div>
+                        <a href="jobdetails.html" class="mt-4 md:mt-0 ml-0 md:ml-4 px-6 py-3 text-sm font-bold text-bg-dark rounded-xl cta-primary shadow-md whitespace-nowrap">Apply Now</a>
+                    </div>
+
+                    <!-- UNSKILLED Job Card (Orange Accent) -->
+                    <div class="job-card bg-surface-dark p-6 rounded-xl flex flex-col md:flex-row justify-between items-start md:items-center">
+                        <div class="md:flex-grow">
+                            <h3 class="text-xl font-bold text-text-light hover:text-accent-primary transition duration-200">Warehouse Associate / Picker-Packer</h3>
+                            <p class="text-sm text-gray-500 mb-2">E-Comm Logistics Hub · Delhi NCR</p>
+                            
+                            <!-- Tags and Details -->
+                            <div class="flex flex-wrap items-center space-x-4 text-sm mt-3 text-gray-400">
+                                <span class="flex items-center">
+                                    <i data-lucide="indian-rupee" class="w-4 h-4 mr-1 text-unskill-tag"></i>
+                                    ₹15,000 - ₹22,000 / Month
+                                </span>
+                                <span class="flex items-center">
+                                    <i data-lucide="clock" class="w-4 h-4 mr-1 text-unskill-tag"></i>
+                                    Fixed Shifts
+                                </span>
+                                <span class="flex items-center">
+                                    <i data-lucide="map-pin" class="w-4 h-4 mr-1 text-unskill-tag"></i>
+                                    Near Metro
+                                </span>
+                                <span class="text-xs font-semibold inline-block py-1 px-3 rounded-full bg-unskill-tag/20 text-unskill-tag border border-unskill-tag/50">GENERAL LABOR</span>
+                            </div>
+                        </div>
+                        <a href="#" class="mt-4 md:mt-0 ml-0 md:ml-4 px-6 py-3 text-sm font-bold text-text-light rounded-xl bg-gray-700 hover:bg-gray-600 transition duration-200 whitespace-nowrap">Contact Recruiter</a>
+                    </div>
+                    
+                    <!-- More cards for visual scrolling (using primary accent icons) -->
+                    <div class="job-card bg-surface-dark p-6 rounded-xl flex flex-col md:flex-row justify-between items-start md:items-center">
+                        <div class="md:flex-grow">
+                            <h3 class="text-xl font-bold text-text-light hover:text-accent-primary transition duration-200">Customer Care (Bilingual - Hindi/Telugu)</h3>
+                            <p class="text-sm text-gray-500 mb-2">Connect Global Services · Hyderabad, TS</p>
+                            
+                            <div class="flex flex-wrap items-center space-x-4 text-sm mt-3 text-gray-400">
+                                <span class="flex items-center">
+                                    <i data-lucide="indian-rupee" class="w-4 h-4 mr-1 text-accent-primary"></i>
+                                    ₹28K - ₹35K / Month
+                                </span>
+                                <span class="flex items-center">
+                                    <i data-lucide="clock" class="w-4 h-4 mr-1 text-accent-primary"></i>
+                                    Full-Time
+                                </span>
+                                <span class="flex items-center">
+                                    <i data-lucide="home" class="w-4 h-4 mr-1 text-accent-primary"></i>
+                                    Remote
+                                </span>
+                                <span class="text-xs font-semibold inline-block py-1 px-3 rounded-full bg-skill-tag/20 text-skill-tag border border-skill-tag/50">SKILLED SERVICE</span>
+                            </div>
+                        </div>
+                        <a href="#" class="mt-4 md:mt-0 ml-0 md:ml-4 px-6 py-3 text-sm font-bold text-bg-dark rounded-xl cta-primary shadow-md whitespace-nowrap">Apply Now</a>
+                    </div>
+
+                    <div class="job-card bg-surface-dark p-6 rounded-xl flex flex-col md:flex-row justify-between items-start md:items-center">
+                        <div class="md:flex-grow">
+                            <h3 class="text-xl font-bold text-text-light hover:text-accent-primary transition duration-200">Hotel Housekeeping Staff</h3>
+                            <p class="text-sm text-gray-500 mb-2">Luxury Stay Properties · Goa, GA</p>
+                            
+                            <div class="flex flex-wrap items-center space-x-4 text-sm mt-3 text-gray-400">
+                                <span class="flex items-center">
+                                    <i data-lucide="indian-rupee" class="w-4 h-4 mr-1 text-unskill-tag"></i>
+                                    ₹16,000 / Month + Accommodation
+                                </span>
+                                <span class="flex items-center">
+                                    <i data-lucide="clock" class="w-4 h-4 mr-1 text-unskill-tag"></i>
+                                    Seasonal
+                                </span>
+                                <span class="flex items-center">
+                                    <i data-lucide="map-pin" class="w-4 h-4 mr-1 text-unskill-tag"></i>
+                                    Accommodation Provided
+                                </span>
+                                <span class="text-xs font-semibold inline-block py-1 px-3 rounded-full bg-unskill-tag/20 text-unskill-tag border border-unskill-tag/50">GENERAL LABOR</span>
+                            </div>
+                        </div>
+                        <a href="#" class="mt-4 md:mt-0 ml-0 md:ml-4 px-6 py-3 text-sm font-bold text-text-light rounded-xl bg-gray-700 hover:bg-gray-600 transition duration-200 whitespace-nowrap">View Contact</a>
+                    </div>
+                    
+                </div>
+
+                <!-- Pagination -->
+                <div class="mt-10 flex justify-center">
+                    <nav class="flex items-center space-x-2">
+                        <a href="#" class="px-4 py-2 text-gray-400 bg-surface-dark rounded-lg hover:bg-gray-700 transition duration-200 border border-gray-700">Previous</a>
+                        <a href="#" class="px-4 py-2 text-bg-dark font-bold rounded-lg cta-primary">1</a>
+                        <a href="#" class="px-4 py-2 text-gray-400 bg-surface-dark rounded-lg hover:bg-gray-700 transition duration-200 border border-gray-700">2</a>
+                        <a href="#" class="px-4 py-2 text-gray-400 bg-surface-dark rounded-lg hover:bg-gray-700 transition duration-200 border border-gray-700">3</a>
+                        <a href="#" class="px-4 py-2 text-gray-400 bg-surface-dark rounded-lg hover:bg-gray-700 transition duration-200 border border-gray-700">Next</a>
+                    </nav>
+                </div>
+
+            </section>
+        </div>
+    </main>
+    
+    <!-- Script to initialize Lucide Icons -->
+    <script>
+        lucide.createIcons();
+    </script>
+
+    <!-- Simple Footer -->
+    <footer class="bg-surface-dark border-t border-gray-700 py-6 text-center text-sm text-gray-500">
+        &copy; 2025 UdyogSathi. All rights reserved. Built with modern vision.
+    </footer>
+
+    <script>
+        // JavaScript to update the salary range display
+        const salaryRange = document.getElementById('salary-range');
+        const salaryDisplay = document.getElementById('salary-display');
+
+        if (salaryRange && salaryDisplay) {
+            salaryRange.addEventListener('input', () => {
+                const value = salaryRange.value / 1000;
+                salaryDisplay.textContent = `₹${value}K`;
+            });
+        }
+        
+        // JavaScript for Scroll-Aware Navbar
+        const navbar = document.getElementById('navbar');
+
+        const handleScroll = () => {
+            const scrollY = window.scrollY;
+
+            // Navbar Effect: Change appearance on scroll
+            if (scrollY > 50) {
+                navbar.classList.add('navbar-scrolled');
+            } else {
+                navbar.classList.remove('navbar-scrolled');
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        window.addEventListener('load', handleScroll); 
+    </script>
+
+</body>
+</html>

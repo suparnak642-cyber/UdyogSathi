@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UdyogSathi | Bridging Talent, Unlocking Opportunity</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-dark': '#111827',
+                        'accent-blue': '#4F46E5',
+                        'secondary-gold': '#FBBF24',
+                        'bg-dark-blue': '#1A202C', // New deep dark blue background
+                        'bg-card-dark': 'rgba(17, 24, 39, 0.7)',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    // Added aspect ratio support for video embeds
+                    aspectRatio: {
+                        'video': '16 / 9',
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        /* --- CORE STYLING FOR DARK/SPACE THEME --- */
+        body {
+            /* Set to the deep dark blue requested by the user */
+            background-color: #1A202C;
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+            height: 100vh;
+            /* Needed for starfield positioning */
+        }
+
+        /* --- DYNAMIC STARFIELD CSS (3D Parallax) --- */
+        .starfield-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            perspective: 1000px;
+            /* Essential for 3D depth illusion */
+            z-index: -20;
+            /* Ensure it's behind all content */
+        }
+
+        .stars {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            border-radius: 50%;
+            background: transparent;
+        }
+
+        /* Keyframes for subtle movement to simulate speed/parallax */
+        @keyframes move-stars-1 {
+            from {
+                transform: translateZ(-1000px);
+            }
+
+            to {
+                transform: translateZ(500px);
+            }
+        }
+
+        @keyframes move-stars-2 {
+            from {
+                transform: translateZ(-800px);
+            }
+
+            to {
+                transform: translateZ(600px);
+            }
+        }
+
+        @keyframes move-stars-3 {
+            from {
+                transform: translateZ(-600px);
+            }
+
+            to {
+                transform: translateZ(700px);
+            }
+        }
+
+        /* STAR SIZE INCREASED HERE */
+        #stars-1 {
+            animation: move-stars-1 100s linear infinite alternate;
+            width: 1.5px;
+            height: 1.5px;
+        }
+
+        #stars-2 {
+            animation: move-stars-2 120s linear infinite alternate;
+            width: 2.5px;
+            height: 2.5px;
+        }
+
+        #stars-3 {
+            animation: move-stars-3 140s linear infinite alternate;
+            width: 3.5px;
+            height: 3.5px;
+        }
+
+        /* Disable the old, less visible CSS star generator */
+        body::before {
+            content: none !important;
+        }
+
+        /* Ensure the animated background is removed from the hero section */
+        .animated-hero-bg {
+            background: transparent !important;
+        }
+
+        /* Glassmorphism Card Style - Adjusted for Dark Blue Background */
+        .glass-card {
+            background-color: rgba(30, 41, 59, 0.4);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 15px 50px 0 rgba(0, 0, 0, 0.4);
+        }
+
+        /* Text Glow Style */
+        .text-glow {
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.5), 0 0 15px rgba(79, 70, 229, 0.3);
+        }
+
+        .section-header {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Navbar Scrolled State - Adjusted for Dark Blue Background */
+        .navbar-scrolled {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -2px rgba(0, 0, 0, 0.5);
+            background-color: rgba(26, 32, 44, 0.85);
+            backdrop-filter: blur(10px);
+        }
+
+        /* Gradient for the main CTA button */
+        .cta-gradient {
+            background-image: linear-gradient(to right top, #4F46E5, #6366F1, #4F46E5);
+            transition: all 0.3s ease;
+        }
+
+        .cta-gradient:hover {
+            background-image: linear-gradient(to right top, #6366F1, #4F46E5, #6366F1);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(79, 70, 229, 0.4);
+        }
+
+        /* --- PLANET STYLING --- */
+        #planet-saturn {
+            position: absolute;
+            top: 10%;
+            right: 10%;
+            width: 250px;
+            /* Size for desktop */
+            height: 150px;
+            filter: drop-shadow(0 0 15px rgba(255, 200, 100, 0.4));
+            /* Glow effect */
+            opacity: 0.65;
+            z-index: -10;
+            /* Above stars, below content */
+            transform: scale(0.8);
+            transition: all 1s;
+        }
+
+        #planet-moon {
+            position: absolute;
+            bottom: 5%;
+            left: 5%;
+            width: 120px;
+            height: 120px;
+            filter: drop-shadow(0 0 10px rgba(200, 200, 255, 0.3));
+            /* Subtle glow */
+            opacity: 0.75;
+            z-index: -10;
+            transform: scale(1);
+            transition: all 1s;
+        }
+
+        /* Responsive adjustments for planets (smaller and more transparent on mobile) */
+        @media (max-width: 768px) {
+            #planet-saturn {
+                top: 5%;
+                right: -10%;
+                width: 150px;
+                height: 100px;
+                transform: scale(0.6);
+                opacity: 0.4;
+            }
+
+            #planet-moon {
+                bottom: 5%;
+                left: -5%;
+                width: 80px;
+                height: 80px;
+                transform: scale(0.7);
+                opacity: 0.5;
+            }
+        }
+    </style>
+</head>
+
+<body class="text-gray-100">
+
+    <!-- STARFIELD CONTAINER (NEW) - Placed immediately after body tag -->
+    <div class="starfield-container">
+        <!-- Star layers are dynamically generated by JavaScript box-shadows -->
+        <div id="stars-1" class="stars"></div>
+        <div id="stars-2" class="stars"></div>
+        <div id="stars-3" class="stars"></div>
+
+        <!-- PLANET SATURN (Inline SVG for High Resolution/Contrast) -->
+        <div id="planet-saturn">
+            <svg viewBox="0 0 250 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Rings - inner bright white -->
+                <ellipse cx="125" cy="75" rx="120" ry="25" fill="#FFFFFF" opacity="0.8" />
+                <!-- Rings - outer gold -->
+                <ellipse cx="125" cy="75" rx="110" ry="35" fill="#FBBF24" opacity="0.4" style="filter: blur(2px);" />
+                <!-- Rings - main shadow band -->
+                <ellipse cx="125" cy="75" rx="100" ry="20" fill="#3B82F6" opacity="0.3" />
+
+                <!-- Planet Sphere (Light Brown/Orange) -->
+                <circle cx="125" cy="75" r="30" fill="#FCD34D" />
+
+                <!-- Subtle Shadow for Depth -->
+                <circle cx="115" cy="70" r="30" fill="#EAB308" opacity="0.5" mask="url(#shadowMask)" />
+
+                <defs>
+                    <!-- Mask to make the shadow only visible on the sphere -->
+                    <mask id="shadowMask">
+                        <circle cx="125" cy="75" r="30" fill="white" />
+                        <circle cx="140" cy="80" r="30" fill="black" />
+                    </mask>
+                </defs>
+            </svg>
+        </div>
+
+        <!-- PLANET MOON (Inline SVG for High Resolution/Contrast) -->
+        <div id="planet-moon">
+            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Moon body (Light Gray/White) -->
+                <circle cx="50" cy="50" r="45" fill="#E5E7EB" />
+
+                <!-- Shadow for depth -->
+                <circle cx="55" cy="45" r="45" fill="#6B7280" opacity="0.3" mask="url(#moonMask)" />
+
+                <!-- Craters (High Contrast Dark Gray) -->
+                <circle cx="30" cy="40" r="10" fill="#4B5563" opacity="0.6" />
+                <circle cx="65" cy="70" r="7" fill="#4B5563" opacity="0.5" />
+                <circle cx="45" cy="80" r="5" fill="#4B5563" opacity="0.7" />
+                <circle cx="70" cy="25" r="4" fill="#4B5563" opacity="0.8" />
+
+                <defs>
+                    <mask id="moonMask">
+                        <circle cx="50" cy="50" r="45" fill="white" />
+                        <circle cx="60" cy="55" r="45" fill="black" />
+                    </mask>
+                </defs>
+            </svg>
+        </div>
+    </div>
+    <!-- END STARFIELD CONTAINER -->
+
+    <nav id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-300 py-4 bg-transparent">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+
+            <a href="#" class="flex items-center space-x-2 text-2xl font-black text-accent-blue tracking-tighter">
+               <img class="text-white" src="elements/W_B_i.svg" alt="">
+                <span class="text-white">                   </span>
+            </a>
+
+            <div class="hidden md:flex space-x-8 text-sm font-medium">
+                <a href="about.html" class="text-gray-300 hover:text-accent-blue transition duration-200">Our
+                    Mission</a>
+                <a href="jobpage.html" class="text-gray-300 hover:text-accent-blue transition duration-200">Find
+                    Jobs</a>
+                <a href="postjob.html" class="text-gray-300 hover:text-accent-blue transition duration-200">Post
+                    Jobs</a>
+                <a href="#about" class="text-gray-300 hover:text-accent-blue transition duration-200">How It Works</a>
+            </div>
+
+            <div class="flex items-center space-x-4">
+                <button
+                    class="hidden lg:inline-block text-sm font-semibold text-gray-300 hover:text-accent-blue transition duration-200"><a
+                        href="signin.html">Sign in</a></button>
+                <a href="signin.html"
+                    class="px-5 py-2 text-sm font-bold text-white rounded-full cta-gradient shadow-lg shadow-indigo-500/50">
+                    Get Started
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <section id="moto" class="pt-32 pb-24 md:pt-48 md:pb-36 animated-hero-bg overflow-hidden relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+
+            <h1 id="hero-title"
+                class="text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tight leading-tight text-white transition duration-500 ease-out transform translate-y-0 opacity-100">
+                Bridging Talent. <br class="hidden md:block">
+                <!-- OPPORTUNITY TEXT PRESERVED: DO NOT CHANGE -->
+                <span
+                    class="text-transparent bg-clip-text bg-gradient-to-r from-accent-blue to-secondary-gold text-glow">Opportunity.</span>
+                For Everyone.
+            </h1>
+
+            <p id="hero-subtitle"
+                class="mt-6 max-w-3xl mx-auto text-xl text-gray-400 transition duration-700 ease-out transform translate-y-0 opacity-100 delay-150">
+                UdyogSathi is the dedicated platform connecting **skilled** and **unskilled** workers with meaningful
+                employment, regardless of educational background.
+            </p>
+
+            <div class="mt-10 flex justify-center space-x-6 transition duration-1000 ease-out opacity-100 delay-300">
+                <a href="jobpage.html"
+                    class="px-8 py-3 text-lg font-bold text-white rounded-full cta-gradient shadow-xl shadow-indigo-400/50">
+                    Find Your Job
+                </a>
+                <a href="postjob.html"
+                    class="px-8 py-3 text-lg font-semibold text-white bg-white/20 border-2 border-white/20 rounded-full hover:bg-white/30 transition duration-300">
+                    Post a Requirement
+                </a>
+            </div>
+
+            <div class="mt-20 relative transform-gpu perspective-1000">
+                <!-- START OF THE TARGETED TILE/BOX -->
+                <div id="hero-mockup"
+                    class="w-full max-w-5xl h-auto md:h-96 mx-auto bg-white/10 glass-card rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/20 transition-all duration-300"
+                    style="transform: rotateX(10deg) scale(0.9);">
+
+                    <div class="p-8 h-full flex flex-col justify-between">
+                        <div class="text-left">
+                            <h3 class="text-3xl font-bold text-white">The Power of Choice.</h3>
+                            <p class="text-gray-400 mt-2">Connecting communities with careers.</p>
+
+                            <!-- ************************************ -->
+                            <!-- START OF VIDEO CONTAINER (16:9 Aspect Ratio) -->
+                            <!-- ************************************ -->
+                            <div
+                                class="relative w-full aspect-video mt-4 mb-4 rounded-xl overflow-hidden shadow-2xl bg-gray-900">
+                                <iframe src="elements/intro-player.html" width="100%" height="100%" frameborder="0"
+                                    allow="autoplay" class="absolute top-0 left-0 w-full h-full"
+                                    title="UdyogSathi Introduction Video">
+                                </iframe>
+
+                            </div>
+                            <!-- ************************************ -->
+                            <!-- END OF VIDEO CONTAINER -->
+                            <!-- ************************************ -->
+                        </div>
+
+                        <!-- These elements are now positioned correctly below the video container -->
+                        <div class="grid grid-cols-2 gap-4 mt-auto pt-4 border-t border-white/10">
+                            <div class="bg-accent-blue/20 p-4 rounded-xl text-left glass-card">
+                                <p class="text-lg font-bold text-accent-blue">Skilled Focus</p>
+                                <p class="text-sm text-gray-300 mt-1">Data Entry, Tech Support, Office Roles.</p>
+                            </div>
+                            <div class="bg-secondary-gold/20 p-4 rounded-xl text-left glass-card">
+                                <p class="text-lg font-bold text-secondary-gold">Unskilled Focus</p>
+                                <p class="text-sm text-gray-300 mt-1">Manual Labor, Driving, Domestic Help.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END OF THE TARGETED TILE/BOX -->
+            </div>
+
+        </div>
+    </section>
+
+    <section id="jobs" class="py-24 bg-gray-900/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <header class="section-header text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-extrabold text-white">Your Path to Employment</h2>
+                <p class="mt-4 text-xl text-gray-400">Select the route that matches your expertise and goals.</p>
+            </header>
+
+            <div class="grid md:grid-cols-2 gap-12">
+
+                <div
+                    class="section-header p-8 lg:p-12 glass-card rounded-3xl shadow-xl transition-all duration-500 hover:shadow-2xl hover:scale-[1.01] hover:border-b-4 hover:border-accent-blue">
+                    <h3 class="text-3xl font-bold text-accent-blue flex items-center text-glow">
+                        <span class="mr-3 text-4xl">💻</span> Skilled Professionals
+                    </h3>
+                    <p class="mt-4 text-gray-300 leading-relaxed">
+                        Access detailed job descriptions, apply with your resume, and connect with HR departments for
+                        professional, office, and technical roles. Our platform streamlines the modern application
+                        process.
+                    </p>
+                    <ul class="mt-6 space-y-3 text-sm text-gray-300">
+                        <li class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg"
+                                class="h-5 w-5 mr-2 text-green-400" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg> Digital application tracking</li>
+                        <li class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg"
+                                class="h-5 w-5 mr-2 text-green-400" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg> Resume/CV uploads</li>
+                        <li class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg"
+                                class="h-5 w-5 mr-2 text-green-400" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg> Advanced search filters</li>
+                    </ul>
+                    <button
+                        class="mt-8 px-6 py-3 text-sm font-semibold text-white rounded-full cta-gradient shadow-md shadow-indigo-300/50">
+                        Explore Professional Roles
+                    </button>
+                </div>
+
+                <div
+                    class="section-header p-8 lg:p-12 glass-card rounded-3xl shadow-xl transition-all duration-500 hover:shadow-2xl hover:scale-[1.01] hover:border-b-4 hover:border-secondary-gold">
+                    <h3 class="text-3xl font-bold text-secondary-gold flex items-center text-glow">
+                        <span class="mr-3 text-4xl">🛠️</span> Unskilled & Manual
+                    </h3>
+                    <p class="mt-4 text-gray-300 leading-relaxed">
+                        Simple, direct communication via voice messages or local agents. Find labor, driver, and
+                        domestic roles instantly with clear, easy-to-understand requirements. No complex forms needed.
+                    </p>
+                    <ul class="mt-6 space-y-3 text-sm text-gray-300">
+                        <li class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg"
+                                class="h-5 w-5 mr-2 text-green-400" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg> Voice-based job application (Future)</li>
+                        <li class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg"
+                                class="h-5 w-5 mr-2 text-green-400" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg> Simple 'I'm Interested' button</li>
+                        <li class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg"
+                                class="h-5 w-5 mr-2 text-green-400" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg> Location-based matching</li>
+                    </ul>
+                    <button
+                        class="mt-8 px-6 py-3 text-sm font-semibold text-white bg-secondary-gold/50 rounded-full border-2 border-secondary-gold/50 hover:bg-secondary-gold/60 transition duration-300">
+                        View Immediate Openings
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="post" class="py-24 bg-gray-900/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <header class="section-header mb-16">
+                <h2 class="text-4xl md:text-5xl font-extrabold text-white">Create Opportunities. Find Your Sathi.</h2>
+                <p class="mt-4 text-xl text-gray-400">Post a vacancy easily, and let us connect you to the perfect
+                    worker.</p>
+            </header>
+
+            <div
+                class="max-w-4xl mx-auto p-10 bg-gray-800 rounded-3xl shadow-2xl section-header border border-gray-700">
+                <p class="text-lg text-gray-300 mb-8">
+                    Whether you need a full-time software engineer or daily domestic help, our streamlined process
+                    ensures you reach the right talent pool quickly and efficiently.
+                </p>
+                <div class="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-6">
+                    <a href="jobpage.html"
+                        class="px-8 py-4 text-lg font-bold text-white rounded-xl cta-gradient shadow-xl shadow-indigo-400/50">
+                        Post Skilled Job
+                    </a>
+                    <a href="manualjob.html"
+                        class="px-8 py-4 text-lg font-bold text-white bg-secondary-gold/40 rounded-xl hover:bg-secondary-gold/50 transition duration-300">
+                        Post Manual Job
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-primary-dark pt-16 pb-8 text-gray-300" id="about">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 border-b border-gray-700 pb-12">
+
+                <div>
+                    <a href="#"
+                        class="flex items-center space-x-2 text-2xl font-black text-secondary-gold tracking-tighter mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-accent-blue" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                            <circle cx="8.5" cy="7" r="4" />
+                            <path d="M17 11l4 4-4 4" />
+                            <path d="M7 11l-4 4 4 4" />
+                        </svg>
+                        <span class="text-white">UdyogSathi</span>
+                    </a>
+                    <p class="text-sm text-gray-400 mt-2">Connecting talent to opportunity, every single day. The future
+                        of work is inclusive.</p>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold text-white mb-4">Job Seekers</h3>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="#" class="hover:text-accent-blue transition duration-200">Skilled Careers</a></li>
+                        <li><a href="manuallabourmain.html"
+                                class="hover:text-accent-blue transition duration-200">Manual Labor</a></li>
+                        <li><a href="applicationstatus.html"
+                                class="hover:text-accent-blue transition duration-200">Application Status</a></li>
+                        <li><a href="trainingresources.html"
+                                class="hover:text-accent-blue transition duration-200">Training Resources</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold text-white mb-4">Employers</h3>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="postjob.html" class="hover:text-accent-blue transition duration-200">Post a
+                                Requirement</a></li>
+                        <li><a href="pricing.html" class="hover:text-accent-blue transition duration-200">Pricing &
+                                Plans</a></li>
+                        <li><a href="edashbord.html" class="hover:text-accent-blue transition duration-200">Employer
+                                Dashboard</a></li>
+                        <li><a href="compliance.html" class="hover:text-accent-blue transition duration-200">Compliance
+                                Center</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold text-white mb-4">Company</h3>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="about.html" class="hover:text-accent-blue transition duration-200">About
+                                UdyogSathi</a></li>
+                        <li><a href="career.html" class="hover:text-accent-blue transition duration-200">Careers</a>
+                        </li>
+                        <li><a href="terms.html" class="hover:text-accent-blue transition duration-200">Terms of
+                                Service</a></li>
+                        <li><a href="privacy.html" class="hover:text-accent-blue transition duration-200">Privacy
+                                Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
+                <p>&copy; 2025 UdyogSathi. All rights reserved.</p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-white transition duration-200">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M22 4.02C21.33 4.49 20.61 4.79 19.85 4.93C20.66 4.45 21.28 3.66 21.55 2.74C20.78 3.19 19.95 3.51 19.08 3.7C18.34 2.92 17.29 2.45 16.1 2.45C13.71 2.45 11.75 4.41 11.75 6.8C11.75 7.15 11.78 7.48 11.85 7.82C8.36 7.64 5.35 6.01 3.32 3.52C2.96 4.14 2.75 4.88 2.75 5.68C2.75 7.17 3.51 8.44 4.67 9.17C3.99 9.15 3.35 8.97 2.79 8.66V8.69C2.79 10.74 4.25 12.43 6.17 12.82C5.81 12.91 5.43 12.95 5.05 12.95C4.77 12.95 4.48 12.92 4.21 12.87C4.74 14.49 6.2 15.65 7.91 15.68C6.54 16.75 4.79 17.38 2.85 17.38C2.51 17.38 2.18 17.36 1.86 17.32C3.65 18.52 5.86 19.15 8.21 19.15C16.07 19.15 20.35 12.5 20.35 6.95C20.35 6.77 20.35 6.6 20.34 6.42C21.17 5.83 21.84 5.09 22 4.02Z" />
+                        </svg>
+                    </a>
+                    <a href="#" class="hover:text-white transition duration-200">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M12 2.01C6.48 2.01 2 6.49 2 12C2 17.02 5.67 21.12 10.42 21.9V14.9H7.9V12.01H10.42V9.87C10.42 7.31 11.96 5.92 14.28 5.92C15.35 5.92 16.47 6.11 16.47 6.11V8.58H15.22C14 8.58 13.62 9.35 13.62 10.15V12.01H16.32L15.93 14.9H13.62V21.9C18.37 21.12 22 17.02 22 12C22 6.49 17.52 2.01 12 2.01Z" />
+                        </svg>
+                    </a>
+                    <a href="#" class="hover:text-white transition duration-200">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M21 4H3C2.45 4 2 4.45 2 5V19C2 19.55 2.45 20 3 20H21C21.55 20 22 19.55 22 19V5C22 4.45 21.55 4 21 4ZM8 17H5V10H8V17ZM6.5 8.75C5.67 8.75 5 8.08 5 7.25C5 6.42 5.67 5.75 6.5 5.75C7.33 5.75 8 6.42 8 7.25C8 8.08 7.33 8.75 6.5 8.75ZM19 17H16V13C16 12.06 15.53 11.5 14.83 11.5C14.13 11.5 13.5 12.06 13.5 13V17H10.5V10H13.5V11.5C13.91 10.87 14.61 10.5 15.42 10.5C16.96 10.5 18 11.56 18 13.5V17H19V17Z" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <script>
+        
+        // --- JAVASCRIPT FOR DYNAMIC STARFIELD GENERATION ---
+
+        const createStarShadows = (count, maxRange) => {
+            let shadows = [];
+            for (let i = 0; i < count; i++) {
+                // Generate random X and Y coordinates
+                const x = Math.floor(Math.random() * maxRange * 2) - maxRange;
+                const y = Math.floor(Math.random() * maxRange * 2) - maxRange;
+
+                // Add a small randomized brightness
+                const brightness = Math.floor(Math.random() * 255) + 150;
+
+                // Increased blur/spread slightly to make stars appear bigger
+                const blur = Math.random() * 0.7 + 0.3;
+
+                shadows.push(`${x}px ${y}px ${blur}px rgba(${brightness}, ${brightness}, ${brightness}, 0.8)`);
+            }
+            return shadows.join(', ');
+        };
+
+        const initStarfield = () => {
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+
+            // Base count and range for the stars
+            const starCount = 300;
+            const starRange = Math.max(width, height) * 1.5;
+
+            const stars1 = document.getElementById('stars-1');
+            const stars2 = document.getElementById('stars-2');
+            const stars3 = document.getElementById('stars-3');
+
+            // Layer 1: Distant, numerous
+            if (stars1) { stars1.style.boxShadow = createStarShadows(starCount * 2, starRange * 1.5); }
+
+            // Layer 2: Medium distance
+            if (stars2) { stars2.style.boxShadow = createStarShadows(starCount * 1.5, starRange); }
+
+            // Layer 3: Closer, fewer
+            if (stars3) { stars3.style.boxShadow = createStarShadows(starCount, starRange * 0.5); }
+        };
+
+        // --- JavaScript for Apple-like Scroll Effects ---
+
+        const navbar = document.getElementById('navbar');
+        const heroMockup = document.getElementById('hero-mockup');
+        const sections = document.querySelectorAll('.section-header');
+        const heroTitle = document.getElementById('hero-title');
+        const heroSubtitle = document.getElementById('hero-subtitle');
+
+        const handleScroll = () => {
+            const scrollY = window.scrollY;
+            const heroHeight = document.getElementById('moto').offsetHeight;
+
+            // 1. Navbar Effect: Change appearance on scroll
+            if (scrollY > 50) {
+                navbar.classList.add('navbar-scrolled');
+                navbar.querySelector('.text-2xl > span').classList.add('text-white');
+            } else {
+                navbar.classList.remove('navbar-scrolled');
+                navbar.querySelector('.text-2xl > span').classList.add('text-white');
+            }
+
+            // 2. Hero Section Parallax/Tilt Effect
+            if (heroMockup) {
+                const tiltFactor = Math.min(scrollY / 700, 1);
+                const scaleFactor = 0.9 + (0.1 * tiltFactor);
+                const rotateFactor = 10 - (10 * tiltFactor);
+
+                heroMockup.style.transform = `rotateX(${rotateFactor}deg) scale(${scaleFactor})`;
+                heroMockup.style.opacity = `${1 - (tiltFactor * 0.4)}`;
+
+                const textMove = Math.min(scrollY / 10, 50);
+                heroTitle.style.transform = `translateY(${-(textMove * 0.5)}px)`;
+                heroSubtitle.style.transform = `translateY(${-(textMove * 0.5)}px)`;
+            }
+
+            // 3. Section Scroll-In
+            sections.forEach(section => {
+                const sectionTop = section.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+
+                if (sectionTop < windowHeight * 0.8) {
+                    section.classList.add('visible');
+                }
+            });
+        };
+
+        // Initialize and attach listeners
+        window.addEventListener('scroll', handleScroll);
+        window.addEventListener('load', handleScroll);
+        window.addEventListener('load', initStarfield);
+        window.addEventListener('resize', initStarfield);
+
+        // Initial check to apply transition styles for JS manipulation
+        document.addEventListener('DOMContentLoaded', () => {
+            heroTitle.style.transition = 'transform 0.1s linear';
+            heroSubtitle.style.transition = 'transform 0.1s linear';
+
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+
+    </script>
+
+</body>
+
+</html>

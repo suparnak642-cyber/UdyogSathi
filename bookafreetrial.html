@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UdyogSathi | Free Trial</title>
+    
+    <!-- Load Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        // --- Tailwind Configuration (Dark Theme) ---
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'bg-darkest': '#0D1117', // Header/Footer (Deep Dark)
+                        'bg-medium': '#161B22',  // Main Body Background
+                        'bg-light': '#21262D',   // Card Background
+                        'text-light': '#F0F6FC', // Primary Text Color
+                        'accent-blue': '#58A6FF', // Main Accent
+                        'secondary-gold': '#FBBF24', // Yellow Accent for highlights
+                        'status-green': '#3FB950', // Success Indicator
+                        'status-red': '#F85149',   // Error/Unavailable Indicator
+                        'deluxe-blue': '#0A66C2', // Custom blue for Deluxe
+                        'elite-gold': '#FFD700', // Custom gold for Elite
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+
+        // --- Translation Data ---
+        const translations = {
+            en: {
+                pageTitle: "Book Your Free Trial",
+                selectLang: "Select Language",
+                heroHeading: "Start Your Free Trial, Instantly!",
+                heroSubheading: "Unlock your full earning potential with 14 days of premium access. No credit card required.",
+                
+                // Trial Options
+                option7: "7-Day Explorer Trial",
+                option14: "14-Day Pro Access Trial",
+                
+                // Form & Assessment
+                formTitle: "Quick Activation Form",
+                nameLabel: "Your Full Name",
+                namePlaceholder: "Enter your full name",
+                emailLabel: "Work Email",
+                emailPlaceholder: "Enter your work email address",
+                
+                // Needs Assessment
+                needsTitle: "1. What is your primary goal?",
+                needsGoal1: "Find local, entry-level jobs",
+                needsGoal2: "Secure high-paying, specialized contracts",
+                needsGoal3: "Upskill and get certified",
+
+                industryTitle: "2. What is your primary industry?",
+                industry1: "Construction / Manual Labor",
+                industry2: "IT / Tech Services",
+                industry3: "Logistics / Driving",
+                industry4: "Healthcare / Service",
+                
+                buttonStart: "Activate My Free Trial Now",
+
+                // Premium Section
+                premiumTitle: "Go Premium: Unlock Maximum Earning Power",
+                premiumSubtitle: "Move beyond the trial with powerful tools designed for career growth.",
+                deluxeTitle: "Deluxe Plan",
+                eliteTitle: "Elite Plan",
+                deluxePrice: "₹599 / month",
+                elitePrice: "₹999 / month",
+                deluxeFeatures: [
+                    "All Free Trial Benefits",
+                    "Priority Job Alerts (1 Hour Early)",
+                    "Dedicated Resume Review Session",
+                    "5 Profile Boosts per month",
+                    "Access to Exclusive Partner Discounts"
+                ],
+                eliteFeatures: [
+                    "Everything in Deluxe, PLUS:",
+                    "AI-Powered Job Matchmaking (99% Accuracy)",
+                    "Unlimited 1-on-1 Interview Prep Sessions",
+                    "Personal Career Coach Check-ins (Monthly)",
+                    "Guaranteed Response on Applications"
+                ],
+                
+                // Benefit Descriptions
+                benefitExplorer: [
+                    "Access to **Core Job Listings** (Basic Filter)",
+                    "Standard profile creation and visibility",
+                    "Email notifications for new openings",
+                    "Basic support (24-hour response)"
+                ],
+                benefitPro: [
+                    "Unlimited access to **Premium & High-Value Jobs**",
+                    "Advanced **Worker Analytics** and performance tracking",
+                    "Priority application submission and visibility boost",
+                    "Dedicated 24/7 **Priority Support** and Chat"
+                ],
+                
+                // Status Messages
+                statusSuccess: "Trial Activated! Check your email for login details.",
+                statusError: "Activation Failed. Please check inputs or try again later.",
+
+                footerText: "Join thousands of workers who trust UdyogSathi for growth and opportunity.",
+            },
+            hi: {
+                pageTitle: "अपना निःशुल्क परीक्षण बुक करें",
+                selectLang: "भाषा चुने",
+                heroHeading: "अपना निःशुल्क परीक्षण तुरंत शुरू करें!",
+                heroSubheading: "प्रीमियम एक्सेस के साथ 14 दिनों के लिए अपनी पूरी कमाई की क्षमता को अनलॉक करें। किसी क्रेडिट कार्ड की आवश्यकता नहीं है।",
+                
+                // Trial Options
+                option7: "7-दिवसीय एक्सप्लोरर परीक्षण",
+                option14: "14-दिवसीय प्रो एक्सेस परीक्षण",
+                
+                // Form & Assessment
+                formTitle: "त्वरित सक्रियण फॉर्म",
+                nameLabel: "आपका पूरा नाम",
+                namePlaceholder: "अपना पूरा नाम दर्ज करें",
+                emailLabel: "कार्य ईमेल",
+                emailPlaceholder: "अपना कार्य ईमेल पता दर्ज करें",
+                
+                // Needs Assessment
+                needsTitle: "1. आपका प्राथमिक लक्ष्य क्या है?",
+                needsGoal1: "स्थानीय, प्रवेश-स्तर की नौकरियाँ ढूँढना",
+                needsGoal2: "उच्च-भुगतान वाले, विशेष अनुबंध सुरक्षित करना",
+                needsGoal3: "कौशल बढ़ाना और प्रमाणित होना",
+
+                industryTitle: "2. आपका प्राथमिक उद्योग क्या है?",
+                industry1: "निर्माण / शारीरिक श्रम",
+                industry2: "आईटी / तकनीकी सेवाएँ",
+                industry3: "रसद / ड्राइविंग",
+                industry4: "स्वास्थ्य सेवा / सेवा",
+                
+                buttonStart: "मेरा निःशुल्क परीक्षण अभी सक्रिय करें",
+
+                // Premium Section
+                premiumTitle: "प्रीमियम पर जाएँ: अधिकतम कमाई की शक्ति को अनलॉक करें",
+                premiumSubtitle: "करियर ग्रोथ के लिए डिज़ाइन किए गए शक्तिशाली उपकरणों के साथ परीक्षण से आगे बढ़ें।",
+                deluxeTitle: "डीलक्स योजना",
+                eliteTitle: "एलीट योजना",
+                deluxePrice: "₹599 / माह",
+                elitePrice: "₹999 / माह",
+                deluxeFeatures: [
+                    "सभी निःशुल्क परीक्षण लाभ",
+                    "प्राथमिकता नौकरी अलर्ट (1 घंटा पहले)",
+                    "समर्पित रिज्यूम समीक्षा सत्र",
+                    "प्रति माह 5 प्रोफ़ाइल बूस्ट",
+                    "विशेष भागीदार छूट तक पहुँच"
+                ],
+                eliteFeatures: [
+                    "डीलक्स में सब कुछ, साथ ही:",
+                    "एआई-संचालित नौकरी मिलान (99% सटीकता)",
+                    "असीमित 1-पर-1 साक्षात्कार तैयारी सत्र",
+                    "व्यक्तिगत कैरियर कोच चेक-इन (मासिक)",
+                    "अनुप्रयोगों पर गारंटीकृत प्रतिक्रिया"
+                ],
+                
+                // Benefit Descriptions
+                benefitExplorer: [
+                    "**मुख्य नौकरी लिस्टिंग** तक पहुँच (बुनियादी फ़िल्टर)",
+                    "मानक प्रोफ़ाइल निर्माण और दृश्यता",
+                    "नए खुले पदों के लिए ईमेल सूचनाएँ",
+                    "बुनियादी समर्थन (24 घंटे प्रतिक्रिया)"
+                ],
+                benefitPro: [
+                    "**प्रीमियम और उच्च-मूल्य वाली नौकरियों** तक असीमित पहुँच",
+                    "उन्नत **श्रमिक एनालिटिक्स** और प्रदर्शन ट्रैकिंग",
+                    "प्राथमिकता आवेदन जमा करना और दृश्यता बढ़ाना",
+                    "समर्पित 24/7 **प्राथमिकता समर्थन** और चेट"
+                ],
+                
+                // Status Messages
+                statusSuccess: "परीक्षण सक्रिय हो गया! लॉगिन विवरण के लिए अपना ईमेल जांचें।",
+                statusError: "सक्रियण विफल। कृपया इनपुट जांचें या बाद में पुनः प्रयास करें।",
+
+                footerText: "उन हजारों श्रमिकों से जुड़ें जो विकास और अवसर के लिए उद्योग साथी पर भरोसा करते हैं।",
+            },
+            mr: {
+                pageTitle: "तुमची विनामूल्य चाचणी बुक करा",
+                selectLang: "भाषा निवडा",
+                heroHeading: "तुमची विनामूल्य चाचणी त्वरित सुरू करा!",
+                heroSubheading: "प्रीमियम प्रवेशासह 14 दिवसांसाठी तुमची पूर्ण कमाई क्षमता अनलॉक करा. क्रेडिट कार्डची आवश्यकता नाही.",
+                
+                // Trial Options
+                option7: "7-दिवसीय एक्सप्लोरर चाचणी",
+                option14: "14-दिवसीय प्रो ॲक्सेस चाचणी",
+                
+                // Form & Assessment
+                formTitle: "त्वरित सक्रियकरण फॉर्म",
+                nameLabel: "तुमचे पूर्ण नाव",
+                namePlaceholder: "तुमचे पूर्ण नाव प्रविष्ट करा",
+                emailLabel: "कामाचा ईमेल",
+                emailPlaceholder: "तुमचा कामाचा ईमेल पत्ता प्रविष्ट करा",
+                
+                // Needs Assessment
+                needsTitle: "1. तुमचे प्राथमिक ध्येय काय आहे?",
+                needsGoal1: "स्थानिक, प्रवेश-स्तर नोकऱ्या शोधणे",
+                needsGoal2: "उच्च-पगार असलेल्या, विशेष कंत्राट सुरक्षित करणे",
+                needsGoal3: "कौशल्ये वाढवणे आणि प्रमाणित होणे",
+
+                industryTitle: "2. तुमचा प्राथमिक उद्योग कोणता आहे?",
+                industry1: "बांधकाम / शारीरिक श्रम",
+                industry2: "आयटी / टेक सेवा",
+                industry3: "लॉजिस्टिक्स / ड्रायव्हिंग",
+                industry4: "आरोग्य सेवा / सेवा",
+                
+                buttonStart: "माझी विनामूल्य चाचणी आता सक्रिय करा",
+
+                // Premium Section
+                premiumTitle: "प्रीमियमवर जा: जास्तीत जास्त कमाईची शक्ती अनलॉक करा",
+                premiumSubtitle: "करिअरच्या वाढीसाठी डिझाइन केलेल्या शक्तिशाली साधनांसह चाचणीच्या पलीकडे जा.",
+                deluxeTitle: "डीलक्स योजना",
+                eliteTitle: "एलीट योजना",
+                deluxePrice: "₹599 / महिना",
+                elitePrice: "₹999 / महिना",
+                deluxeFeatures: [
+                    "सर्व विनामूल्य चाचणी लाभ",
+                    "प्राधान्य नोकरी सूचना (1 तास आधी)",
+                    "समर्पित रिझ्युमे पुनरावलोकन सत्र",
+                    "दरमहा 5 प्रोफाइल बूस्ट",
+                    "विशेष भागीदार सवलतींमध्ये प्रवेश"
+                ],
+                eliteFeatures: [
+                    "डीलक्समधील सर्वकाही, अधिक:",
+                    "एआय-शक्तीवर चालणारे नोकरी जुळवणे (99% अचूकता)",
+                    "अमर्यादित 1-ऑन-1 मुलाखत तयारी सत्र",
+                    "मासिक वैयक्तिक करिअर कोच चेक-इन",
+                    "अर्जांवर हमी प्रतिसाद"
+                ],
+                
+                // Benefit Descriptions
+                benefitExplorer: [
+                    "**मुख्य नोकरी सूची**मध्ये प्रवेश (मूलभूत फिल्टर)",
+                    "मानक प्रोफाइल तयार करणे आणि दृश्यमानता",
+                    "नवीन संधींसाठी ईमेल सूचना",
+                    "मूलभूत समर्थन (24 तासांत प्रतिसाद)"
+                ],
+                benefitPro: [
+                    "**प्रीमियम आणि उच्च-मूल्याच्या नोकऱ्यां**मध्ये अमर्याद प्रवेश",
+                    "प्रगत **कामगार विश्लेषण** आणि कार्यप्रदर्शन ट्रॅकिंग",
+                    "प्राधान्य अर्ज सादर करणे आणि दृश्यमानता वाढवणे",
+                    "समर्पित 24/7 **प्राधान्य समर्थन** आणि चॅट"
+                ],
+                
+                // Status Messages
+                statusSuccess: "चाचणी सक्रिय झाली! लॉगिन तपशीलांसाठी तुमचा ईमेल तपासा.",
+                statusError: "सक्रियकरण अयशस्वी. कृपया इनपुट तपासा किंवा नंतर पुन्हा प्रयत्न करा.",
+
+                footerText: "विकास आणि संधीसाठी उद्योग साथीवर विश्वास ठेवणाऱ्या हजारो कामगारांमध्ये सामील व्हा.",
+            },
+            bn: {
+                pageTitle: "আপনার বিনামূল্যে ট্রায়াল বুক করুন",
+                selectLang: "ভাষা নির্বাচন করুন",
+                heroHeading: "আপনার বিনামূল্যে ট্রায়ালটি অবিলম্বে শুরু করুন!",
+                heroSubheading: "প্রিমিয়াম অ্যাক্সেসের সাথে 14 দিনের জন্য আপনার সম্পূর্ণ উপার্জনের সম্ভাবনা আনলক করুন। কোনো ক্রেডিট কার্ডের প্রয়োজন নেই।",
+                
+                // Trial Options
+                option7: "7-দিনের এক্সপ্লোরার ট্রায়াল",
+                option14: "14-দিনের প্রো অ্যাক্সেস ট্রায়াল",
+                
+                // Form & Assessment
+                formTitle: "দ্রুত সক্রিয়করণ ফর্ম",
+                nameLabel: "আপনার পুরো নাম",
+                namePlaceholder: "আপনার পুরো নাম লিখুন",
+                emailLabel: "কাজের ইমেল",
+                emailPlaceholder: "আপনার কাজের ইমেল ঠিকানা লিখুন",
+                
+                // Needs Assessment
+                needsTitle: "1. আপনার প্রাথমিক লক্ষ্য কী?",
+                needsGoal1: "স্থানীয়, এন্ট্রি-লেভেল চাকরি খোঁজা",
+                needsGoal2: "উচ্চ-বেতনের, বিশেষ চুক্তি সুরক্ষিত করা",
+                needsGoal3: "দক্ষতা বৃদ্ধি এবং সার্টিফিকেট পাওয়া",
+
+                industryTitle: "2. আপনার প্রাথমিক শিল্প কী?",
+                industry1: "নির্মাণ / কায়িক শ্রম",
+                industry2: "আইটি / প্রযুক্তি পরিষেবা",
+                industry3: "লজিস্টিকস / ড্রাইভিং",
+                industry4: "স্বাস্থ্যসেবা / পরিষেবা",
+                
+                buttonStart: "আমার বিনামূল্যে ট্রায়াল এখন সক্রিয় করুন",
+
+                // Premium Section
+                premiumTitle: "প্রিমিয়ামে যান: সর্বোচ্চ উপার্জনের ক্ষমতা আনলক করুন",
+                premiumSubtitle: "কেরিয়ারের বৃদ্ধির জন্য ডিজাইন করা শক্তিশালী সরঞ্জামগুলির সাথে ট্রায়ালের বাইরে যান।",
+                deluxeTitle: "ডিলাক্স প্ল্যান",
+                eliteTitle: "এলিট প্ল্যান",
+                deluxePrice: "₹599 / মাস",
+                elitePrice: "₹999 / মাস",
+                deluxeFeatures: [
+                    "সমস্ত বিনামূল্যে ট্রায়াল সুবিধা",
+                    "অগ্রাধিকার চাকরির সতর্কতা (1 ঘন্টা আগে)",
+                    "ডেডিকেটেড রিজ্যুমে পর্যালোচনা সেশন",
+                    "প্রতি মাসে 5টি প্রোফাইল বুস্ট",
+                    "এক্সক্লুসিভ অংশীদার ডিসকাউন্টে অ্যাক্সেস"
+                ],
+                eliteFeatures: [
+                    "ডিলাক্সে সব কিছু, এছাড়াও:",
+                    "এআই-চালিত চাকরির ম্যাচমেকিং (99% নির্ভুলতা)",
+                    "সীমাহীন 1-অন-1 ইন্টারভিউ প্রস্তুতির সেশন",
+                    "ব্যক্তিগত ক্যারিয়ার কোচ চেক-ইন (মাসিক)",
+                    "আবেদনগুলিতে নিশ্চিত প্রতিক্রিয়া"
+                ],
+                
+                // Benefit Descriptions
+                benefitExplorer: [
+                    "**মূল চাকরির তালিকা**য় অ্যাক্সেস (বেসিক ফিল্টার)",
+                    "মানক প্রোফাইল তৈরি এবং দৃশ্যমানতা",
+                    "নতুন খোলার জন্য ইমেল বিজ্ঞপ্তি",
+                    "প্রাথমিক সমর্থন (24-ঘন্টা প্রতিক্রিয়া)"
+                ],
+                benefitPro: [
+                    "**প্রিমিয়াম এবং উচ্চ-মূল্যের চাকরি**তে সীমাহীন অ্যাক্সেস",
+                    "উন্নত **শ্রমিক বিশ্লেষণ** এবং কর্মক্ষমতা ট্র্যাকিং",
+                    "অগ্রাধিকার আবেদন জমা দেওয়া এবং দৃশ্যমানতা বৃদ্ধি",
+                    "ডেডিকেটেড 24/7 **অগ্রাধিকার সমর্থন** এবং চ্যাট"
+                ],
+                
+                // Status Messages
+                statusSuccess: "ট্রায়াল সক্রিয় হয়েছে! লগইন বিশদ বিবরণের জন্য আপনার ইমেল পরীক্ষা করুন।",
+                statusError: "সক্রিয়করণ ব্যর্থ হয়েছে। অনুগ্রহ করে ইনপুটগুলি পরীক্ষা করুন বা পরে আবার চেষ্টা করুন।",
+
+                footerText: "বৃদ্ধি এবং সুযোগের জন্য উদ্যোগ সাথীর উপর ভরসা রাখা হাজার হাজার শ্রমিকের সাথে যোগ দিন।",
+            },
+            te: {
+                pageTitle: "మీ ఉచిత ట్రయల్‌ను బుక్ చేయండి",
+                selectLang: "భాషను ఎంచుకోండి",
+                heroHeading: "మీ ఉచిత ట్రయల్‌ను తక్షణమే ప్రారంభించండి!",
+                heroSubheading: "ప్రీమియం యాక్సెస్‌తో 14 రోజులు మీ పూర్తి ఆదాయ సామర్థ్యాన్ని అన్‌లాక్ చేయండి. క్రెడిట్ కార్డ్ అవసరం లేదు.",
+                
+                // Trial Options
+                option7: "7-రోజుల ఎక్స్‌ప్లోరర్ ట్రయల్",
+                option14: "14-రోజుల ప్రో యాక్సెస్ ట్రయల్",
+                
+                // Form & Assessment
+                formTitle: "త్వరిత యాక్టివేషన్ ఫారం",
+                nameLabel: "మీ పూర్తి పేరు",
+                namePlaceholder: "మీ పూర్తి పేరును నమోదు చేయండి",
+                emailLabel: "పని ఇమెయిల్",
+                emailPlaceholder: "మీ పని ఇమెయిల్ చిరునామాను నమోదు చేయండి",
+                
+                // Needs Assessment
+                needsTitle: "1. మీ ప్రాథమిక లక్ష్యం ఏమిటి?",
+                needsGoal1: "స్థానిక, ఎంట్రీ-లెవల్ ఉద్యోగాలను కనుగొనడం",
+                needsGoal2: "అధిక-వేతన, ప్రత్యేక కాంట్రాక్టులను భద్రపరచడం",
+                needsGoal3: "నైపుణ్యాలను పెంచుకోవడం మరియు ధృవీకరించబడటం",
+
+                industryTitle: "2. మీ ప్రాథమిక పరిశ్రమ ఏమిటి?",
+                industry1: "నిర్మాణం / శారీరక శ్రమ",
+                industry2: "ఐటి / టెక్ సేవలు",
+                industry3: "లాజిస్టిక్స్ / డ్రైవింగ్",
+                industry4: "ఆరోగ్య సంరక్షణ / సేవ",
+                
+                buttonStart: "నా ఉచిత ట్రయల్‌ను ఇప్పుడే సక్రియం చేయండి",
+
+                // Premium Section
+                premiumTitle: "ప్రీమియంకు వెళ్లండి: గరిష్ట ఆదాయ శక్తిని అన్‌లాక్ చేయండి",
+                premiumSubtitle: "కెరీర్ వృద్ధి కోసం రూపొందించిన శక్తివంతమైన సాధనాలతో ట్రయల్ దాటి వెళ్ళండి.",
+                deluxeTitle: "డీలక్స్ ప్లాన్",
+                eliteTitle: "ఎలైట్ ప్లాన్",
+                deluxePrice: "₹599 / నెల",
+                elitePrice: "₹999 / నెల",
+                deluxeFeatures: [
+                    "అన్ని ఉచిత ట్రయల్ ప్రయోజనాలు",
+                    "ప్రాధాన్యతా ఉద్యోగ హెచ్చరికలు (1 గంట ముందు)",
+                    "అంకితమైన రెజ్యూమ్ సమీక్ష సెషన్",
+                    "నెలకు 5 ప్రొఫైల్ బూస్ట్‌లు",
+                    "ప్రత్యేక భాగస్వామి డిస్కౌంట్లకు యాక్సెస్"
+                ],
+                eliteFeatures: [
+                    "డీలక్స్‌లో అన్నీ, ప్లస్:",
+                    "AI-ఆధారిత ఉద్యోగ మ్యాచ్ మేకింగ్ (99% ఖచ్చితత్వం)",
+                    "అపరిమిత 1-ఆన్-1 ఇంటర్వ్యూ ప్రిపరేషన్ సెషన్‌లు",
+                    "వ్యక్తిగత కెరీర్ కోచ్ చెక్-ఇన్‌లు (నెలవారీ)",
+                    "దరఖాస్తులపై హామీ ప్రతిస్పందన"
+                ],
+                
+                // Benefit Descriptions
+                benefitExplorer: [
+                    "**కోర్ ఉద్యోగ జాబితా**కు యాక్సెస్ (ప్రాథమిక వడపోత)",
+                    "ప్రామాణిక ప్రొఫైల్ సృష్టి మరియు దృశ్యమానత",
+                    "కొత్త ఓపెనింగ్స్ కోసం ఇమెయిల్ నోటిఫికేషన్‌లు",
+                    "ప్రాథమిక మద్దతు (24-గంటల ప్రతిస్పందన)"
+                ],
+                benefitPro: [
+                    "**ప్రీమియం & అధిక-విలువ గల ఉద్యోగాలకు** అపరిమిత యాక్సెస్",
+                    "అధునాతన **కార్మికుల విశ్లేషణ** మరియు పనితీరు ట్రాకింగ్",
+                    "ప్రాధాన్యతా దరఖాస్తు సమర్పణ మరియు దృశ్యమానత పెంపు",
+                    "అంకితమైన 24/7 **ప్రాధాన్యతా మద్దతు** మరియు చాట్"
+                ],
+                
+                // Status Messages
+                statusSuccess: "ట్రయల్ సక్రియం చేయబడింది! లాగిన్ వివరాల కోసం మీ ఇమెయిల్‌ను తనిఖీ చేయండి.",
+                statusError: "యాక్టివేషన్ విఫలమైంది. దయచేసి ఇన్‌పుట్‌లను తనిఖీ చేయండి లేదా తర్వాత మళ్లీ ప్రయత్నించండి.",
+
+                footerText: "వృద్ధి మరియు అవకాశాల కోసం ఉద్యోగ్ సథిని విశ్వసించే వేలాది మంది కార్మికులతో చేరండి।",
+            },
+            ta: {
+                pageTitle: "உங்கள் இலவச சோதனையை பதிவு செய்யவும்",
+                selectLang: "மொழியைத் தேர்ந்தெடுக்கவும்",
+                heroHeading: "உங்கள் இலவச சோதனையை உடனடியாகத் தொடங்குங்கள்!",
+                heroSubheading: "பிரீமியம் அணுகலுடன் 14 நாட்களுக்கு உங்கள் முழு சம்பாதிக்கும் திறனையும் திறக்கவும். கிரெடிட் கார்டு தேவையில்லை.",
+                
+                // Trial Options
+                option7: "7-நாள் எக்ஸ்ப்ளோரர் சோதனை",
+                option14: "14-நாள் ப்ரோ அணுகல் சோதனை",
+                
+                // Form & Assessment
+                formTitle: "விரைவு செயல்படுத்தல் படிவம்",
+                nameLabel: "உங்கள் முழுப் பெயர்",
+                namePlaceholder: "உங்கள் முழுப் பெயரை உள்ளிடவும்",
+                emailLabel: "வேலை மின்னஞ்சல்",
+                emailPlaceholder: "உங்கள் வேலை மின்னஞ்சல் முகவரியை உள்ளிடவும்",
+                
+                // Needs Assessment
+                needsTitle: "1. உங்கள் முதன்மை இலக்கு என்ன?",
+                needsGoal1: "உள்ளூர், ஆரம்ப நிலை வேலைகளைக் கண்டறிதல்",
+                needsGoal2: "அதிக சம்பளம் உள்ள, சிறப்பு ஒப்பந்தங்களைப் பாதுகாத்தல்",
+                needsGoal3: "திறன்களை மேம்படுத்துதல் மற்றும் சான்றிதழ் பெறுதல்",
+
+                industryTitle: "2. உங்கள் முதன்மைத் தொழில் என்ன?",
+                industry1: "கட்டுமானம் / உடல் உழைப்பு",
+                industry2: "ஐ.டி / தொழில்நுட்ப சேவைகள்",
+                industry3: "தளவாடங்கள் / ஓட்டுநர்",
+                industry4: "சுகாதாரப் பாதுகாப்பு / சேவை",
+                
+                buttonStart: "எனது இலவச சோதனையை இப்போது செயல்படுத்தவும்",
+
+                // Premium Section
+                premiumTitle: "பிரீமியத்திற்குச் செல்லுங்கள்: அதிகபட்ச வருவாய் சக்தியைத் திறக்கவும்",
+                premiumSubtitle: "தொழில் வளர்ச்சிக்காக வடிவமைக்கப்பட்ட சக்திவாய்ந்த கருவிகள் மூலம் சோதனைக்கு அப்பால் செல்லுங்கள்.",
+                deluxeTitle: "டீலக்ஸ் திட்டம்",
+                eliteTitle: "எலைட் திட்டம்",
+                deluxePrice: "₹599 / மாதம்",
+                elitePrice: "₹999 / மாதம்",
+                deluxeFeatures: [
+                    "அனைத்து இலவச சோதனை நன்மைகள்",
+                    "முன்னுரிமை வேலை விழிப்பூட்டல்கள் (1 மணி நேரம் முன்)",
+                    "அர்ப்பணிக்கப்பட்ட சுயவிவர ஆய்வு அமர்வு",
+                    "மாதம் 5 சுயவிவர ஊக்கங்கள்",
+                    "பிரத்தியேக பங்குதாரர் தள்ளுபடிகளுக்கான அணுகல்"
+                ],
+                eliteFeatures: [
+                    "டீலக்ஸில் உள்ள அனைத்தும், மேலும்:",
+                    "AI-உதவி வேலைப் பொருத்தம் (99% துல்லியம்)",
+                    "வரம்பற்ற 1-க்கு-1 நேர்காணல் தயாரிப்பு அமர்வுகள்",
+                    "தனிப்பட்ட தொழில் பயிற்சியாளர் சரிபார்ப்புகள் (மாதாந்திரம்)",
+                    "விண்ணப்பங்களுக்கு உத்தரவாதமான பதில்"
+                ],
+                
+                // Benefit Descriptions
+                benefitExplorer: [
+                    "**முக்கிய வேலைப் பட்டியல்களுக்கு** அணுகல் (அடிப்படை வடிகட்டி)",
+                    "நிலையான சுயவிவர உருவாக்கம் மற்றும் தெரிவுநிலை",
+                    "புதிய திறப்புகளுக்கான மின்னஞ்சல் அறிவிப்புகள்",
+                    "அடிப்படை ஆதரவு (24 மணிநேர பதில்)"
+                ],
+                benefitPro: [
+                    "**பிரீமியம் மற்றும் உயர் மதிப்பு வேலைகளுக்கு** வரம்பற்ற அணுகல்",
+                    "மேம்பட்ட **தொழிலாளர் பகுப்பாய்வு** மற்றும் செயல்திறன் கண்காணிப்பு",
+                    "முன்னுரிமை விண்ணப்ப சமர்ப்பிப்பு மற்றும் தெரிவுநிலை ஊக்கம்",
+                    "அர்ப்பணிக்கப்பட்ட 24/7 **முன்னுரிமை ஆதரவு** மற்றும் அரட்டை"
+                ],
+                
+                // Status Messages
+                statusSuccess: "சோதனை செயல்படுத்தப்பட்டது! உள்நுழைவு விவரங்களுக்கு உங்கள் மின்னஞ்சலைச் சரிபார்க்கவும்.",
+                statusError: "செயல்படுத்தல் தோல்வியடைந்தது. உள்ளீடுகளைச் சரிபார்க்கவும் அல்லது பின்னர் மீண்டும் முயற்சிக்கவும்.",
+
+                footerText: "வளர்ச்சி மற்றும் வாய்ப்புக்காக உத்யோக் சாதியை நம்பும் ஆயிரக்கணக்கான தொழிலாளர்களுடன் இணையுங்கள்।",
+            }
+        };
+
+        let currentLang = 'en';
+
+        // --- Utility for custom notifications (replacing alert()) ---
+        const showMessage = (message, type = 'info') => {
+            const messageBox = document.getElementById('messageBox');
+            const messageText = document.getElementById('messageText');
+            
+            messageText.innerHTML = message; // Use innerHTML for bold formatting
+            
+            let bgColor = 'bg-accent-blue';
+            let icon = 'i'; 
+
+            if (type === 'success') {
+                bgColor = 'bg-status-green';
+                icon = '✔';
+            } else if (type === 'error') {
+                bgColor = 'bg-status-red';
+                icon = '✖';
+            } else if (type === 'warning') {
+                bgColor = 'bg-secondary-gold';
+                icon = '⚠';
+            }
+
+            messageBox.className = `fixed bottom-4 right-4 p-4 rounded-lg shadow-2xl z-50 transform translate-y-full opacity-0 transition-all duration-300 ${bgColor}`;
+            document.getElementById('messageIcon').textContent = icon;
+            messageBox.style.transform = 'translateY(0)';
+            messageBox.style.opacity = '1';
+
+            setTimeout(() => {
+                messageBox.style.transform = 'translateY(100%)';
+                messageBox.style.opacity = '0';
+            }, 5000);
+        };
+        
+        /**
+         * Updates the list of benefits based on the selected trial option.
+         * @param {string} trialType - '7-day' or '14-day'
+         */
+        const updateBenefits = (trialType) => {
+            const benefitList = document.getElementById('benefitList');
+            const t = translations[currentLang];
+            
+            const benefits = trialType === '14-day' ? t.benefitPro : t.benefitExplorer;
+            
+            benefitList.innerHTML = benefits.map(item => 
+                `<li class="flex items-start space-x-3 text-gray-300">
+                    <span class="text-status-green mt-1 text-lg">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                    </span>
+                    <span class="text-sm" style="margin-top:2px;">${item}</span>
+                </li>`
+            ).join('');
+        };
+
+
+        /**
+         * Handles form submission and simulates trial activation.
+         */
+        const startTrial = (event) => {
+            event.preventDefault();
+            
+            const form = document.getElementById('trialForm');
+            const formData = new FormData(form);
+            const data = {};
+            formData.forEach((value, key) => data[key] = value);
+
+            const submitButton = document.getElementById('submitButton');
+            const originalText = submitButton.textContent;
+
+            // Simple validation
+            if (!data.name || !data.email || !data.trialType || !data.primaryGoal || !data.industry) {
+                showMessage("Please complete all fields to activate your trial.", 'warning');
+                return;
+            }
+
+            // Show loading state
+            submitButton.textContent = 'Activating...';
+            submitButton.disabled = true;
+
+            // --- Simulation of Trial Activation ---
+            setTimeout(() => {
+                // Log the personalized data (This is where you would send data to a backend)
+                console.log("Free Trial Activation Data:", data);
+
+                const t = translations[currentLang];
+                
+                // Show success message
+                showMessage(t.statusSuccess, 'success');
+
+                // Reset form and UI
+                form.reset();
+                submitButton.textContent = originalText;
+                submitButton.disabled = false;
+                
+                // Reset benefits to default (14-day Pro)
+                document.getElementById('trialType14').checked = true;
+                updateBenefits('14-day');
+
+            }, 1500); // 1.5 second delay for realistic feel
+        };
+
+        // --- Language Switch Logic ---
+        const changeLanguage = (lang) => {
+            currentLang = lang;
+            const t = translations[lang];
+
+            // Update Header & Hero
+            document.title = t.pageTitle + " | UdyogSathi";
+            document.getElementById('pageTitle').textContent = t.pageTitle;
+            document.getElementById('langSelectLabel').textContent = t.selectLang;
+            document.getElementById('heroHeading').textContent = t.heroHeading;
+            document.getElementById('heroSubheading').textContent = t.heroSubheading;
+            
+            // Update Trial Options
+            document.getElementById('label7Day').textContent = t.option7;
+            document.getElementById('label14Day').textContent = t.option14;
+            
+            // Update Form & Assessment
+            document.getElementById('formTitle').textContent = t.formTitle;
+            document.getElementById('nameLabel').textContent = t.nameLabel;
+            document.getElementById('nameInput').placeholder = t.namePlaceholder;
+            document.getElementById('emailLabel').textContent = t.emailLabel;
+            document.getElementById('emailInput').placeholder = t.emailPlaceholder;
+
+            document.getElementById('needsTitle').textContent = t.needsTitle;
+            document.getElementById('needsGoal1Label').textContent = t.needsGoal1;
+            document.getElementById('needsGoal2Label').textContent = t.needsGoal2;
+            document.getElementById('needsGoal3Label').textContent = t.needsGoal3;
+
+            document.getElementById('industryTitle').textContent = t.industryTitle;
+            document.getElementById('industry1Label').textContent = t.industry1;
+            document.getElementById('industry2Label').textContent = t.industry2;
+            document.getElementById('industry3Label').textContent = t.industry3;
+            document.getElementById('industry4Label').textContent = t.industry4;
+
+            document.getElementById('submitButton').textContent = t.buttonStart;
+            document.getElementById('footerText').textContent = t.footerText;
+
+            // --- Update NEW Premium Section Text Text ---
+            document.getElementById('premiumTitle').textContent = t.premiumTitle;
+            document.getElementById('premiumSubtitle').textContent = t.premiumSubtitle;
+            
+            // Deluxe
+            document.getElementById('deluxeTitle').textContent = t.deluxeTitle;
+            document.getElementById('deluxePrice').textContent = t.deluxePrice;
+            document.getElementById('deluxeFeatures').innerHTML = t.deluxeFeatures.map(item => `<li class="flex items-start space-x-2"><span class="text-status-green pt-1">✔</span><span class="text-gray-300 text-sm">${item}</span></li>`).join('');
+
+            // Elite
+            document.getElementById('eliteTitle').textContent = t.eliteTitle;
+            document.getElementById('elitePrice').textContent = t.elitePrice;
+            document.getElementById('eliteFeatures').innerHTML = t.eliteFeatures.map(item => `<li class="flex items-start space-x-2"><span class="text-secondary-gold pt-1">✔</span><span class="text-gray-300 text-sm">${item}</span></li>`).join('');
+            
+            // Update Dynamic Benefits based on currently selected radio button
+            const selectedTrial = document.querySelector('input[name="trialType"]:checked').value;
+            updateBenefits(selectedTrial);
+        };
+        
+        // --- Initialization ---
+        document.addEventListener('DOMContentLoaded', () => {
+            // Set up event listeners for language and trial type
+            document.getElementById('langSelect').addEventListener('change', (e) => changeLanguage(e.target.value));
+            document.getElementById('trialType7').addEventListener('change', () => updateBenefits('7-day'));
+            document.getElementById('trialType14').addEventListener('change', () => updateBenefits('14-day'));
+            
+            // Initial load: Set language and benefits (default to 14-day)
+            changeLanguage(currentLang);
+            updateBenefits('14-day');
+        });
+
+    </script>
+
+    <style>
+        /* Custom styles for a modern, clean dark look */
+        body {
+            color: #F0F6FC; /* text-light */
+            font-family: 'Inter', sans-serif;
+            background-color: #0D1117; /* Base dark background for space */
+        }
+        .header-bg {
+            background-color: rgba(13, 17, 23, 0.9); /* Slightly transparent for effect */
+            backdrop-filter: blur(5px);
+        }
+        .form-card {
+            background-color: #21262D; /* bg-light */
+            border: 1px solid #30363D;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+        .input-field, .radio-card {
+            background-color: #161B22; /* Slightly darker than card for contrast */
+            border: 1px solid #30363D;
+            color: #F0F6FC;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            transition: border-color 0.2s;
+        }
+        .input-field:focus {
+            outline: none;
+            border-color: #58A6FF;
+            box-shadow: 0 0 0 1px #58A6FF;
+        }
+        .radio-card:hover {
+            border-color: #58A6FF;
+            cursor: pointer;
+        }
+        input[type="radio"]:checked + label {
+            border-color: #FBBF24; /* secondary-gold highlight for selected option */
+            background-color: rgba(251, 191, 36, 0.1);
+        }
+        .submit-button {
+            transition: all 0.3s;
+        }
+
+        /* --- Custom Styles for Shiny Premium Tiles --- */
+        .premium-card {
+            background-color: #0D1117; /* Deepest dark for contrast */
+            border: 1px solid #30363D;
+            transition: all 0.3s ease-in-out;
+            transform: scale(1);
+        }
+        .deluxe-shine {
+            border: 2px solid #0A66C2; /* deluxe-blue */
+            box-shadow: 0 0 30px rgba(10, 102, 194, 0.6), 0 0 5px rgba(10, 102, 194, 0.3) inset;
+        }
+        .deluxe-shine:hover {
+            transform: scale(1.03);
+            border-color: #58A6FF;
+        }
+        .elite-shine {
+            border: 2px solid #FFD700; /* elite-gold */
+            background: linear-gradient(135deg, #0D1117 80%, rgba(255, 215, 0, 0.05));
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.7), 0 0 10px rgba(255, 215, 0, 0.5) inset;
+        }
+        .elite-shine:hover {
+            transform: scale(1.03);
+            border-color: #FBBF24;
+        }
+
+        /* --- SHIMMER EFFECT CSS --- */
+        @keyframes shimmer {
+            0% { transform: translateX(-150%) skewX(-20deg); }
+            100% { transform: translateX(250%) skewX(-20deg); }
+        }
+        .premium-tile {
+            position: relative;
+            overflow: hidden; 
+        }
+        .premium-tile::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50%; 
+            height: 100%;
+            transform: skewX(-20deg) translateX(-150%);
+            z-index: 10;
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0) 100%);
+            animation: shimmer 2.5s infinite linear;
+            pointer-events: none;
+        }
+
+        /* --- SPARKLING STARS BACKGROUND CSS --- */
+        /* Inspired by: https://codepen.io/sarazdesign/pen/qBPapN */
+        
+        .stars, .stars2, .stars3 {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            animation: animateStars 50s linear infinite; /* Adjust speed as needed */
+            z-index: -1; /* Keep stars behind content */
+        }
+        
+        .stars2 {
+            animation: animateStars 70s linear infinite; /* Different speed for parallax */
+        }
+        .stars3 {
+            animation: animateStars 90s linear infinite; /* Even slower for more depth */
+        }
+
+        @keyframes animateStars {
+            from { background-position: 0 0; }
+            to { background-position: -10000px -10000px; } /* Move background to simulate movement */
+        }
+
+        /* JavaScript will generate the box-shadows dynamically to create stars */
+    </style>
+</head>
+<body class="min-h-screen flex flex-col relative">
+    <!-- Starfield Layers (Dynamically generated by JS) --><div id="stars" class="stars"></div>
+    <div id="stars2" class="stars2"></div>
+    <div id="stars3" class="stars3"></div>
+
+    <!-- Message Box (Toast Notification) --><div id="messageBox" class="fixed bottom-4 right-4 p-4 rounded-lg shadow-2xl z-50 transform translate-y-full opacity-0 transition-all duration-300 text-text-light flex items-center space-x-3" style="min-width: 250px;">
+        <span id="messageIcon" class="text-xl font-bold">i</span>
+        <span id="messageText" class="font-medium"></span>
+        <button onclick="document.getElementById('messageBox').style.opacity = '0';" class="ml-auto text-sm opacity-70 hover:opacity-100">
+            &times;
+        </button>
+    </div>
+
+    <!-- Header & Language Selector --><header class="header-bg shadow-xl sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
+            
+            <!-- Logo/Title --><a href="#" class="flex items-center space-x-2 text-xl font-extrabold text-secondary-gold tracking-tight">
+                <span id="pageTitle">Book Your Free Trial</span>
+            </a>
+
+            <!-- Language Dropdown --><div class="flex items-center space-x-2 text-text-light">
+                <label id="langSelectLabel" for="langSelect" class="text-sm font-medium text-gray-300 hidden sm:block">Select Language</label>
+                <select id="langSelect" class="block py-2 px-3 border border-gray-600 bg-bg-light rounded-lg shadow-sm focus:outline-none focus:ring-accent-blue focus:border-accent-blue sm:text-sm">
+                    <option value="en">English</option>
+                    <option value="hi">हिन्दी (Hindi)</option>
+                    <option value="mr">मराठी (Marathi)</option>
+                    <option value="bn">বাংলা (Bengali)</option>
+                    <option value="te">తెలుగు (Telugu)</option>
+                    <option value="ta">தமிழ் (Tamil)</option>
+                </select>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area --><main class="flex-grow py-12 md:py-16 bg-transparent relative z-10"> <!-- bg-transparent is important --><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Hero Section --><div class="text-center mb-12">
+                <h1 id="heroHeading" class="text-4xl sm:text-5xl font-extrabold text-accent-blue mb-3">
+                    Start Your Free Trial, Instantly!
+                </h1>
+                <p id="heroSubheading" class="text-xl text-gray-400 max-w-3xl mx-auto">
+                    Unlock your full earning potential with 14 days of premium access. No credit card required.
+                </p>
+            </div>
+
+            <!-- FREE TRIAL SECTION --><div class="grid grid-cols-1 lg:grid-cols-2 gap-10 mb-20">
+
+                <!-- Column 1: Trial Options and Dynamic Benefits --><div class="form-card p-6 md:p-10 rounded-2xl order-2 lg:order-1">
+                    <h2 class="text-2xl font-bold text-secondary-gold mb-6 border-b border-gray-700 pb-3">
+                        Select Your Trial Scope
+                    </h2>
+
+                    <form id="trialOptionsForm">
+                        <div class="space-y-4">
+                            <!-- Option 1: 14-Day Pro Access (Default) --><input type="radio" id="trialType14" name="trialType" value="14-day" class="hidden" checked>
+                            <label for="trialType14" id="label14Day" class="radio-card block p-5 border-2 border-accent-blue bg-bg-darkest rounded-xl transition duration-300">
+                                <span class="block text-xl font-bold text-accent-blue">14-Day Pro Access Trial</span>
+                                <span class="block text-sm text-gray-400 mt-1">Full platform features and Priority Support.</span>
+                            </label>
+                            
+                            <!-- Option 2: 7-Day Explorer --><input type="radio" id="trialType7" name="trialType" value="7-day" class="hidden">
+                            <label for="trialType7" id="label7Day" class="radio-card block p-5 border-2 border-gray-600 bg-bg-medium rounded-xl transition duration-300">
+                                <span class="block text-xl font-bold text-text-light">7-Day Explorer Trial</span>
+                                <span class="block text-sm text-gray-400 mt-1">Core job access and profile building tools.</span>
+                            </label>
+                        </div>
+                    </form>
+
+                    <!-- Dynamic Benefits Display --><div class="mt-8 pt-6 border-t border-gray-700">
+                        <h3 class="text-xl font-semibold text-text-light mb-4">What You Get:</h3>
+                        <ul id="benefitList" class="space-y-3">
+                            <!-- Benefits are dynamically injected here by JS --></ul>
+                    </div>
+                </div>
+
+                <!-- Column 2: Registration and Needs Assessment --><div class="form-card p-6 md:p-10 rounded-2xl order-1 lg:order-2">
+                    <h2 id="formTitle" class="text-2xl font-bold text-text-light mb-6 border-b border-gray-700 pb-3">
+                        Quick Activation Form
+                    </h2>
+
+                    <form id="trialForm" onsubmit="startTrial(event)" class="space-y-6">
+                        
+                        <!-- Hidden Trial Type Input (copied from selected radio) --><input type="hidden" name="trialType" value="14-day">
+
+                        <!-- Personal Details --><div>
+                            <label id="nameLabel" for="nameInput" class="block text-sm font-medium text-gray-300 mb-2">Your Full Name</label>
+                            <input type="text" id="nameInput" name="name" required class="input-field w-full" placeholder="Enter your full name">
+                        </div>
+                        <div>
+                            <label id="emailLabel" for="emailInput" class="block text-sm font-medium text-gray-300 mb-2">Work Email</label>
+                            <input type="email" id="emailInput" name="email" required class="input-field w-full" placeholder="Enter your work email address">
+                        </div>
+
+                        <!-- Needs Assessment 1: Goal --><div class="pt-4 border-t border-gray-800">
+                            <h3 id="needsTitle" class="text-lg font-medium text-secondary-gold mb-3">1. What is your primary goal?</h3>
+                            <div class="space-y-2">
+                                <label class="flex items-center space-x-3 text-sm text-gray-300">
+                                    <input type="radio" name="primaryGoal" value="Local_Jobs" required class="text-accent-blue focus:ring-accent-blue bg-gray-600 border-gray-500">
+                                    <span id="needsGoal1Label">Find local, entry-level jobs</span>
+                                </label>
+                                <label class="flex items-center space-x-3 text-sm text-gray-300">
+                                    <input type="radio" name="primaryGoal" value="High_Value_Contracts" class="text-accent-blue focus:ring-accent-blue bg-gray-600 border-gray-500">
+                                    <span id="needsGoal2Label">Secure high-paying, specialized contracts</span>
+                                </label>
+                                <label class="flex items-center space-x-3 text-sm text-gray-300">
+                                    <input type="radio" name="primaryGoal" value="Upskilling" class="text-accent-blue focus:ring-accent-blue bg-gray-600 border-gray-500">
+                                    <span id="needsGoal3Label">Upskill and get certified</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Needs Assessment 2: Industry --><div class="pt-4 border-t border-gray-800">
+                            <h3 id="industryTitle" class="text-lg font-medium text-secondary-gold mb-3">2. What is your primary industry?</h3>
+                            <select name="industry" required class="input-field w-full">
+                                <option value="" disabled selected>-- Select Industry --</option>
+                                <option id="industry1Label" value="Construction">Construction / Manual Labor</option>
+                                <option id="industry2Label" value="IT_Tech">IT / Tech Services</option>
+                                <option id="industry3Label" value="Logistics">Logistics / Driving</option>
+                                <option id="industry4Label" value="Healthcare">Healthcare / Service</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Submit Button --><button id="submitButton" type="submit" class="submit-button w-full py-4 rounded-xl font-bold text-bg-darkest bg-status-green hover:bg-[#52d665] transition duration-300 text-lg shadow-xl">
+                            Activate My Free Trial Now
+                        </button>
+
+                        <p class="text-xs text-gray-500 text-center mt-4">
+                            By clicking 'Activate', you agree to our Terms of Service. No auto-renewal.
+                        </p>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- --- PREMIUM SECTION --- --><div class="pt-12 md:pt-16">
+                <div class="text-center mb-10">
+                    <h2 id="premiumTitle" class="text-3xl sm:text-4xl font-extrabold text-text-light mb-2">
+                        Go Premium: Unlock Maximum Earning Power
+                    </h2>
+                    <p id="premiumSubtitle" class="text-lg text-gray-400">
+                        Move beyond the trial with powerful tools designed for career growth.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+                    
+                    <!-- Deluxe Plan Tile (no change needed) --><div class="premium-card deluxe-shine p-8 rounded-2xl flex flex-col items-center hover:scale-105 transition duration-300 premium-tile">
+                        <div class="text-center">
+                            <p class="text-6xl font-extrabold text-deluxe-blue mb-1">
+                                <span class="text-white align-top inline-block mr-2">⭐</span>
+                                <span id="deluxeTitle">Deluxe Plan</span>
+                            </p>
+                            <p id="deluxePrice" class="text-3xl font-bold text-deluxe-blue mb-6">₹599 / month</p>
+                        </div>
+                        
+                        <ul id="deluxeFeatures" class="space-y-3 text-left w-full max-w-sm mb-8">
+                            <!-- Features populated by JS --></ul>
+
+                        <button class="w-full py-3 rounded-xl font-bold text-bg-darkest bg-deluxe-blue hover:bg-[#2083D8] transition duration-300 mt-auto">
+                            Get Deluxe
+                        </button>
+                    </div>
+
+                    <!-- Elite Plan Tile - FIXED Structure --><div class="relative"> <!-- Outer wrapper to allow corner tag overflow --><!-- Best Value Tag - Now visible outside the overflow:hidden area --><div class="absolute top-0 right-0 -mt-3 -mr-3 px-4 py-1 bg-secondary-gold text-bg-darkest font-extrabold text-xs uppercase rounded-lg shadow-xl transform rotate-3 z-30">
+                            Best Value
+                        </div>
+                        
+                        <!-- Inner Card with Shimmer Effect and H-FULL to match height --><div class="premium-card elite-shine p-8 rounded-2xl flex flex-col items-center transform scale-100 transition duration-300 premium-tile h-full">
+                            <div class="text-center">
+                                <p class="text-6xl font-extrabold text-elite-gold mb-1">
+                                    <span class="text-white align-top inline-block mr-2">👑</span>
+                                    <span id="eliteTitle">Elite Plan</span>
+                                </p>
+                                <p id="elitePrice" class="text-3xl font-bold text-elite-gold mb-6">₹999 / month</p>
+                            </div>
+                            
+                            <ul id="eliteFeatures" class="space-y-3 text-left w-full max-w-sm mb-8">
+                                <!-- Features populated by JS --></ul>
+
+                            <!-- mt-auto pushes the button to the bottom --><button class="w-full py-3 rounded-xl font-bold text-bg-darkest bg-elite-gold hover:bg-[#FFC400] transition duration-300 mt-auto">
+                                Go Elite Today
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Elite Plan Tile - FIXED END --></div>
+            </div>
+            <!-- --- END PREMIUM SECTION --- --></div>
+    </main>
+
+    <!-- Footer --><footer class="header-bg pt-8 pb-4 text-gray-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p id="footerText" class="text-sm text-gray-500">
+                Join thousands of workers who trust UdyogSathi for growth and opportunity.
+            </p>
+            <p class="text-xs text-gray-600 mt-4">&copy; 2025 UdyogSathi. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <script>
+        // --- Starfield Generation Logic ---
+        function generateStars(count, size, duration, elementId) {
+            let stars = '';
+            for (let i = 0; i < count; i++) {
+                const x = Math.floor(Math.random() * 2000); /* Wider range for star distribution */
+                const y = Math.floor(Math.random() * 2000);
+                // Randomize opacity for twinkling effect
+                const opacity = (Math.random() * 0.7) + 0.3; 
+                // Randomize animation delay for twinkling effect
+                const animationDelay = Math.random() * 5 + 's'; 
+                stars += `${x}px ${y}px rgba(255, 255, 255, ${opacity})`;
+                if (i < count - 1) {
+                    stars += ',';
+                }
+            }
+            const starElement = document.getElementById(elementId);
+            starElement.style.boxShadow = stars;
+            starElement.style.width = size + 'px';
+            starElement.style.height = size + 'px';
+        }
+
+        // Generate different layers of stars for a parallax effect
+        // (Count, Size, Animation_Speed, Element_ID)
+        generateStars(700, 1, '50s', 'stars');
+        generateStars(200, 2, '70s', 'stars2');
+        generateStars(100, 3, '90s', 'stars3');
+
+        // Initial update for trial benefits and language
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('langSelect').addEventListener('change', (e) => changeLanguage(e.target.value));
+            document.getElementById('trialType7').addEventListener('change', () => updateBenefits('7-day'));
+            document.getElementById('trialType14').addEventListener('change', () => updateBenefits('14-day'));
+            
+            changeLanguage(currentLang);
+            updateBenefits('14-day');
+        });
+    </script>
+
+</body>
+</html>

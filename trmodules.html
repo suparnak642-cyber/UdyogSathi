@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UdyogSathi | All Training Modules</title>
+    
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        // --- Tailwind Configuration (Dark Theme) ---
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'bg-darkest': '#0D1117', // Header/Footer (Deep Dark)
+                        'bg-medium': '#161B22',  // Main Body Background
+                        'bg-light': '#21262D',   // Card Background
+                        'text-light': '#F0F6FC', // Primary Text Color
+                        'accent-blue': '#58A6FF', // Main Accent
+                        'secondary-gold': '#FBBF24', // Yellow Accent for highlights
+                        'status-green': '#3FB950', // Success Indicator
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+
+        // --- Translation Data: Comprehensive Content Translation ---
+        const translations = {
+            en: {
+                pageTitle: "All Available Training Modules",
+                selectLang: "Select Language",
+                heroHeading: "Discover Your Next Skill",
+                heroSubheading: "Browse our complete library of professional modules and job-specific guides. Click 'Start Module' to begin your free training.",
+                section1Title: "1. Core Professional Modules (Career Growth)",
+                module1Title: "Safety & First Aid Certification",
+                module1Desc: "Essential workplace safety protocols, hazard recognition, and basic emergency first aid.",
+                module2Title: "Client Communication Excellence",
+                module2Desc: "Master respectful client interaction, conflict resolution, and securing repeat business.",
+                module3Title: "Financial Literacy & Savings",
+                module3Desc: "Simple lessons on managing daily earnings, budgeting, and accessing government financial schemes.",
+                section2Title: "2. Job-Specific Skill Guides (Technical)",
+                guide1Title: "Plumbing Basics & Troubleshooting",
+                guide1Desc: "Step-by-step guides on fixing minor leaks, unclogging drains, and maintaining water fixtures.",
+                guide2Title: "Home Electrical Safety 101",
+                guide2Desc: "Safe handling of minor electrical appliances and recognizing when to call a professional.",
+                guide3Title: "Efficient Cleaning & Sanitation",
+                guide3Desc: "Best practices for professional cleaning, including disinfectant use and time management.",
+                buttonStart: "Start Module",
+                footerText: "UdyogSathi is dedicated to continuous upskilling and career empowerment for all workers.",
+            },
+            hi: {
+                pageTitle: "सभी उपलब्ध प्रशिक्षण मॉड्यूल",
+                selectLang: "भाषा चुने",
+                heroHeading: "अपना अगला कौशल खोजें",
+                heroSubheading: "पेशेवर मॉड्यूल और नौकरी-विशिष्ट गाइड की हमारी पूरी लाइब्रेरी ब्राउज़ करें। अपना मुफ्त प्रशिक्षण शुरू करने के लिए 'मॉड्यूल शुरू करें' पर क्लिक करें।",
+                section1Title: "1. मुख्य व्यावसायिक मॉड्यूल (करियर ग्रोथ)",
+                module1Title: "सुरक्षा और प्राथमिक चिकित्सा प्रमाणन",
+                module1Desc: "आवश्यक कार्यस्थल सुरक्षा प्रोटोकॉल, खतरों की पहचान और बुनियादी आपातकालीन प्राथमिक चिकित्सा।",
+                module2Title: "ग्राहक संचार उत्कृष्टता",
+                module2Desc: "सम्मानजनक ग्राहक बातचीत, विवाद समाधान और दोहराए जाने वाले व्यवसाय को सुरक्षित करने में महारत हासिल करें।",
+                module3Title: "वित्तीय साक्षरता और बचत",
+                module3Desc: "दैनिक कमाई के प्रबंधन, बजट बनाने और सरकारी वित्तीय योजनाओं तक पहुंचने पर सरल सबक।",
+                section2Title: "2. नौकरी-विशिष्ट कौशल मार्गदर्शिकाएँ (तकनीकी)",
+                guide1Title: "प्लंबिंग की मूल बातें और समस्या निवारण",
+                guide1Desc: "छोटे लीक को ठीक करने, नालियों को साफ करने और जल जुड़नार को बनाए रखने पर चरण-दर-चरण मार्गदर्शिकाएँ।",
+                guide2Title: "होम इलेक्ट्रिकल सुरक्षा 101",
+                guide2Desc: "छोटे बिजली के उपकरणों को सुरक्षित रूप से संभालना और पेशेवर को कब बुलाना है, यह पहचानना।",
+                guide3Title: "कुशल सफाई और स्वच्छता",
+                guide3Desc: "पेशेवर सफाई के लिए सर्वोत्तम अभ्यास, जिसमें कीटाणुनाशक का उपयोग और समय प्रबंधन शामिल है।",
+                buttonStart: "मॉड्यूल शुरू करें",
+                footerText: "उद्योगसाथी सभी श्रमिकों के लिए निरंतर कौशल विकास और करियर सशक्तिकरण के लिए समर्पित है।",
+            },
+            mr: {
+                pageTitle: "सर्व उपलब्ध प्रशिक्षण मॉड्यूल",
+                selectLang: "भाषा निवडा",
+                heroHeading: "तुमचे पुढील कौशल्य शोधा",
+                heroSubheading: "व्यावसायिक मॉड्यूल आणि नोकरी-विशिष्ट मार्गदर्शिकांची आमची संपूर्ण लायब्ररी ब्राउझ करा. तुमचे विनामूल्य प्रशिक्षण सुरू करण्यासाठी 'मॉड्यूल सुरू करा' वर क्लिक करा.",
+                section1Title: "1. मुख्य व्यावसायिक मॉड्यूल (करिअर वाढ)",
+                module1Title: "सुरक्षितता आणि प्रथमोपचार प्रमाणपत्र",
+                module1Desc: "आवश्यक कामाच्या ठिकाणी सुरक्षितता प्रोटोकॉल, धोका ओळखणे आणि मूलभूत आपत्कालीन प्रथमोपचार.",
+                module2Title: "ग्राहक संवाद उत्कृष्टता",
+                module2Desc: "आदरणीय क्लायंट संवाद, संघर्ष निराकरण आणि पुन्हा व्यवसाय सुरक्षित करण्यात प्रभुत्व मिळवा.",
+                module3Title: "आर्थिक साक्षरता आणि बचत",
+                module3Desc: "दैनंदिन कमाईचे व्यवस्थापन, बजेट बनवणे आणि सरकारी आर्थिक योजनांमध्ये प्रवेश करणे यावर साधे धडे.",
+                section2Title: "2. नोकरी-विशिष्ट कौशल्य मार्गदर्शिका (तांत्रिक)",
+                guide1Title: "प्लंबिंगची मूलतत्त्वे आणि समस्यानिवारण",
+                guide1Desc: "लहान गळती दुरुस्त करणे, ड्रेन साफ ​​करणे आणि पाणी फिक्स्चरची देखभाल करण्यावर चरण-दर-चरण मार्गदर्शिका.",
+                guide2Title: "होम इलेक्ट्रिकल सुरक्षितता 101",
+                guide2Desc: "लहान विद्युत उपकरणे सुरक्षितपणे हाताळणे आणि व्यावसायिक व्यक्तीला कधी कॉल करायचा हे ओळखणे.",
+                guide3Title: "कार्यक्षम स्वच्छता आणि स्वच्छता",
+                guide3Desc: "व्यावसायिक स्वच्छतेसाठी सर्वोत्तम पद्धती, ज्यात जंतुनाशक वापर आणि वेळेचे व्यवस्थापन समाविष्ट आहे.",
+                buttonStart: "मॉड्यूल सुरू करा",
+                footerText: "उद्योगसाथी सर्व कामगारांसाठी सतत कौशल्य विकास आणि करिअर सक्षमीकरणासाठी समर्पित आहे.",
+            },
+            bn: {
+                pageTitle: "সমস্ত উপলব্ধ প্রশিক্ষণ মডিউল",
+                selectLang: "ভাষা নির্বাচন করুন",
+                heroHeading: "আপনার পরবর্তী দক্ষতা আবিষ্কার করুন",
+                heroSubheading: "পেশাদার মডিউল এবং চাকরি-নির্দিষ্ট গাইডগুলির আমাদের সম্পূর্ণ লাইব্রেরি ব্রাউজ করুন। আপনার বিনামূল্যে প্রশিক্ষণ শুরু করতে 'মডিউল শুরু করুন' এ ক্লিক করুন।",
+                section1Title: "1. মূল পেশাদার মডিউল (কেরিয়ার বৃদ্ধি)",
+                module1Title: "নিরাপত্তা এবং প্রাথমিক চিকিৎসা সার্টিফিকেশন",
+                module1Desc: "অপরিহার্য কর্মক্ষেত্রের নিরাপত্তা প্রোটোকল, বিপদ শনাক্তকরণ এবং মৌলিক জরুরী প্রাথমিক চিকিৎসা।",
+                module2Title: "ক্লায়েন্ট যোগাযোগের শ্রেষ্ঠত্ব",
+                module2Desc: "সম্মানজনক ক্লায়েন্ট ইন্টারঅ্যাকশন, বিরোধ নিষ্পত্তি এবং পুনরাবৃত্তিমূলক ব্যবসা সুরক্ষিত করার দক্ষতা অর্জন করুন।",
+                module3Title: "আর্থিক সাক্ষরতা এবং সঞ্চয়",
+                module3Desc: "দৈনিক উপার্জন পরিচালনা, বাজেট তৈরি করা এবং সরকারী আর্থিক স্কিমগুলিতে অ্যাক্সেস করার বিষয়ে সহজ পাঠ।",
+                section2Title: "2. চাকরি-নির্দিষ্ট দক্ষতা নির্দেশিকা (প্রযুক্তিগত)",
+                guide1Title: "প্লাম্বিং বেসিকস এবং সমস্যা সমাধান",
+                guide1Desc: "ছোটখাটো লিক মেরামত, ড্রেন পরিষ্কার করা এবং জলের ফিক্সচার রক্ষণাবেক্ষণের বিষয়ে ধাপে ধাপে নির্দেশিকা।",
+                guide2Title: "হোম ইলেকট্রিক্যাল নিরাপত্তা 101",
+                guide2Desc: "ছোট বৈদ্যুতিক সরঞ্জাম নিরাপদে পরিচালনা এবং কখন একজন পেশাদারকে ডাকতে হবে তা সনাক্ত করা।",
+                guide3Title: "দক্ষ পরিষ্করণ এবং স্যানিটেশন",
+                guide3Desc: "পেশাদার পরিষ্কারের জন্য সেরা অনুশীলন, যার মধ্যে জীবাণুনাশক ব্যবহার এবং সময় ব্যবস্থাপনা অন্তর্ভুক্ত।",
+                buttonStart: "মডিউল শুরু করুন",
+                footerText: "উদ্যোগসাথী সমস্ত কর্মীদের জন্য ক্রমাগত দক্ষতা বৃদ্ধি এবং কর্মজীবনের ক্ষমতায়নের জন্য নিবেদিত।",
+            },
+            te: {
+                pageTitle: "అందుబాటులో ఉన్న అన్ని శిక్షణ మాడ్యూల్స్",
+                selectLang: "భాషను ఎంచుకోండి",
+                heroHeading: "మీ తదుపరి నైపుణ్యాన్ని కనుగొనండి",
+                heroSubheading: "వృత్తిపరమైన మాడ్యూల్స్ మరియు ఉద్యోగానికి సంబంధించిన గైడ్‌ల మా పూర్తి లైబ్రరీని బ్రౌజ్ చేయండి. మీ ఉచిత శిక్షణను ప్రారంభించడానికి 'మాడ్యూల్‌ను ప్రారంభించండి' క్లిక్ చేయండి.",
+                section1Title: "1. ప్రధాన వృత్తిపరమైన మాడ్యూల్స్ (కెరీర్ వృద్ధి)",
+                module1Title: "భద్రత మరియు ప్రథమ చికిత్స ధృవీకరణ",
+                module1Desc: "అవసరమైన కార్యాలయ భద్రతా ప్రోటోకాల్‌లు, ప్రమాద గుర్తింపు మరియు ప్రాథమిక అత్యవసర ప్రథమ చికిత్స.",
+                module2Title: "క్లయింట్ కమ్యూనికేషన్ ఎక్సలెన్స్",
+                module2Desc: "గౌరవప్రదమైన క్లయింట్ ఇంటరాక్షన్, వివాద పరిష్కారం మరియు పునరావృత వ్యాపారాన్ని సురక్షితం చేయడంలో నైపుణ్యం సాధించండి.",
+                module3Title: "ఆర్థిక అక్షరాస్యత మరియు పొదుపు",
+                module3Desc: "రోజువారీ ఆదాయాన్ని నిర్వహించడం, బడ్జెట్ చేయడం మరియు ప్రభుత్వ ఆర్థిక పథకాలను యాక్సెస్ చేయడంపై సాధారణ పాఠాలు.",
+                section2Title: "2. ఉద్యోగానికి సంబంధించిన నైపుణ్య మార్గదర్శకాలు (సాంకేతిక)",
+                guide1Title: "ప్లంబింగ్ బేసిక్స్ మరియు ట్రబుల్షూటింగ్",
+                guide1Desc: "చిన్న లీక్‌లను పరిష్కరించడం, డ్రైన్‌లను శుభ్రం చేయడం మరియు నీటి ఫర్నిచర్ నిర్వహణపై దశల వారీ మార్గదర్శకాలు.",
+                guide2Title: "హోమ్ ఎలక్ట్రికల్ భద్రత 101",
+                guide2Desc: "చిన్న విద్యుత్ ఉపకరణాలను సురక్షితంగా నిర్వహించడం మరియు ప్రొఫెషనల్‌ను ఎప్పుడు పిలవాలి అనే దానిపై గుర్తింపు.",
+                guide3Title: "సమర్థవంతమైన శుభ్రపరచడం మరియు పారిశుధ్యం",
+                guide3Desc: "వృత్తిపరమైన శుభ్రపరచడం కోసం ఉత్తమ పద్ధతులు, ఇందులో క్రిమిసంహారక వాడకం మరియు సమయ నిర్వహణ ఉంటుంది.",
+                buttonStart: "మాడ్యూల్‌ను ప్రారంభించండి",
+                footerText: "ఉద్యోగ్సాథి అందరు కార్మికుల కోసం నిరంతర నైపుణ్య అభివృద్ధి మరియు కెరీర్ సాధికారతకు అంకితం చేయబడింది.",
+            },
+            ta: {
+                pageTitle: "அனைத்து பயிற்சி தொகுதிகளும் உள்ளன",
+                selectLang: "மொழியைத் தேர்ந்தெடுக்கவும்",
+                heroHeading: "உங்கள் அடுத்த திறனைக் கண்டறியவும்",
+                heroSubheading: "தொழில்முறை தொகுதிகள் மற்றும் வேலை சார்ந்த வழிகாட்டிகளின் எங்கள் முழு நூலகத்தையும் உலாவுக. உங்கள் இலவச பயிற்சியைத் தொடங்க 'தொகுதியைத் தொடங்கு' என்பதைக் கிளிக் செய்யவும்.",
+                section1Title: "1. முக்கிய தொழில்முறை தொகுதிகள் (தொழில் வளர்ச்சி)",
+                module1Title: "பாதுகாப்பு மற்றும் முதலுதவி சான்றிதழ்",
+                module1Desc: "அத்தியாவசிய பணியிட பாதுகாப்பு நெறிமுறைகள், ஆபத்து அங்கீகாரம் மற்றும் அடிப்படை அவசர முதலுதவி.",
+                module2Title: "வாடிக்கையாளர் தொடர்பு சிறப்பு",
+                module2Desc: "மரியாதைக்குரிய வாடிக்கையாளர் தொடர்பு, மோதல் தீர்வு மற்றும் மீண்டும் மீண்டும் வணிகத்தைப் பாதுகாப்பதில் தேர்ச்சி பெறுங்கள்.",
+                module3Title: "நிதி கல்வியறிவு மற்றும் சேமிப்பு",
+                module3Desc: "தினசரி வருவாயை நிர்வகித்தல், வரவு செலவுத் திட்டம் மற்றும் அரசு நிதி திட்டங்களை அணுகுவது பற்றிய எளிய பாடங்கள்.",
+                section2Title: "2. வேலை சார்ந்த திறன் வழிகாட்டிகள் (தொழில்நுட்பம்)",
+                guide1Title: "பிளம்பிங் அடிப்படைகள் மற்றும் சிக்கல் தீர்க்கும்",
+                guide1Desc: "சிறு கசிவுகளை சரிசெய்தல், வடிகால்களை அடைப்பு நீக்குதல் மற்றும் நீர் சாதனங்களை பராமரித்தல் பற்றிய படிப்படியான வழிகாட்டிகள்.",
+                guide2Title: "வீட்டு மின்சார பாதுகாப்பு 101",
+                guide2Desc: "சிறு மின் சாதனங்களை பாதுகாப்பாக கையாளுதல் மற்றும் ஒரு தொழில்முறை நிபுணரை எப்போது அழைக்க வேண்டும் என்பதை அங்கீகரிப்பது.",
+                guide3Title: "திறமையான சுத்தம் மற்றும் சுகாதாரம்",
+                guide3Desc: "தொழில்முறை சுத்தம் செய்வதற்கான சிறந்த நடைமுறைகள், இதில் கிருமிநாசினி பயன்பாடு மற்றும் நேர மேலாண்மை ஆகியவை அடங்கும்.",
+                buttonStart: "தொகுதியைத் தொடங்கு",
+                footerText: "உத்யோக்சாத்தி அனைத்து தொழிலாளர்களுக்கும் தொடர்ச்சியான திறன் மேம்பாடு மற்றும் தொழில் அதிகாரமளிப்பிற்கு அர்ப்பணிக்கப்பட்டுள்ளது.",
+            }
+        };
+
+        let currentLang = 'en';
+
+        /**
+         * Updates all text content on the page based on the selected language.
+         */
+        const changeLanguage = (lang) => {
+            currentLang = lang;
+            const t = translations[lang];
+
+            // Update all text elements by ID
+            document.title = t.pageTitle + " | UdyogSathi";
+            document.getElementById('pageTitle').textContent = t.pageTitle;
+            document.getElementById('langSelectLabel').textContent = t.selectLang;
+            
+            document.getElementById('heroHeading').textContent = t.heroHeading;
+            document.getElementById('heroSubheading').textContent = t.heroSubheading;
+            
+            document.getElementById('section1Title').textContent = t.section1Title;
+            document.getElementById('module1Title').textContent = t.module1Title;
+            document.getElementById('module1Desc').textContent = t.module1Desc;
+            document.getElementById('module2Title').textContent = t.module2Title;
+            document.getElementById('module2Desc').textContent = t.module2Desc;
+            document.getElementById('module3Title').textContent = t.module3Title;
+            document.getElementById('module3Desc').textContent = t.module3Desc;
+
+            document.getElementById('section2Title').textContent = t.section2Title;
+            document.getElementById('guide1Title').textContent = t.guide1Title;
+            document.getElementById('guide1Desc').textContent = t.guide1Desc;
+            document.getElementById('guide2Title').textContent = t.guide2Title;
+            document.getElementById('guide2Desc').textContent = t.guide2Desc;
+            document.getElementById('guide3Title').textContent = t.guide3Title;
+            document.getElementById('guide3Desc').textContent = t.guide3Desc;
+
+            // Update all buttons
+            document.querySelectorAll('.start-button').forEach(btn => {
+                btn.textContent = t.buttonStart;
+            });
+
+            document.getElementById('footerText').textContent = t.footerText;
+        };
+
+        // --- Initialization ---
+        document.addEventListener('DOMContentLoaded', () => {
+            // Set up event listener for language change
+            const langSelect = document.getElementById('langSelect');
+            langSelect.addEventListener('change', (e) => changeLanguage(e.target.value));
+
+            // Set the initial language (English default)
+            changeLanguage(currentLang);
+        });
+
+    </script>
+
+    <style>
+        /* Custom styles for a modern, clean dark look */
+        body {
+            background-color: #161B22; /* bg-medium */
+            color: #F0F6FC; /* text-light */
+            font-family: 'Inter', sans-serif;
+        }
+        .header-bg {
+            background-color: #0D1117; /* bg-darkest */
+        }
+        .module-card {
+            background-color: #21262D; /* bg-light */
+            border: 1px solid #30363D;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+        .module-card:hover {
+            border-color: #58A6FF; /* accent-blue on hover */
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(88, 166, 255, 0.15);
+        }
+        .start-button {
+            transition: background-color 0.3s, transform 0.1s;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- Header & Language Selector -->
+    <header class="header-bg shadow-xl sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
+            
+            <!-- Logo/Title -->
+            <a href="#" class="flex items-center space-x-2 text-xl font-extrabold text-accent-blue tracking-tight">
+                <span id="pageTitle">All Available Training Modules</span>
+            </a>
+
+            <!-- Language Dropdown -->
+            <div class="flex items-center space-x-2 text-text-light">
+                <label id="langSelectLabel" for="langSelect" class="text-sm font-medium text-gray-300 hidden sm:block">Select Language</label>
+                <select id="langSelect" class="block w-full py-2 px-3 border border-gray-600 bg-bg-light rounded-lg shadow-sm focus:outline-none focus:ring-accent-blue focus:border-accent-blue sm:text-sm">
+                    <option value="en">English</option>
+                    <option value="hi">हिन्दी (Hindi)</option>
+                    <option value="mr">मराठी (Marathi)</option>
+                    <option value="bn">বাংলা (Bengali)</option>
+                    <option value="te">తెలుగు (Telugu)</option>
+                    <option value="ta">தமிழ் (Tamil)</option>
+                </select>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow py-12 md:py-16 bg-bg-medium">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Hero Section -->
+            <div class="text-center mb-16">
+                <h1 id="heroHeading" class="text-4xl sm:text-5xl font-extrabold text-text-light mb-4">
+                    Discover Your Next Skill
+                </h1>
+                <p id="heroSubheading" class="text-xl text-gray-400 max-w-3xl mx-auto">
+                    Browse our complete library of professional modules and job-specific guides. Click 'Start Module' to begin your free training.
+                </p>
+            </div>
+
+            <!-- Section 1: Core Professional Modules -->
+            <div class="mb-16">
+                <h2 id="section1Title" class="text-3xl font-bold text-accent-blue mb-8 border-b border-accent-blue/50 pb-3">
+                    1. Core Professional Modules (Career Growth)
+                </h2>
+                <div class="grid md:grid-cols-2 gap-6">
+                    
+                    <!-- Module 1: Safety -->
+                    <div class="module-card p-6 rounded-xl space-y-4 flex flex-col justify-between">
+                        <div class="flex items-start space-x-4">
+                            <svg class="w-8 h-8 flex-shrink-0 text-status-green mt-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-3zm-1 15h2v-6h-2v6zm0-8h2V7h-2v2z"/></svg>
+                            <div>
+                                <h3 id="module1Title" class="text-xl font-semibold text-text-light">Safety & First Aid Certification</h3>
+                                <p id="module1Desc" class="text-gray-400 text-sm mt-1">Essential workplace safety protocols, hazard recognition, and basic emergency first aid.</p>
+                            </div>
+                        </div>
+                        <a href="#" class="start-button mt-4 w-full text-center py-2 px-4 rounded-lg font-bold text-bg-darkest bg-status-green hover:bg-[#68c872]">
+                            Start Module
+                        </a>
+                    </div>
+
+                    <!-- Module 2: Communication -->
+                    <div class="module-card p-6 rounded-xl space-y-4 flex flex-col justify-between">
+                        <div class="flex items-start space-x-4">
+                            <svg class="w-8 h-8 flex-shrink-0 text-status-green mt-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-1 12H5v-2h14v2zm0-3H5V7h14v3z"/></svg>
+                            <div>
+                                <h3 id="module2Title" class="text-xl font-semibold text-text-light">Client Communication Excellence</h3>
+                                <p id="module2Desc" class="text-gray-400 text-sm mt-1">Master respectful client interaction, conflict resolution, and securing repeat business.</p>
+                            </div>
+                        </div>
+                        <a href="#" class="start-button mt-4 w-full text-center py-2 px-4 rounded-lg font-bold text-bg-darkest bg-status-green hover:bg-[#68c872]">
+                            Start Module
+                        </a>
+                    </div>
+
+                    <!-- Module 3: Financial -->
+                    <div class="module-card p-6 rounded-xl space-y-4 flex flex-col justify-between">
+                        <div class="flex items-start space-x-4">
+                            <svg class="w-8 h-8 flex-shrink-0 text-status-green mt-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm0-4h-2V7h2v8z"/></svg>
+                            <div>
+                                <h3 id="module3Title" class="text-xl font-semibold text-text-light">Financial Literacy & Savings</h3>
+                                <p id="module3Desc" class="text-gray-400 text-sm mt-1">Simple lessons on managing daily earnings, budgeting, and accessing government financial schemes.</p>
+                            </div>
+                        </div>
+                        <a href="#" class="start-button mt-4 w-full text-center py-2 px-4 rounded-lg font-bold text-bg-darkest bg-status-green hover:bg-[#68c872]">
+                            Start Module
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Section 2: Job-Specific Skill Guides -->
+            <div class="mb-16">
+                <h2 id="section2Title" class="text-3xl font-bold text-secondary-gold mb-8 border-b border-secondary-gold/50 pb-3">
+                    2. Job-Specific Skill Guides (Technical)
+                </h2>
+                <div class="grid md:grid-cols-2 gap-6">
+                    
+                    <!-- Guide 1: Plumbing -->
+                    <div class="module-card p-6 rounded-xl space-y-4 flex flex-col justify-between">
+                        <div class="flex items-start space-x-4">
+                            <svg class="w-8 h-8 flex-shrink-0 text-secondary-gold mt-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM8 17H6v-2h2v2zm6 0h-2v-2h2v2zm4 0h-2v-2h2v2zm-6-4H6v-2h2v2zm6 0h-2v-2h2v2zm4 0h-2v-2h2v2zm-6-4H6V7h2v2zm6 0h-2V7h2v2zm4 0h-2V7h2v2z"/></svg>
+                            <div>
+                                <h3 id="guide1Title" class="text-xl font-semibold text-text-light">Plumbing Basics & Troubleshooting</h3>
+                                <p id="guide1Desc" class="text-gray-400 text-sm mt-1">Step-by-step guides on fixing minor leaks, unclogging drains, and maintaining water fixtures.</p>
+                            </div>
+                        </div>
+                        <a href="#" class="start-button mt-4 w-full text-center py-2 px-4 rounded-lg font-bold text-bg-darkest bg-secondary-gold hover:bg-amber-500">
+                            Start Module
+                        </a>
+                    </div>
+
+                    <!-- Guide 2: Electrical -->
+                    <div class="module-card p-6 rounded-xl space-y-4 flex flex-col justify-between">
+                        <div class="flex items-start space-x-4">
+                            <svg class="w-8 h-8 flex-shrink-0 text-secondary-gold mt-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M13 12h7v2h-7zm0-4h7v2h-7zM3 14h7v2H3zm0-4h7v2H3zm0-4h7v2H3zm13 10h-7v2h7v-2zM3 18h7v2H3z"/></svg>
+                            <div>
+                                <h3 id="guide2Title" class="text-xl font-semibold text-text-light">Home Electrical Safety 101</h3>
+                                <p id="guide2Desc" class="text-gray-400 text-sm mt-1">Safe handling of minor electrical appliances and recognizing when to call a professional.</p>
+                            </div>
+                        </div>
+                        <a href="#" class="start-button mt-4 w-full text-center py-2 px-4 rounded-lg font-bold text-bg-darkest bg-secondary-gold hover:bg-amber-500">
+                            Start Module
+                        </a>
+                    </div>
+
+                    <!-- Guide 3: Cleaning -->
+                    <div class="module-card p-6 rounded-xl space-y-4 flex flex-col justify-between">
+                        <div class="flex items-start space-x-4">
+                            <svg class="w-8 h-8 flex-shrink-0 text-secondary-gold mt-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm-9-2V7H3v3h3zm0 4v-3H3v3h3zm0 4v-3H3v3h3zM9 19h10v-2H9v2zM9 15h10v-2H9v2zM9 7v2h10V7H9z"/></svg>
+                            <div>
+                                <h3 id="guide3Title" class="text-xl font-semibold text-text-light">Efficient Cleaning & Sanitation</h3>
+                                <p id="guide3Desc" class="text-gray-400 text-sm mt-1">Best practices for professional cleaning, including disinfectant use and time management.</p>
+                            </div>
+                        </div>
+                        <a href="#" class="start-button mt-4 w-full text-center py-2 px-4 rounded-lg font-bold text-bg-darkest bg-secondary-gold hover:bg-amber-500">
+                            Start Module
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Call to Action Footer -->
+            <div class="text-center mt-16 py-8 border-t border-gray-700">
+                <p id="footerText" class="text-lg text-gray-500">
+                    UdyogSathi is dedicated to continuous upskilling and career empowerment for all workers.
+                </p>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="header-bg pt-8 pb-4 text-gray-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-xs text-gray-600 mt-4">&copy; 2025 UdyogSathi. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compliance Centre | UdyogSathi</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Define the primary font and base styling for the dark theme */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0d1117; /* Dark background */
+        }
+        .scroll-container {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .compliance-icon {
+            width: 24px;
+            height: 24px;
+            color: currentColor;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-width: 2;
+        }
+    </style>
+</head>
+<body class="bg-[#0d1117] text-gray-200">
+
+    <!-- Header & Navigation -->
+    <header class="bg-gray-800 shadow-xl sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-blue-400">
+                UdyogSathi <span class="text-gray-300">Compliance</span>
+            </h1>
+            <nav class="flex space-x-6 text-sm font-medium">
+                <a href="edashbord.html" class="text-gray-300 hover:text-blue-400 transition duration-150 p-2 hidden sm:block">
+                    Dashboard
+                </a>
+                <a href="ereport.html" class="text-gray-300 hover:text-blue-400 transition duration-150 p-2 hidden sm:block">
+                    Reports
+                </a>
+                <!-- Highlighted Link -->
+                <a href="compliance.html" class="text-white hover:text-blue-400 transition duration-150 p-2 rounded-lg bg-blue-500/20 font-semibold border-b-2 border-blue-400">
+                    Compliance Centre
+                </a>
+            </nav>
+            <div class="flex items-center space-x-4">
+                <button class="text-gray-400 hover:text-blue-400 p-2 rounded-full transition duration-150">
+                    <!-- Bell Icon -->
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
+                </button>
+                <div class="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-sm font-semibold cursor-pointer">
+                    OP
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="main-content pt-8 pb-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="flex justify-between items-center mb-8 flex-wrap gap-4">
+                <h2 class="text-3xl font-semibold text-white">Regulatory and Policy Compliance Overview</h2>
+                <button class="flex items-center px-4 py-2 bg-blue-700 hover:bg-blue-600 text-white font-medium rounded-xl transition duration-200 shadow-md">
+                    <!-- Checkmark Icon -->
+                    <svg class="compliance-icon mr-2 text-white" viewBox="0 0 24 24" stroke="currentColor"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    Start New Audit
+                </button>
+            </div>
+
+            <!-- 1. Key Compliance Indicators (KCIs) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+                
+                <!-- KCI Card 1: Overall Status (Green) -->
+                <div class="bg-gray-800 p-5 rounded-xl shadow-2xl border-l-4 border-green-500 transform hover:scale-[1.02] transition duration-300">
+                    <p class="text-sm font-medium text-gray-400">Overall Compliance Score</p>
+                    <div class="flex items-end justify-between mt-1">
+                        <span class="text-4xl font-bold text-green-400">96%</span>
+                        <span class="text-sm text-green-400 font-semibold flex items-center">
+                            <svg class="compliance-icon w-4 h-4 mr-1" viewBox="0 0 24 24" stroke="currentColor"><path d="M5 13l4 4L19 7"></path></svg>
+                            Up to Date
+                        </span>
+                    </div>
+                </div>
+
+                <!-- KCI Card 2: Pending Training (Yellow) -->
+                <div class="bg-gray-800 p-5 rounded-xl shadow-2xl border-l-4 border-yellow-500 transform hover:scale-[1.02] transition duration-300">
+                    <p class="text-sm font-medium text-gray-400">Mandatory Training Overdue</p>
+                    <div class="flex items-end justify-between mt-1">
+                        <span class="text-4xl font-bold text-white">12</span>
+                        <span class="text-sm text-yellow-400 font-semibold flex items-center">
+                            <svg class="compliance-icon w-4 h-4 mr-1" viewBox="0 0 24 24" stroke="currentColor"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.332 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                            High Priority
+                        </span>
+                    </div>
+                </div>
+
+                <!-- KCI Card 3: Expiring Policies (Blue) -->
+                <div class="bg-gray-800 p-5 rounded-xl shadow-2xl border-l-4 border-blue-500 transform hover:scale-[1.02] transition duration-300">
+                    <p class="text-sm font-medium text-gray-400">Policies Due for Review (30 Days)</p>
+                    <div class="flex items-end justify-between mt-1">
+                        <span class="text-4xl font-bold text-white">4</span>
+                        <span class="text-sm text-blue-400 font-semibold flex items-center">
+                            <svg class="compliance-icon w-4 h-4 mr-1" viewBox="0 0 24 24" stroke="currentColor"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            Next Month
+                        </span>
+                    </div>
+                </div>
+
+                <!-- KCI Card 4: Non-compliant Employees (Red) -->
+                <div class="bg-gray-800 p-5 rounded-xl shadow-2xl border-l-4 border-red-500 transform hover:scale-[1.02] transition duration-300">
+                    <p class="text-sm font-medium text-gray-400">Non-Compliant Employees</p>
+                    <div class="flex items-end justify-between mt-1">
+                        <span class="text-4xl font-bold text-red-400">5</span>
+                        <span class="text-sm text-red-400 font-semibold flex items-center">
+                            <svg class="compliance-icon w-4 h-4 mr-1" viewBox="0 0 24 24" stroke="currentColor"><path d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path></svg>
+                            Immediate Action
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. Main Compliance Sections (Policies, Training, Alerts) -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+                <!-- Section 1: Policy Management -->
+                <div class="lg:col-span-1 bg-gray-800 p-6 rounded-xl shadow-2xl">
+                    <h3 class="text-xl font-semibold mb-4 text-blue-400 flex items-center">
+                        <svg class="compliance-icon mr-2 text-blue-400" viewBox="0 0 24 24" stroke="currentColor"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                        Policy Management
+                    </h3>
+                    <div class="scroll-container">
+                        <ul class="space-y-3">
+                            <li class="p-3 bg-gray-700 rounded-lg flex justify-between items-center">
+                                <div>
+                                    <p class="font-medium text-white">Code of Conduct</p>
+                                    <span class="text-xs text-gray-400">Last updated: Jan 2024</span>
+                                </div>
+                                <span class="px-2 py-0.5 bg-green-500/20 text-green-400 text-xs font-semibold rounded-full">Active</span>
+                            </li>
+                            <li class="p-3 bg-gray-700 rounded-lg flex justify-between items-center">
+                                <div>
+                                    <p class="font-medium text-white">Remote Work Agreement</p>
+                                    <span class="text-xs text-red-400">Review Due: 28 Days</span>
+                                </div>
+                                <span class="px-2 py-0.5 bg-red-500/20 text-red-400 text-xs font-semibold rounded-full">Critical</span>
+                            </li>
+                            <li class="p-3 bg-gray-700 rounded-lg flex justify-between items-center">
+                                <div>
+                                    <p class="font-medium text-white">Data Privacy & Security</p>
+                                    <span class="text-xs text-gray-400">Last updated: Q3 2024</span>
+                                </div>
+                                <span class="px-2 py-0.5 bg-green-500/20 text-green-400 text-xs font-semibold rounded-full">Active</span>
+                            </li>
+                            <li class="p-3 bg-gray-700 rounded-lg flex justify-between items-center">
+                                <div>
+                                    <p class="font-medium text-white">Grievance Handling</p>
+                                    <span class="text-xs text-yellow-400">Update in Progress</span>
+                                </div>
+                                <span class="px-2 py-0.5 bg-yellow-500/20 text-yellow-400 text-xs font-semibold rounded-full">Draft</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <button class="w-full mt-4 py-2 text-sm font-medium rounded-lg bg-gray-700 hover:bg-gray-600 transition duration-150 text-blue-400">
+                        View All Policies
+                    </button>
+                </div>
+
+                <!-- Section 2: Compliance Training Status -->
+                <div class="lg:col-span-1 bg-gray-800 p-6 rounded-xl shadow-2xl">
+                    <h3 class="text-xl font-semibold mb-4 text-green-400 flex items-center">
+                        <svg class="compliance-icon mr-2 text-green-400" viewBox="0 0 24 24" stroke="currentColor"><path d="M12 14l9-5-9-5-9 5 9 5z"></path><path d="M12 14l9-5-9-5-9 5 9 5zM12 14v9"></path></svg>
+                        Training Completion
+                    </h3>
+                    <div class="scroll-container">
+                        <ul class="space-y-3">
+                            <li class="p-3 bg-gray-700 rounded-lg flex justify-between items-center">
+                                <div>
+                                    <p class="font-medium text-white">Anti-Harassment</p>
+                                    <div class="w-24 h-2 bg-gray-600 rounded-full mt-1">
+                                        <div class="h-2 bg-green-500 rounded-full w-4/5" style="width: 80%;"></div>
+                                    </div>
+                                </div>
+                                <span class="text-sm font-semibold text-white">80% Comp.</span>
+                            </li>
+                            <li class="p-3 bg-gray-700 rounded-lg flex justify-between items-center">
+                                <div>
+                                    <p class="font-medium text-white">Data Protection (GDPR/CCPA)</p>
+                                    <div class="w-24 h-2 bg-gray-600 rounded-full mt-1">
+                                        <div class="h-2 bg-red-500 rounded-full w-1/4" style="width: 25%;"></div>
+                                    </div>
+                                </div>
+                                <span class="text-sm font-semibold text-white">25% Comp.</span>
+                            </li>
+                            <li class="p-3 bg-gray-700 rounded-lg flex justify-between items-center">
+                                <div>
+                                    <p class="font-medium text-white">IT Security Essentials</p>
+                                    <div class="w-24 h-2 bg-gray-600 rounded-full mt-1">
+                                        <div class="h-2 bg-yellow-500 rounded-full w-2/3" style="width: 66%;"></div>
+                                    </div>
+                                </div>
+                                <span class="text-sm font-semibold text-white">66% Comp.</span>
+                            </li>
+                             <li class="p-3 bg-gray-700 rounded-lg flex justify-between items-center">
+                                <div>
+                                    <p class="font-medium text-white">Ethics in Business</p>
+                                    <div class="w-24 h-2 bg-gray-600 rounded-full mt-1">
+                                        <div class="h-2 bg-green-500 rounded-full w-full" style="width: 100%;"></div>
+                                    </div>
+                                </div>
+                                <span class="text-sm font-semibold text-white">100% Comp.</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <button class="w-full mt-4 py-2 text-sm font-medium rounded-lg bg-gray-700 hover:bg-gray-600 transition duration-150 text-green-400">
+                        Manage Training Enrollment
+                    </button>
+                </div>
+
+                <!-- Section 3: Priority Alerts and Tasks -->
+                <div class="lg:col-span-1 bg-gray-800 p-6 rounded-xl shadow-2xl">
+                    <h3 class="text-xl font-semibold mb-4 text-red-400 flex items-center">
+                        <svg class="compliance-icon mr-2 text-red-400" viewBox="0 0 24 24" stroke="currentColor"><path d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        Priority Alerts & Tasks
+                    </h3>
+                    <div class="scroll-container">
+                        <ul class="space-y-3">
+                            <li class="p-3 border-l-4 border-red-500 bg-gray-700 rounded-lg">
+                                <p class="font-medium text-white">Employee Data Protection: Failed Audit</p>
+                                <span class="text-xs text-gray-400">5 employees have access to unauthorized PII data.</span>
+                                <a href="#" class="text-xs text-red-400 hover:text-red-300 block mt-1">View Details →</a>
+                            </li>
+                            <li class="p-3 border-l-4 border-yellow-500 bg-gray-700 rounded-lg">
+                                <p class="font-medium text-white">Review: 2025 Labor Law Changes</p>
+                                <span class="text-xs text-gray-400">Schedule legal review for new state regulations. Due: Next Week.</span>
+                                <a href="#" class="text-xs text-yellow-400 hover:text-yellow-300 block mt-1">Assign Task →</a>
+                            </li>
+                            <li class="p-3 border-l-4 border-blue-500 bg-gray-700 rounded-lg">
+                                <p class="font-medium text-white">Renew Insurance Certificates</p>
+                                <span class="text-xs text-gray-400">Liability and worker's comp expiring end of quarter.</span>
+                                <a href="#" class="text-xs text-blue-400 hover:text-blue-300 block mt-1">Mark as Complete</a>
+                            </li>
+                            <li class="p-3 border-l-4 border-red-500 bg-gray-700 rounded-lg">
+                                <p class="font-medium text-white">Mandatory Training: User Reminder</p>
+                                <span class="text-xs text-gray-400">Send third reminder email to 12 overdue employees.</span>
+                                <a href="#" class="text-xs text-red-400 hover:text-red-300 block mt-1">Send Now</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <button class="w-full mt-4 py-2 text-sm font-medium rounded-lg bg-gray-700 hover:bg-gray-600 transition duration-150 text-red-400">
+                        View Audit Logs
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 py-4 mt-8 border-t border-gray-700">
+        <div class="max-w-7xl mx-auto px-4 text-center text-gray-500 text-sm">
+            UdyogSathi Compliance Engine | Powered by Google Gemini
+        </div>
+    </footer>
+</body>
+</html>

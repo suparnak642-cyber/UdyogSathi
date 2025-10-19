@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Application Form</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F0F4F8; /* Soft blue-gray background */
+        }
+        .form-card {
+            max-width: 800px;
+        }
+        /* Custom file input styling */
+        .file-input-label {
+            cursor: pointer;
+            border: 2px dashed #D1D5DB;
+            transition: all 0.2s;
+        }
+        .file-input-label:hover {
+            border-color: #9CA3AF;
+            background-color: #F9FAFB;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-blue': '#1D4ED8',
+                        'accent-teal': '#0D9488',
+                    },
+                }
+            }
+        }
+
+        /**
+         * Simple function to handle form submission (client-side only for this template)
+         */
+        function handleApplicationSubmit(event) {
+            event.preventDefault();
+            const form = event.target;
+            const statusMessage = document.getElementById('status-message');
+            
+            // Show loading state
+            statusMessage.innerHTML = '<span class="text-primary-blue flex items-center space-x-2"><i data-lucide="loader-circle" class="w-5 h-5 animate-spin"></i><span>Submitting Application...</span></span>';
+            lucide.createIcons();
+
+            // Simulate network delay
+            setTimeout(() => {
+                // Check if all required fields are filled (simple validation)
+                const isValid = form.checkValidity();
+                
+                if (isValid) {
+                    statusMessage.innerHTML = '<span class="text-accent-teal font-semibold flex items-center space-x-2"><i data-lucide="check-circle" class="w-5 h-5"></i><span>Application Submitted Successfully!</span></span>';
+                    form.reset();
+                    // Reset file display names
+                    document.getElementById('resume-filename').textContent = 'No file chosen';
+                    document.getElementById('cover-filename').textContent = 'No file chosen';
+                } else {
+                    statusMessage.innerHTML = '<span class="text-red-500 font-semibold flex items-center space-x-2"><i data-lucide="x-circle" class="w-5 h-5"></i><span>Please fill out all required fields.</span></span>';
+                    // Trigger browser default error display
+                    form.reportValidity();
+                }
+                lucide.createIcons();
+
+            }, 2000);
+        }
+
+        /**
+         * Updates the displayed filename for a file input
+         */
+        function updateFileName(inputId, displayId) {
+            const input = document.getElementById(inputId);
+            const display = document.getElementById(displayId);
+            if (input.files.length > 0) {
+                display.textContent = input.files[0].name;
+            } else {
+                display.textContent = 'No file chosen';
+            }
+        }
+    </script>
+</head>
+<body class="antialiased p-4 sm:p-8">
+
+    <!-- Application Form Container -->
+    <div class="form-card mx-auto bg-white p-6 sm:p-10 rounded-2xl shadow-2xl border border-gray-200">
+        
+        <!-- Form Header -->
+        <div class="mb-8 border-b pb-4">
+            <h1 class="text-3xl font-extrabold text-gray-900 mb-2">Apply for Senior Frontend Developer</h1>
+            <p class="text-lg text-primary-blue font-medium">at TechStack Solutions</p>
+            <p class="text-gray-600 mt-2 text-sm">Fill out the form below to submit your application. Fields marked with * are required.</p>
+        </div>
+
+        <!-- The Form -->
+        <form id="job-application-form" onsubmit="handleApplicationSubmit(event)" class="space-y-6">
+
+            <!-- Contact Information Section -->
+            <fieldset class="space-y-4 border p-6 rounded-xl">
+                <legend class="text-xl font-semibold text-gray-800 px-2">Contact Information</legend>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- First Name -->
+                    <div>
+                        <label for="first-name" class="block text-sm font-medium text-gray-700 mb-1">First Name *</label>
+                        <input type="text" id="first-name" name="first-name" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-primary-blue focus:border-primary-blue transition duration-150" placeholder="John">
+                    </div>
+                    <!-- Last Name -->
+                    <div>
+                        <label for="last-name" class="block text-sm font-medium text-gray-700 mb-1">Last Name *</label>
+                        <input type="text" id="last-name" name="last-name" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-primary-blue focus:border-primary-blue transition duration-150" placeholder="Doe">
+                    </div>
+                </div>
+
+                <!-- Email Address -->
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address *</label>
+                    <input type="email" id="email" name="email" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-primary-blue focus:border-primary-blue transition duration-150" placeholder="john.doe@example.com">
+                </div>
+                
+                <!-- Phone Number -->
+                <div>
+                    <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-primary-blue focus:border-primary-blue transition duration-150" placeholder="(555) 123-4567">
+                </div>
+            </fieldset>
+
+            <!-- Documents Section -->
+            <fieldset class="space-y-4 border p-6 rounded-xl">
+                <legend class="text-xl font-semibold text-gray-800 px-2">Documents</legend>
+                <p class="text-sm text-gray-600">Accepted formats: PDF, DOCX (Max 5MB)</p>
+
+                <!-- Resume Upload -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Upload Resume *</label>
+                    <input type="file" id="resume-upload" name="resume-upload" accept=".pdf,.doc,.docx" required class="hidden" onchange="updateFileName('resume-upload', 'resume-filename')">
+                    <label for="resume-upload" id="resume-input-label" class="file-input-label flex flex-col items-center justify-center p-6 rounded-lg text-gray-500 hover:text-gray-700">
+                        <i data-lucide="upload-cloud" class="w-8 h-8 mb-2"></i>
+                        <span class="text-sm font-semibold">Click to upload or drag and drop</span>
+                        <span id="resume-filename" class="text-xs mt-1 text-gray-500">No file chosen</span>
+                    </label>
+                </div>
+
+                <!-- Cover Letter Upload -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Upload Cover Letter (Optional)</label>
+                    <input type="file" id="cover-upload" name="cover-upload" accept=".pdf,.doc,.docx" class="hidden" onchange="updateFileName('cover-upload', 'cover-filename')">
+                    <label for="cover-upload" id="cover-input-label" class="file-input-label flex flex-col items-center justify-center p-6 rounded-lg text-gray-500 hover:text-gray-700">
+                        <i data-lucide="file-text" class="w-8 h-8 mb-2"></i>
+                        <span class="text-sm font-semibold">Click to upload or drag and drop</span>
+                        <span id="cover-filename" class="text-xs mt-1 text-gray-500">No file chosen</span>
+                    </label>
+                </div>
+            </fieldset>
+
+            <!-- Additional Questions Section -->
+            <fieldset class="space-y-4 border p-6 rounded-xl">
+                <legend class="text-xl font-semibold text-gray-800 px-2">Additional Information</legend>
+                
+                <!-- Notice Period -->
+                <div>
+                    <label for="notice-period" class="block text-sm font-medium text-gray-700 mb-1">What is your required notice period? *</label>
+                    <select id="notice-period" name="notice-period" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-primary-blue focus:border-primary-blue transition duration-150">
+                        <option value="">Select an option</option>
+                        <option value="immediate">Immediately available</option>
+                        <option value="1-week">1 week</option>
+                        <option value="2-weeks">2 weeks</option>
+                        <option value="1-month">1 month</option>
+                        <option value="more">More than 1 month</option>
+                    </select>
+                </div>
+
+                <!-- Desired Salary -->
+                <div>
+                    <label for="salary-expectation" class="block text-sm font-medium text-gray-700 mb-1">Desired Annual Salary (₹IND) *</label>
+                    <input type="number" id="salary-expectation" name="salary-expectation" required min="0" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-primary-blue focus:border-primary-blue transition duration-150" placeholder="e.g., 135000">
+                </div>
+            </fieldset>
+
+            <!-- Submission Area -->
+            <div class="pt-6 space-y-4">
+                <div id="status-message" class="text-center h-6">
+                    <!-- Status message will appear here -->
+                </div>
+                
+                <button type="submit" class="w-full bg-accent-teal text-white font-bold px-6 py-3 rounded-xl hover:bg-teal-700 transition duration-150 shadow-lg flex items-center justify-center space-x-2">
+                    <i data-lucide="send" class="w-5 h-5"></i>
+                    <span>Submit Application</span>
+                </button>
+                
+                <p class="text-xs text-gray-500 text-center">By submitting, you agree to our <a href="#" class="text-primary-blue hover:underline">Terms and Conditions</a>.</p>
+            </div>
+        </form>
+    </div>
+
+    <!-- Initialize Lucide Icons -->
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

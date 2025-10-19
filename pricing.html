@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing & Plans | UdyogSathi</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Base styling and font */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0F172A; /* Dark Slate Blue background */
+            color: #E2E8F0;
+        }
+        /* Custom feature list checkmark styling */
+        .check-icon {
+            color: #10B981; /* Emerald Green */
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-width: 2.5;
+            width: 1.25rem;
+            height: 1.25rem;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 min-h-screen">
+
+    <!-- Header & Navigation -->
+    <header class="bg-gray-800 shadow-xl sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-indigo-400">
+                UdyogSathi <span class="text-gray-300">HRM</span>
+            </h1>
+            <nav class="flex space-x-6 text-sm font-medium">
+                <a href="platform.html" class="text-gray-300 hover:text-indigo-400 transition duration-150 p-2 hidden sm:block">
+                    Platform
+                </a>
+                <!-- Highlighted Link -->
+                <a href="pricing.html" class="text-white hover:text-indigo-400 transition duration-150 p-2 rounded-lg bg-indigo-500/20 font-semibold border-b-2 border-indigo-400">
+                    Pricing
+                </a>
+                <a href="contactsales.html" class="text-gray-300 hover:text-indigo-400 transition duration-150 p-2 hidden sm:block">
+                    Contact Sales
+                </a>
+            </nav>
+            <button class="px-4 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-sm font-medium transition duration-200 shadow-lg shadow-indigo-500/30">
+                Get Started
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content Area - Pricing Grid -->
+    <main class="main-content py-16 md:py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <!-- Title Section -->
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-extrabold text-white mb-4">
+                    Find the Perfect Plan for Your Team
+                </h2>
+                <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+                    Simple, transparent pricing that scales with your business, from startups to large enterprises.
+                </p>
+            </div>
+
+            <!-- Pricing Grid Container -->
+            <div class="grid grid-cols-1 gap-8 lg:grid-cols-3 lg:gap-10 items-end">
+
+                <!-- Plan 1: Starter -->
+                <div class="bg-gray-800 p-8 rounded-2xl shadow-2xl border border-gray-700 transform hover:shadow-indigo-500/10 transition duration-300">
+                    <h3 class="text-2xl font-bold text-gray-100 mb-2">Starter</h3>
+                    <p class="text-gray-400 mb-6">Essential tools for small teams.</p>
+                    <div class="flex items-baseline mb-8">
+                        <span class="text-5xl font-extrabold text-white">$19</span>
+                        <span class="text-xl font-medium text-gray-400 ml-1">/month</span>
+                    </div>
+
+                    <a href="#" class="block w-full text-center py-3 bg-indigo-700/50 hover:bg-indigo-700 text-indigo-300 font-semibold rounded-xl transition duration-200 border border-indigo-700">
+                        Select Starter
+                    </a>
+
+                    <ul class="mt-8 space-y-4 text-gray-300">
+                        <li class="flex items-start">
+                            <svg class="check-icon mt-1 mr-3" viewBox="0 0 24 24" stroke="currentColor"><path d="M5 13l4 4L19 7"></path></svg>
+                            <span>Up to <strong class="text-white">25 Users</strong></span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="check-icon mt-1 mr-3" viewBox="0 0 24 24" stroke="currentColor"><path d="M5 13l4 4L19 7"></path></svg>
+                            <span>Core HRIS & Employee Profiles</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="check-icon mt-1 mr-3" viewBox="0 0 24 24" stroke="currentColor"><path d="M5 13l4 4L19 7"></path></svg>
+                            <span>Basic Time-Off Tracking</span>
+                        </li>
+                        <li class="flex items-start text-gray-500">
+                            <svg class="w-5 h-5 mt-1 mr-3 stroke-current" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                            <span>Performance Management (No)</span>
+                        </li>
+                        <li class="flex items-start text-gray-500">
+                            <svg class="w-5 h-5 mt-1 mr-3 stroke-current" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                            <span>Advanced Reporting (No)</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Plan 2: Professional (Recommended) -->
+                <div class="bg-gray-800 p-8 rounded-2xl shadow-2xl ring-4 ring-indigo-500/80 transform scale-[1.05] hover:scale-[1.07] transition duration-300 z-10 relative">
+                    <div class="absolute top-0 right-0 -mt-3 -mr-3 px-3 py-1 bg-indigo-600 text-white text-xs font-bold uppercase rounded-full tracking-wider shadow-md">
+                        Recommended
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-2">Professional</h3>
+                    <p class="text-indigo-300 mb-6">The complete suite for growing organizations.</p>
+                    <div class="flex items-baseline mb-8">
+                        <span class="text-5xl font-extrabold text-white">$49</span>
+                        <span class="text-xl font-medium text-gray-400 ml-1">/user/month</span>
+                    </div>
+
+                    <a href="#" class="block w-full text-center py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-xl transition duration-200 shadow-xl shadow-indigo-500/40">
+                        Start 14-Day Trial
+                    </a>
+
+                    <ul class="mt-8 space-y-4 text-gray-200">
+                        <li class="flex items-start">
+                            <svg class="check-icon mt-1 mr-3" viewBox="0 0 24 24" stroke="currentColor"><path d="M5 13l4 4L19 7"></path></svg>
+                            <span>Unlimited Users</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="check-icon mt-1 mr-3" viewBox="0 0 24 24" stroke="currentColor"><path d="M5 13l4 4L19 7"></path></svg>
+                            <span>Core HRIS & Employee Profiles</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="check-icon mt-1 mr-3" viewBox="0 0 24 24" stroke="currentColor"><path d="M5 13l4 4L19 7"></path></svg>
+                            <span><strong class="text-white">Full Time & Attendance Suite</strong></span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="check-icon mt-1 mr-3" viewBox="0 0 24 24" stroke="currentColor"><path d="M5 13l4 4L19 7"></path></svg>
+                            <span>Performance Management & Goals</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="check-icon mt-1 mr-3" viewBox="0 0 24 24" stroke="currentColor"><path d="M5 13l4 4L19 7"></path></svg>
+                            <span>Custom Data & <strong class="text-white">Advanced Reporting</strong></span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="check-icon mt-1 mr-3" viewBox="0 0 24 24" stroke="currentColor"><path d="M5 13l4 4L19 7"></path></svg>
+                            <span>Priority Email Support</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Plan 3: Enterprise -->
+                <div class="bg-gray-800 p-8 rounded-2xl shadow-2xl border border-gray-700 transform hover:shadow-indigo-500/10 transition duration-300">
+                    <h3 class="text-2xl font-bold text-gray-100 mb-2">Enterprise</h3>
+                    <p class="text-gray-400 mb-6">Tailored solutions for complex businesses.</p>
+                    <div class="flex items-baseline mb-8">
+                        <span class="text-5xl font-extrabold text-white">Custom</span>
+                        <span class="text-xl font-medium text-gray-400 ml-1">/quote</span>
+                    </div>
+
+                    <a href="#" class="block w-full text-center py-3 bg-gray-700 hover:bg-gray-600 text-indigo-400 font-semibold rounded-xl transition duration-200 border border-gray-700">
+                        Contact Sales
+                    </a>
+
+                    <ul class="mt-8 space-y-4 text-gray-300">
+                        <li class="flex items-start">
+                            <svg class="check-icon mt-1 mr-3" viewBox="0 0 24 24" stroke="currentColor"><path d="M5 13l4 4L19 7"></path></svg>
+                            <span>Everything in Professional</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="check-icon mt-1 mr-3" viewBox="0 0 24 24" stroke="currentColor"><path d="M5 13l4 4L19 7"></path></svg>
+                            <span>Single Sign-On (SSO) & SAML</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="check-icon mt-1 mr-3" viewBox="0 0 24 24" stroke="currentColor"><path d="M5 13l4 4L19 7"></path></svg>
+                            <span>Dedicated Account Manager</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="check-icon mt-1 mr-3" viewBox="0 0 24 24" stroke="currentColor"><path d="M5 13l4 4L19 7"></path></svg>
+                            <span>Advanced API Access</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="check-icon mt-1 mr-3" viewBox="0 0 24 24" stroke="currentColor"><path d="M5 13l4 4L19 7"></path></svg>
+                            <span>Compliance & Audit Logs</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Footer Section: Contact and Guarantee -->
+            <div class="mt-20 pt-10 border-t border-gray-700 text-center">
+                <p class="text-gray-400 text-lg mb-6">
+                    Not sure which plan is right for you? Talk to our sales team today.
+                </p>
+                <a href="contact.html" class="inline-flex items-center px-8 py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-xl text-lg transition duration-200 shadow-xl shadow-indigo-500/40">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 00.948.684L12 6l-2 4L18 10l-2-4 2-4h3.28a1 1 0 01.948.684l.95 2.85A1 1 0 0119.28 21H4.72a1 1 0 01-.948-.684l-.95-2.85A1 1 0 013 5z"></path></svg>
+                    Schedule a Demo
+                </a>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Simple Footer -->
+    <footer class="bg-gray-900 py-4 mt-8 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 text-center text-gray-600 text-sm">
+            &copy; 2024 UdyogSathi. All rights reserved.
+        </div>
+    </footer>
+</body>
+</html>

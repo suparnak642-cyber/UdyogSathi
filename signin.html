@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Access | Modern App</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Base Styling and Font */
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow: hidden; /* Prevent scrollbar from background blobs */
+            background-color: #0F172A; /* Slate 900 */
+        }
+
+        /* ------------------------------------- */
+        /* 1. Ultra Animation: Background Aura Blobs */
+        /* ------------------------------------- */
+        .aura-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .aura-blob {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            filter: blur(150px);
+            opacity: 0.2;
+            transition: all 0.5s ease;
+            will-change: transform;
+        }
+
+        @keyframes moveBlob1 {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-60%, -40%) scale(1.2); }
+        }
+
+        @keyframes moveBlob2 {
+            0%, 100% { transform: translate(50%, 50%) scale(1.1); }
+            40% { transform: translate(40%, 60%) scale(0.9); }
+        }
+
+        #blob-1 {
+            background: radial-gradient(circle, rgba(129, 140, 248, 1), rgba(129, 140, 248, 0)); /* Indigo 400 */
+            top: 10%;
+            left: 20%;
+            animation: moveBlob1 20s infinite alternate;
+        }
+
+        #blob-2 {
+            background: radial-gradient(circle, rgba(16, 185, 129, 1), rgba(16, 185, 129, 0)); /* Emerald 500 */
+            bottom: 5%;
+            right: 15%;
+            animation: moveBlob2 25s infinite alternate-reverse;
+        }
+
+        /* ------------------------------------- */
+        /* 2. Card and Input Animations */
+        /* ------------------------------------- */
+        @keyframes fade-in {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animated-card {
+            animation: fade-in 0.6s ease-out forwards;
+        }
+
+        /* Custom Input Focus (GitHub style) */
+        .custom-input {
+            transition: all 0.2s ease-in-out;
+            border: 1px solid #374151; /* Gray 700 */
+            box-shadow: 0 0 0 0 transparent;
+        }
+
+        .custom-input:focus {
+            border-color: #4F46E5; /* Indigo 600 */
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.25);
+            outline: none;
+        }
+
+        /* Submit Button Hover Effect */
+        .submit-button {
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .submit-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(79, 70, 229, 0.5);
+        }
+        .submit-button:active {
+            transform: translateY(0);
+            box-shadow: 0 5px 15px rgba(79, 70, 229, 0.3);
+        }
+        
+        /* Spinner for Google Button */
+        .spinner {
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+
+    <!-- Background Aura Container -->
+    <div class="aura-container">
+        <div id="blob-1" class="aura-blob"></div>
+        <div id="blob-2" class="aura-blob"></div>
+    </div>
+
+    <!-- Sign-In / Create Profile Card (z-index 10 to be above blobs) -->
+    <div id="authCard" class="relative z-10 animated-card bg-gray-800/95 backdrop-blur-md w-full max-w-md mx-auto rounded-xl p-8 md:p-10 shadow-2xl border border-gray-700/50">
+
+        <!-- Header and Toggle Switch -->
+        <div class="mb-8">
+            <h1 id="cardTitle" class="text-3xl font-extrabold text-white text-center mb-1">Sign In</h1>
+            <p id="cardSubtitle" class="text-gray-400 text-center text-sm">Access your personalized dashboard.</p>
+        </div>
+
+        <!-- Mode Toggle -->
+        <div class="flex justify-center mb-8">
+            <div class="bg-gray-700 p-1 rounded-full flex space-x-1 shadow-inner">
+                <button id="signInToggle" onclick="setMode('signin')" 
+                    class="toggle-btn px-6 py-2 text-sm font-semibold rounded-full transition duration-300 bg-indigo-600 text-white shadow-md">
+                    Sign In
+                </button>
+                <button id="signUpToggle" onclick="setMode('signup')"
+                    class="toggle-btn px-6 py-2 text-sm font-semibold rounded-full transition duration-300 text-gray-300 hover:bg-gray-600">
+                    Create Profile
+                </button>
+            </div>
+        </div>
+
+        <!-- Form -->
+        <form id="authForm" onsubmit="handleAuth(event)" class="space-y-6">
+
+            <!-- Username Field (Visible for Sign Up) -->
+            <div id="usernameField" class="hidden transition-all duration-300">
+                <label for="username" class="block text-sm font-medium text-gray-300 mb-2">Username</label>
+                <input type="text" id="username" name="username" 
+                    placeholder="Your unique handle"
+                    class="custom-input w-full bg-gray-900 text-white rounded-lg p-3 placeholder-gray-500"
+                >
+            </div>
+
+            <!-- Email Input -->
+            <div>
+                <label for="email" class="block text-sm font-medium text-gray-300 mb-2">Email Address</label>
+                <input type="email" id="email" name="email" required
+                    placeholder="you@email.com"
+                    class="custom-input w-full bg-gray-900 text-white rounded-lg p-3 placeholder-gray-500"
+                >
+            </div>
+
+            <!-- Password Input -->
+            <div>
+                <label for="password" class="block text-sm font-medium text-gray-300 mb-2">Password</label>
+                <input type="password" id="password" name="password" required
+                    placeholder="Minimum 8 characters"
+                    class="custom-input w-full bg-gray-900 text-white rounded-lg p-3 placeholder-gray-500"
+                >
+            </div>
+
+            <!-- Forgot Password Link (Visible for Sign In) -->
+            <div id="forgotPasswordLink" class="flex justify-end pt-1">
+                <a href="#" class="text-xs text-indigo-400 hover:text-indigo-300 transition duration-300 font-medium">Forgot Password?</a>
+            </div>
+
+            <!-- Submit Button -->
+            <div>
+                <button type="submit" id="submitButton"
+                    class="submit-button w-full py-3 bg-indigo-600 text-white font-bold rounded-lg text-lg shadow-lg shadow-indigo-500/30 hover:bg-indigo-500 focus:outline-none focus:ring-4 focus:ring-indigo-500/50"
+                >
+                    Sign In
+                </button>
+            </div>
+        </form>
+
+        <!-- Google/OAuth Option -->
+        <div class="flex items-center space-x-3 my-6">
+            <div class="flex-grow h-px bg-gray-700"></div>
+            <span class="text-sm font-medium text-gray-500">OR</span>
+            <div class="flex-grow h-px bg-gray-700"></div>
+        </div>
+
+        <div>
+            <button type="button" id="googleAuthButton" onclick="handleGoogleAuth()"
+                class="w-full py-3 flex items-center justify-center space-x-3 bg-gray-700 border border-gray-600 text-gray-300 rounded-lg text-lg font-medium hover:bg-gray-600 transition duration-300 transform hover:text-white"
+            >
+                <!-- Simplified Google Icon (using inline SVG) -->
+                <svg id="googleIcon" class="w-5 h-5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path fill="#4285F4" d="M21.78 10.45h-10.45v2.88h6.1c-.26 1.4-1.07 2.58-2.31 3.42l-.08.08v2.33h3.04a10.02 10.02 0 0 0 3.09-2.82l.33-.37z"/>
+                    <path fill="#34A853" d="M12.33 22c2.8 0 5.16-.94 6.88-2.54l-3.04-2.33c-.85.56-1.94.9-3.84.9-3.23 0-5.96-2.18-6.93-5.11H2.33v2.44A10.03 10.03 0 0 0 12.33 22z"/>
+                    <path fill="#FBBC05" d="M5.4 14.86c-.23-.68-.36-1.42-.36-2.2v-4.4c0-.78.13-1.52.36-2.2l-.02-.15H2.33v2.44c-.66 1.35-.99 2.87-.99 4.49s.33 3.14.99 4.49l3.07-.01z"/>
+                    <path fill="#EA4335" d="M12.33 4.54c1.47 0 2.76.5 3.84 1.46l2.7-2.7C16.8 1.95 14.5 1 12.33 1A10.03 10.03 0 0 0 2.33 4.98l3.07 2.44c.97-2.93 3.7-5.11 6.93-5.11z"/>
+                </svg>
+                <span id="googleButtonText">Continue with Google</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- JavaScript for state management and animations -->
+    <script>
+        let currentMode = 'signin';
+        
+        // Element references
+        const cardTitle = document.getElementById('cardTitle');
+        const cardSubtitle = document.getElementById('cardSubtitle');
+        const usernameField = document.getElementById('usernameField');
+        const forgotPasswordLink = document.getElementById('forgotPasswordLink');
+        const submitButton = document.getElementById('submitButton');
+        const signInToggle = document.getElementById('signInToggle');
+        const signUpToggle = document.getElementById('signUpToggle');
+        const usernameInput = document.getElementById('username');
+        const googleAuthButton = document.getElementById('googleAuthButton');
+        const googleIcon = document.getElementById('googleIcon');
+        const googleButtonText = document.getElementById('googleButtonText');
+
+
+        // Custom alert function (forbidden alert() usage)
+        function alertUser(message, type = "info") {
+            const container = document.body;
+            
+            // Remove existing message boxes
+            document.querySelectorAll('.message-box').forEach(el => el.remove());
+
+            const bgColor = type === "success" ? 'bg-emerald-600' : 'bg-red-600';
+            
+            const messageBox = document.createElement('div');
+            // Initial classes for hidden state
+            messageBox.className = `message-box fixed top-4 right-4 p-4 rounded-xl text-white shadow-2xl transition-all duration-500 transform translate-y-10 opacity-0 ${bgColor} z-50`;
+            messageBox.innerHTML = `<p class="font-semibold">${message}</p>`;
+
+            container.appendChild(messageBox);
+            
+            // Fade in with slide up
+            setTimeout(() => messageBox.classList.remove('translate-y-10', 'opacity-0'), 10);
+            
+            // Fade out and remove after 5 seconds
+            setTimeout(() => {
+                messageBox.classList.add('translate-y-10', 'opacity-0');
+                setTimeout(() => messageBox.remove(), 500);
+            }, 5000);
+        }
+        
+        // Function to switch between Sign In and Create Profile modes
+        function setMode(mode) {
+            if (currentMode === mode) return;
+            currentMode = mode;
+
+            // Update Header and Focus State
+            if (mode === 'signin') {
+                cardTitle.textContent = 'Sign In';
+                cardSubtitle.textContent = 'Access your personalized dashboard.';
+                submitButton.textContent = 'Sign In';
+                forgotPasswordLink.style.display = 'flex';
+                
+                // Toggle Button Styling
+                signInToggle.classList.add('bg-indigo-600', 'text-white', 'shadow-md');
+                signUpToggle.classList.remove('bg-indigo-600', 'text-white', 'shadow-md');
+
+                // Field Visibility (Animated)
+                usernameField.classList.add('hidden');
+                usernameInput.removeAttribute('required');
+
+            } else { // signup
+                cardTitle.textContent = 'Create Your Profile';
+                cardSubtitle.textContent = 'Join the community in a few quick steps.';
+                submitButton.textContent = 'Create Profile';
+                forgotPasswordLink.style.display = 'none';
+
+                // Toggle Button Styling
+                signUpToggle.classList.add('bg-indigo-600', 'text-white', 'shadow-md');
+                signInToggle.classList.remove('bg-indigo-600', 'text-white', 'shadow-md');
+
+                // Field Visibility (Animated)
+                usernameField.classList.remove('hidden');
+                usernameInput.setAttribute('required', 'required');
+            }
+            
+            // Re-run entrance animation on form change for dramatic effect
+            const card = document.getElementById('authCard');
+            card.classList.remove('animated-card');
+            void card.offsetWidth; // Trigger reflow
+            card.classList.add('animated-card');
+        }
+
+        // Handle Email/Password Form Submission (Mock)
+        function handleAuth(event) {
+            event.preventDefault(); 
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const username = document.getElementById('username').value;
+
+            if (currentMode === 'signup' && !username) {
+                alertUser("Please provide a username to create a profile.", "error");
+                return;
+            }
+            if (!email || !password) {
+                alertUser("Please fill in both email and password.", "error");
+                return;
+            }
+
+            // Start loading state
+            const originalText = submitButton.textContent;
+            submitButton.innerHTML = `<span class="animate-pulse">Processing...</span>`;
+            submitButton.disabled = true;
+            submitButton.classList.add('opacity-70', 'cursor-not-allowed');
+
+            // Simulate API call delay (2 seconds)
+            setTimeout(() => {
+                // End loading state
+                submitButton.innerHTML = originalText;
+                submitButton.disabled = false;
+                submitButton.classList.remove('opacity-70', 'cursor-not-allowed');
+
+                let successMessage;
+                if (currentMode === 'signin') {
+                    successMessage = `Sign In Successful! Welcome back, ${email}.`;
+                } else {
+                    successMessage = `Profile created successfully for @${username}!`;
+                }
+                
+                alertUser(successMessage, "success");
+                document.getElementById('authForm').reset();
+                setMode('signin'); // Return to sign-in view after success
+            }, 2000);
+        }
+
+        // Function to handle Google Sign-In (Simulated OAuth)
+        function handleGoogleAuth() {
+            // Store original content and disable the button
+            const originalIconHTML = googleIcon.outerHTML;
+            const originalText = googleButtonText.textContent;
+            
+            googleAuthButton.disabled = true;
+            googleAuthButton.classList.add('opacity-70', 'cursor-not-allowed');
+
+            // Set loading content (using an inline spinner)
+            googleAuthButton.innerHTML = `
+                <svg class="w-5 h-5 mr-3 spinner text-white" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                <span class="animate-pulse">Redirecting to Google...</span>
+            `;
+
+            // Simulate the external redirect and login delay (1.5 seconds)
+            setTimeout(() => {
+                // Randomly decide success or failure for demonstration
+                const isSuccess = Math.random() > 0.1; // 90% success rate
+
+                // Restore original button content
+                googleAuthButton.innerHTML = originalIconHTML + `<span id="googleButtonText">${originalText}</span>`;
+                googleAuthButton.disabled = false;
+                googleAuthButton.classList.remove('opacity-70', 'cursor-not-allowed');
+
+                if (isSuccess) {
+                    alertUser("Successfully signed in with Google!", "success");
+                } else {
+                    alertUser("Google sign-in failed. Please try again.", "error");
+                }
+            }, 1500);
+        }
+        
+        // Initialize the page mode
+        window.onload = () => {
+             setMode('signin');
+        };
+    </script>
+</body>
+</html>

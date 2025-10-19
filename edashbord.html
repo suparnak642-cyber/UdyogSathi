@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employer Dashboard | UdyogSathi</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Define the primary font and base styling */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0d1117; /* Darker than default gray-900 */
+        }
+        /* Custom scrollbar for a dark theme */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1f2937; /* Gray-800 */
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #374151; /* Gray-700 */
+        }
+        .main-content {
+            min-height: calc(100vh - 64px); /* Full height minus header */
+        }
+    </style>
+</head>
+<body class="bg-[#0d1117] text-gray-200">
+
+    <!-- Header & Navigation -->
+    <header class="bg-gray-800 shadow-xl sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-teal-400">
+                UdyogSathi <span class="text-gray-300">Dashboard</span>
+            </h1>
+            <nav class="flex space-x-6 text-sm font-medium">
+                <a href="ejobs.html" class="text-white hover:text-teal-400 transition duration-150 p-2 rounded-lg bg-teal-500/10 hidden sm:block">
+                    Jobs
+                </a>
+                <a href="eemployee.html" class="text-gray-300 hover:text-teal-400 transition duration-150 p-2 hidden sm:block">
+                    Employees
+                </a>
+                <a href="ereport.html" class="text-gray-300 hover:text-teal-400 transition duration-150 p-2 hidden sm:block">
+                    Reports
+                </a>
+            </nav>
+            <div class="flex items-center space-x-4">
+                <button class="text-gray-400 hover:text-teal-400 p-2 rounded-full transition duration-150">
+                    <!-- Bell Icon (using inline SVG) -->
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
+                </button>
+                <div class="w-8 h-8 rounded-full bg-teal-600 flex items-center justify-center text-sm font-semibold cursor-pointer">
+                    OP
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="main-content pt-8 pb-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-semibold text-white mb-6">Welcome, Om Prakash (Udyog ID: E-4592)</h2>
+            
+            <!-- Quick Actions Bar -->
+            <div class="flex flex-wrap gap-4 mb-12">
+                <button class="flex-grow md:flex-grow-0 flex items-center justify-center px-6 py-3 bg-teal-600 hover:bg-teal-700 text-white font-medium rounded-xl transition duration-200 shadow-lg shadow-teal-500/20">
+                    <!-- Plus Icon -->
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+                    Post New Job
+                </button>
+                <button class="flex-grow md:flex-grow-0 flex items-center justify-center px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-xl transition duration-200 shadow-lg shadow-indigo-500/20">
+                    <!-- User Add Icon -->
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-3-4a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path></svg>
+                    Add New Employee
+                </button>
+                <button class="flex-grow md:flex-grow-0 flex items-center justify-center px-6 py-3 bg-gray-700 hover:bg-gray-600 text-gray-300 font-medium rounded-xl transition duration-200">
+                    Manage Onboarding
+                </button>
+            </div>
+
+            <!-- Key Metrics Overview (Cards) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+                
+                <!-- Card 1: Active Employees -->
+                <div class="bg-gray-800 p-6 rounded-xl shadow-2xl border-l-4 border-teal-500">
+                    <p class="text-sm font-medium text-gray-400">Active Employees</p>
+                    <p class="text-4xl font-extrabold text-white mt-2">1,245</p>
+                    <p class="text-xs text-green-400 mt-1 flex items-center">
+                        <!-- Up Arrow Icon -->
+                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
+                        +3.5% this month
+                    </p>
+                </div>
+                
+                <!-- Card 2: Open Roles -->
+                <div class="bg-gray-800 p-6 rounded-xl shadow-2xl border-l-4 border-yellow-500">
+                    <p class="text-sm font-medium text-gray-400">Open Roles</p>
+                    <p class="text-4xl font-extrabold text-white mt-2">18</p>
+                    <p class="text-xs text-yellow-400 mt-1">
+                        5 roles moved to final round
+                    </p>
+                </div>
+
+                <!-- Card 3: New Applications -->
+                <div class="bg-gray-800 p-6 rounded-xl shadow-2xl border-l-4 border-blue-500">
+                    <p class="text-sm font-medium text-gray-400">New Applications (24h)</p>
+                    <p class="text-4xl font-extrabold text-white mt-2">87</p>
+                    <p class="text-xs text-blue-400 mt-1">
+                        Review pending shortlisting
+                    </p>
+                </div>
+                
+                <!-- Card 4: Attrition Rate -->
+                <div class="bg-gray-800 p-6 rounded-xl shadow-2xl border-l-4 border-red-500">
+                    <p class="text-sm font-medium text-gray-400">Quarterly Attrition</p>
+                    <p class="text-4xl font-extrabold text-white mt-2">4.1%</p>
+                    <p class="text-xs text-red-400 mt-1 flex items-center">
+                        <!-- Down Arrow Icon -->
+                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+                        -0.5% vs last quarter
+                    </p>
+                </div>
+            </div>
+
+            <!-- Main Panels: Chart and Recent Activity -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+                <!-- Panel 1: Hiring Pipeline Chart Placeholder -->
+                <div class="lg:col-span-2 bg-gray-800 p-6 rounded-xl shadow-2xl">
+                    <h3 class="text-xl font-semibold text-white mb-4">Hiring Pipeline Status</h3>
+                    <!-- Placeholder for Chart (e.g., bar chart showing stages) -->
+                    <div class="h-64 flex items-center justify-center bg-gray-700/50 rounded-lg border border-dashed border-gray-600">
+                        <p class="text-gray-400">Visualization Area (e.g., Recharts, D3.js output)</p>
+                    </div>
+                </div>
+
+                <!-- Panel 2: Recent Activity Feed -->
+                <div class="lg:col-span-1 bg-gray-800 p-6 rounded-xl shadow-2xl">
+                    <h3 class="text-xl font-semibold text-white mb-4">Recent Activity</h3>
+                    <ul class="space-y-4 text-sm">
+                        <!-- Activity Item 1 -->
+                        <li class="border-b border-gray-700 pb-3">
+                            <p class="text-teal-400 font-medium">New Job Posted</p>
+                            <p class="text-gray-400">Senior Data Scientist role in Pune is now live.</p>
+                            <span class="text-xs text-gray-500">5 minutes ago</span>
+                        </li>
+                        <!-- Activity Item 2 -->
+                        <li class="border-b border-gray-700 pb-3">
+                            <p class="text-indigo-400 font-medium">Performance Review Due</p>
+                            <p class="text-gray-400">Review cycle for 5 employees closes today.</p>
+                            <span class="text-xs text-gray-500">2 hours ago</span>
+                        </li>
+                        <!-- Activity Item 3 -->
+                        <li class="border-b border-gray-700 pb-3">
+                            <p class="text-yellow-400 font-medium">Contract Signed</p>
+                            <p class="text-gray-400">Priya Sharma accepted the offer for Marketing Manager.</p>
+                            <span class="text-xs text-gray-500">Yesterday</span>
+                        </li>
+                        <!-- Activity Item 4 -->
+                        <li>
+                            <p class="text-blue-400 font-medium">Application Spike</p>
+                            <p class="text-gray-400">Backend Developer role received 50+ applications.</p>
+                            <span class="text-xs text-gray-500">3 days ago</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Recent Applications Table -->
+            <div class="mt-12 bg-gray-800 p-6 rounded-xl shadow-2xl overflow-x-auto">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-xl font-semibold text-white">Recent Applications</h3>
+                    <a href="#" class="text-sm font-medium text-teal-400 hover:text-teal-300">View All &rarr;</a>
+                </div>
+                
+                <table class="min-w-full divide-y divide-gray-700">
+                    <thead class="bg-gray-700">
+                        <tr>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider rounded-tl-lg">
+                                Candidate
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+                                Role Applied
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+                                Status
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider rounded-tr-lg">
+                                Applied Date
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-700">
+                        <tr class="hover:bg-gray-700/50 transition duration-150">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white">Anjali Verma</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300">Product Manager</td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-500/20 text-blue-300">
+                                    New
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-400">2 min ago</td>
+                        </tr>
+                        <tr class="hover:bg-gray-700/50 transition duration-150">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white">Rohan Das</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300">Junior Frontend Dev</td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-500/20 text-yellow-300">
+                                    Screening
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-400">1 day ago</td>
+                        </tr>
+                        <tr class="hover:bg-gray-700/50 transition duration-150">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white">Fatima Shaikh</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300">HR Specialist</td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-500/20 text-green-300">
+                                    Interview
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-400">4 days ago</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 py-4 mt-8 border-t border-gray-700">
+        <div class="max-w-7xl mx-auto px-4 text-center text-gray-500 text-sm">
+            UdyogSathi Employer Services | For assistance, contact support@udyogsathi.com
+        </div>
+    </footer>
+
+</body>
+</html>

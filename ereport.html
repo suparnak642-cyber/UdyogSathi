@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports Dashboard | UdyogSathi</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Chart.js for data visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+    <style>
+        /* Define the primary font and base styling */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0d1117; /* GitHub Dark theme background */
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1f2937; /* Gray-800 */
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #374151; /* Gray-700 */
+        }
+        .chart-container {
+            position: relative;
+            height: 300px; /* Fixed height for consistency */
+        }
+    </style>
+</head>
+<body class="bg-[#0d1117] text-gray-200">
+
+    <!-- Header & Navigation -->
+    <header class="bg-gray-800 shadow-xl sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-teal-400">
+                UdyogSathi <span class="text-gray-300">Reports</span>
+            </h1>
+            <nav class="flex space-x-6 text-sm font-medium">
+                <a href="ejobs.html" class="text-gray-300 hover:text-teal-400 transition duration-150 p-2 hidden sm:block">
+                    Jobs
+                </a>
+                <a href="eemployee.html" class="text-gray-300 hover:text-teal-400 transition duration-150 p-2 hidden sm:block">
+                    Employees
+                </a>
+                <!-- Highlighted Link -->
+                <a href="ereport.html" class="text-white hover:text-teal-400 transition duration-150 p-2 rounded-lg bg-teal-500/20 font-semibold border-b-2 border-teal-400">
+                    Reports
+                </a>
+            </nav>
+            <div class="flex items-center space-x-4">
+                <button class="text-gray-400 hover:text-teal-400 p-2 rounded-full transition duration-150">
+                    <!-- Bell Icon -->
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
+                </button>
+                <div class="w-8 h-8 rounded-full bg-teal-600 flex items-center justify-center text-sm font-semibold cursor-pointer">
+                    OP
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="main-content pt-8 pb-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="flex justify-between items-center mb-8 flex-wrap gap-4">
+                <h2 class="text-3xl font-semibold text-white">HR Analytics Dashboard</h2>
+                <div class="flex gap-4">
+                    <select class="py-2 px-3 bg-gray-700 text-gray-200 rounded-lg border-transparent focus:ring-teal-500 focus:border-teal-500 transition duration-150 text-sm">
+                        <option>Q3 2024</option>
+                        <option>Q2 2024</option>
+                        <option>Q1 2024</option>
+                    </select>
+                    <button class="flex items-center px-4 py-2 bg-gray-700 hover:bg-gray-600 text-gray-300 font-medium rounded-xl transition duration-200 shadow-md">
+                        <!-- Download Icon -->
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                        Export PDF
+                    </button>
+                </div>
+            </div>
+
+            <!-- 1. Key Performance Indicators (KPIs) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+                
+                <!-- KPI Card 1: Total Headcount -->
+                <div class="bg-gray-800 p-5 rounded-xl shadow-2xl border-l-4 border-teal-500 transform hover:scale-[1.02] transition duration-300">
+                    <p class="text-sm font-medium text-gray-400">Total Headcount</p>
+                    <div class="flex items-end justify-between mt-1">
+                        <span class="text-4xl font-bold text-white">345</span>
+                        <span class="text-sm text-green-400 font-semibold">+4.5% QTD</span>
+                    </div>
+                </div>
+
+                <!-- KPI Card 2: Voluntary Turnover -->
+                <div class="bg-gray-800 p-5 rounded-xl shadow-2xl border-l-4 border-red-500 transform hover:scale-[1.02] transition duration-300">
+                    <p class="text-sm font-medium text-gray-400">Voluntary Turnover (LTM)</p>
+                    <div class="flex items-end justify-between mt-1">
+                        <span class="text-4xl font-bold text-white">8.2%</span>
+                        <span class="text-sm text-red-400 font-semibold">+0.6% YOY</span>
+                    </div>
+                </div>
+
+                <!-- KPI Card 3: Average Tenure -->
+                <div class="bg-gray-800 p-5 rounded-xl shadow-2xl border-l-4 border-blue-500 transform hover:scale-[1.02] transition duration-300">
+                    <p class="text-sm font-medium text-gray-400">Average Tenure</p>
+                    <div class="flex items-end justify-between mt-1">
+                        <span class="text-4xl font-bold text-white">3.1 yrs</span>
+                        <span class="text-sm text-gray-400 font-semibold">Stability Index</span>
+                    </div>
+                </div>
+
+                <!-- KPI Card 4: Open Roles -->
+                <div class="bg-gray-800 p-5 rounded-xl shadow-2xl border-l-4 border-yellow-500 transform hover:scale-[1.02] transition duration-300">
+                    <p class="text-sm font-medium text-gray-400">Active Open Roles</p>
+                    <div class="flex items-end justify-between mt-1">
+                        <span class="text-4xl font-bold text-white">18</span>
+                        <span class="text-sm text-yellow-400 font-semibold">Avg. 45 Days TTH</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. Charts and Detailed Data -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+                <!-- Chart 1: Headcount Growth (Line Chart - 2/3 width) -->
+                <div class="lg:col-span-2 bg-gray-800 p-6 rounded-xl shadow-2xl">
+                    <h3 class="text-xl font-semibold mb-4 text-white">Monthly Headcount Trend (Last 12 Months)</h3>
+                    <div class="chart-container">
+                        <canvas id="headcountTrendChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Chart 2: Department Breakdown (Doughnut Chart - 1/3 width) -->
+                <div class="lg:col-span-1 bg-gray-800 p-6 rounded-xl shadow-2xl">
+                    <h3 class="text-xl font-semibold mb-4 text-white">Employees by Department</h3>
+                    <div class="chart-container">
+                        <canvas id="departmentChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Chart 3: Hiring vs. Separations (Bar Chart - Full width) -->
+                <div class="lg:col-span-3 bg-gray-800 p-6 rounded-xl shadow-2xl">
+                    <h3 class="text-xl font-semibold mb-4 text-white">Hiring vs. Separations by Quarter</h3>
+                    <div class="chart-container h-[350px]">
+                        <canvas id="hiringSeparationChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 py-4 mt-8 border-t border-gray-700">
+        <div class="max-w-7xl mx-auto px-4 text-center text-gray-500 text-sm">
+            UdyogSathi Reports Engine | Data accurate as of October 18, 2025.
+        </div>
+    </footer>
+
+    <script>
+        // Set up Chart.js global defaults for a dark theme
+        Chart.defaults.color = '#9ca3af'; // Default text color (gray-400)
+        Chart.defaults.font.family = 'Inter, sans-serif';
+
+        // Custom colors matching the Tailwind theme
+        const colors = {
+            teal: 'rgb(20, 184, 166)', // teal-500
+            red: 'rgb(239, 68, 68)',   // red-500
+            blue: 'rgb(59, 130, 246)',  // blue-500
+            yellow: 'rgb(250, 204, 21)', // yellow-400
+            gray: 'rgb(107, 114, 128)', // gray-500
+        };
+
+        // --- 1. Headcount Trend Line Chart ---
+        const setupHeadcountTrendChart = () => {
+            const ctx = document.getElementById('headcountTrendChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Oct 24', 'Nov', 'Dec', 'Jan 25', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep 25'],
+                    datasets: [{
+                        label: 'Total Headcount',
+                        data: [280, 285, 290, 295, 305, 310, 315, 325, 330, 335, 340, 345],
+                        borderColor: colors.teal,
+                        backgroundColor: 'rgba(20, 184, 166, 0.2)',
+                        tension: 0.3,
+                        pointRadius: 5,
+                        pointHoverRadius: 7,
+                        fill: true,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            grid: {
+                                color: '#374151' // Gray-700 for grid lines
+                            },
+                            ticks: {
+                                stepSize: 10,
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(31, 41, 55, 0.9)', // Dark background for tooltip
+                            titleColor: '#fff',
+                            bodyColor: '#fff',
+                            cornerRadius: 8,
+                        }
+                    }
+                }
+            });
+        };
+
+        // --- 2. Department Breakdown Doughnut Chart ---
+        const setupDepartmentChart = () => {
+            const ctx = document.getElementById('departmentChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Technology', 'Sales', 'Marketing', 'HR', 'Operations'],
+                    datasets: [{
+                        label: 'Employees',
+                        data: [150, 70, 50, 25, 50], // Total 345
+                        backgroundColor: [
+                            colors.teal,
+                            colors.blue,
+                            colors.yellow,
+                            colors.red,
+                            colors.gray,
+                        ],
+                        hoverOffset: 15
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                boxWidth: 15,
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(31, 41, 55, 0.9)',
+                            titleColor: '#fff',
+                            bodyColor: '#fff',
+                            cornerRadius: 8,
+                        }
+                    }
+                }
+            });
+        };
+
+        // --- 3. Hiring vs. Separations Bar Chart ---
+        const setupHiringSeparationChart = () => {
+            const ctx = document.getElementById('hiringSeparationChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Q4 2023', 'Q1 2024', 'Q2 2024', 'Q3 2024'],
+                    datasets: [
+                        {
+                            label: 'New Hires',
+                            data: [12, 18, 25, 20],
+                            backgroundColor: colors.teal,
+                            borderRadius: 6,
+                        },
+                        {
+                            label: 'Separations (Voluntary/Involuntary)',
+                            data: [-5, -7, -9, -8], // Negative values to show them below the axis
+                            backgroundColor: colors.red,
+                            borderRadius: 6,
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            stacked: true,
+                            grid: { display: false }
+                        },
+                        y: {
+                            stacked: true,
+                            grid: { color: '#374151' }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                boxWidth: 15,
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(31, 41, 55, 0.9)',
+                            titleColor: '#fff',
+                            bodyColor: '#fff',
+                            cornerRadius: 8,
+                        }
+                    }
+                }
+            });
+        };
+
+
+        // Initialize all charts once the window is loaded
+        window.onload = function() {
+            setupHeadcountTrendChart();
+            setupDepartmentChart();
+            setupHiringSeparationChart();
+        };
+    </script>
+</body>
+</html>

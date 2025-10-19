@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Platform Overview | UdyogSathi</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Base styling and font */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0F172A; /* Dark Slate Blue background */
+            color: #E2E8F0;
+        }
+        /* Custom feature icon styling */
+        .feature-icon-bg {
+            background-color: #312E81; /* Indigo-800 */
+            color: #C7D2FE; /* Indigo-200 */
+        }
+        /* Mock image background for demonstration */
+        .mock-device-bg {
+            background: linear-gradient(135deg, #1E3A8A, #10B981); /* Blue to Green Gradient */
+        }
+    </style>
+</head>
+<body class="bg-gray-900 min-h-screen">
+
+    <!-- Header & Navigation -->
+    <header class="bg-gray-800 shadow-xl sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-indigo-400">
+                UdyogSathi <span class="text-gray-300">HRM</span>
+            </h1>
+            <nav class="flex space-x-6 text-sm font-medium">
+                <!-- Highlighted Link -->
+                <a href="platform.html" class="text-white hover:text-indigo-400 transition duration-150 p-2 rounded-lg bg-indigo-500/20 font-semibold border-b-2 border-indigo-400">
+                    Platform
+                </a>
+                <a href="pricing.html" class="text-gray-300 hover:text-indigo-400 transition duration-150 p-2 hidden sm:block">
+                    Pricing
+                </a>
+                <a href="contactsales.html" class="text-gray-300 hover:text-indigo-400 transition duration-150 p-2 hidden sm:block">
+                    Contact Sales
+                </a>
+            </nav>
+            <button class="px-4 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-sm font-medium transition duration-200 shadow-lg shadow-indigo-500/30">
+                Get Started
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="main-content py-16 md:py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <!-- Hero Section -->
+            <section class="text-center mb-20">
+                <h2 class="text-5xl md:text-7xl font-extrabold text-white mb-6 leading-tight">
+                    The All-in-One <span class="text-indigo-400">HR Management</span> Platform
+                </h2>
+                <p class="text-xl text-gray-400 max-w-4xl mx-auto mb-10">
+                    UdyogSathi streamlines your core HR functions, empowering your team with tools for productivity, compliance, and growth.
+                </p>
+                <div class="space-x-4">
+                    <button class="px-8 py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-xl text-lg transition duration-200 shadow-xl shadow-indigo-500/40">
+                        Request a Demo
+                    </button>
+                    <button class="px-8 py-3 bg-gray-700 hover:bg-gray-600 text-indigo-300 font-semibold rounded-xl text-lg transition duration-200 border border-gray-600">
+                        Explore Features
+                    </button>
+                </div>
+            </section>
+
+            <!-- --- -->
+
+            <!-- Core Features Grid -->
+            <section class="mb-20">
+                <h3 class="text-3xl font-bold text-center text-white mb-12">Key Modules Designed for Efficiency</h3>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    
+                    <!-- Feature 1: Core HRIS -->
+                    <div class="bg-gray-800 p-6 rounded-2xl shadow-xl hover:bg-gray-700 transition duration-300">
+                        <div class="feature-icon-bg p-3 rounded-full inline-block mb-4">
+                            <!-- Icon for HRIS/Profiles (Users) -->
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M7 15v-2.5A2.5 2.5 0 019.5 10h5A2.5 2.5 0 0117 12.5V15m1.5-7.5a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path></svg>
+                        </div>
+                        <h4 class="text-xl font-semibold text-white mb-2">Employee Records (HRIS)</h4>
+                        <p class="text-gray-400 text-sm">Centralized, secure employee database. Manage profiles, documents, and org charts effortlessly.</p>
+                    </div>
+
+                    <!-- Feature 2: Time & Attendance -->
+                    <div class="bg-gray-800 p-6 rounded-2xl shadow-xl hover:bg-gray-700 transition duration-300">
+                        <div class="feature-icon-bg p-3 rounded-full inline-block mb-4">
+                            <!-- Icon for Time/Clock (Time) -->
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        </div>
+                        <h4 class="text-xl font-semibold text-white mb-2">Time & Leave Management</h4>
+                        <p class="text-gray-400 text-sm">Track working hours, approve time-off requests, and ensure compliance with automated policies.</p>
+                    </div>
+
+                    <!-- Feature 3: Performance Management -->
+                    <div class="bg-gray-800 p-6 rounded-2xl shadow-xl hover:bg-gray-700 transition duration-300">
+                        <div class="feature-icon-bg p-3 rounded-full inline-block mb-4">
+                            <!-- Icon for Performance/Goals (Target) -->
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 4 4 2 2m-2-2l-4-4-7 7m7 7v4m0 0v4m0-4h4m-4 0H8m-2-2h10m-2 2v-4m0 0v-4m0 0h4m-4 0H8"></path></svg>
+                        </div>
+                        <h4 class="text-xl font-semibold text-white mb-2">Goals and Feedback</h4>
+                        <p class="text-gray-400 text-sm">Set company-wide goals, conduct 360° reviews, and foster continuous feedback loops for growth.</p>
+                    </div>
+
+                    <!-- Feature 4: Reporting & Analytics -->
+                    <div class="bg-gray-800 p-6 rounded-2xl shadow-xl hover:bg-gray-700 transition duration-300">
+                        <div class="feature-icon-bg p-3 rounded-full inline-block mb-4">
+                            <!-- Icon for Reporting/Analytics (Chart) -->
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-4 0h4m-4 0h4m-4 0v-4m0 0V7m0 0V5a2 2 0 012-2h2a2 2 0 012 2v2m-4 0h4"></path></svg>
+                        </div>
+                        <h4 class="text-xl font-semibold text-white mb-2">Advanced Reporting</h4>
+                        <p class="text-gray-400 text-sm">Gain deep insights with customizable dashboards and reports on retention, turnover, and workforce data.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- --- -->
+
+            <!-- Mock UI / Platform Visualization Section -->
+            <section class="bg-gray-800 p-10 md:p-16 rounded-3xl shadow-2xl mb-20 border border-gray-700">
+                <div class="lg:flex lg:items-center lg:space-x-12">
+                    <!-- Text Content -->
+                    <div class="lg:w-1/2 mb-10 lg:mb-0">
+                        <span class="text-indigo-400 font-bold uppercase text-sm tracking-widest mb-3 block">Intuitive Experience</span>
+                        <h3 class="text-4xl font-bold text-white mb-6">Designed for HR, Loved by Employees</h3>
+                        <p class="text-gray-400 text-lg mb-6">
+                            Our user interface is built on modern design principles, minimizing clutter and maximizing usability. From day one, your team will find it easy to manage their profiles, submit requests, and check performance reviews.
+                        </p>
+                        <ul class="space-y-3 text-gray-300">
+                            <li class="flex items-center">
+                                <svg class="w-5 h-5 text-emerald-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                Responsive on Mobile & Desktop
+                            </li>
+                            <li class="flex items-center">
+                                <svg class="w-5 h-5 text-emerald-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                Personalized Dashboards
+                            </li>
+                            <li class="flex items-center">
+                                <svg class="w-5 h-5 text-emerald-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                Single Sign-On Ready
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Mock Device Visualization -->
+                    <div class="lg:w-1/2 flex justify-center">
+                        <div class="mock-device-bg p-8 rounded-3xl shadow-2xl w-full max-w-lg h-80 flex items-center justify-center">
+                            <div class="text-center text-white p-4 bg-gray-900/50 backdrop-blur-sm rounded-xl">
+                                <p class="font-mono text-xs mb-2 text-indigo-200">/dashboard/analytics</p>
+                                <h4 class="text-2xl font-bold">Mock HR Dashboard View</h4>
+                                <p class="text-gray-300 mt-2">Charts and metrics displayed here.</p>
+                                <div class="w-32 h-2 mt-4 mx-auto bg-emerald-400 rounded-full"></div>
+                                <div class="w-20 h-2 mt-2 mx-auto bg-indigo-300 rounded-full"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- --- -->
+
+            <!-- Compliance and Security Footer CTA -->
+            <section class="bg-indigo-700 p-10 rounded-2xl text-center">
+                <h3 class="text-3xl font-bold text-white mb-4">Ready to Transform Your HR?</h3>
+                <p class="text-indigo-200 text-lg mb-8 max-w-3xl mx-auto">
+                    Secure and compliant, UdyogSathi ensures you meet all regulatory requirements while giving your team the best digital experience.
+                </p>
+                <div class="space-x-4">
+                    <a href="pricing.html" class="inline-block px-8 py-3 bg-white hover:bg-gray-100 text-indigo-600 font-semibold rounded-xl text-lg transition duration-200 shadow-lg">
+                        View Pricing Plans
+                    </a>
+                    <button class="px-8 py-3 bg-indigo-500 hover:bg-indigo-400 text-white font-semibold rounded-xl text-lg transition duration-200 border border-indigo-400">
+                       <a href="bookafreetrial.html">Book a free trial</a>
+                    </button>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Simple Footer -->
+    <footer class="bg-gray-900 py-4 mt-8 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 text-center text-gray-600 text-sm">
+            &copy; 2024 UdyogSathi. All rights reserved.
+        </div>
+    </footer>
+</body>
+</html>

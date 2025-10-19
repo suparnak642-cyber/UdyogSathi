@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UdyogSathi | Our Manual Labor System</title>
+    
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        // --- Tailwind Configuration (Dark Theme) ---
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'bg-darkest': '#0D1117', // Header/Footer (Deep Dark)
+                        'bg-medium': '#161B22',  // Main Body Background
+                        'bg-light': '#21262D',   // Card Background
+                        'text-light': '#F0F6FC', // Primary Text Color
+                        'accent-blue': '#58A6FF', // Bright Blue Accent
+                        'secondary-gold': '#FBBF24', // Amber Accent
+                        'status-green': '#3FB950', // Success Indicator
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+
+        // --- Translation Data: Comprehensive Content Translation ---
+        const translations = {
+            en: {
+                pageTitle: "Our Manual Labor System",
+                selectLang: "Select Language",
+                heroHeading: "Connecting Local Jobs, Instantly.",
+                heroSubheading: "UdyogSathi is the fastest, most reliable platform to hire and find manual, gig, and blue-collar work in your area.",
+                section1Title: "How It Works: For Employers",
+                step1Title: "1. Post Your Job",
+                step1Desc: "Use our simple form to detail the job (e.g., house painting, delivery help, cleaning) and your salary offer. It takes less than 60 seconds.",
+                step2Title: "2. Real-Time Matching",
+                step2Desc: "Our system instantly finds verified workers in your exact locality whose skills and availability match your needs.",
+                step3Title: "3. Direct Contact",
+                step3Desc: "Receive immediate notifications and contact details of interested workers. Connect instantly via call or message to finalize the details.",
+                section2Title: "How It Works: For Workers",
+                wStep1Title: "1. Create Your Profile",
+                wStep1Desc: "Tell us your skills (e.g., driver, cleaner, plumber), preferred work areas, and desired minimum salary. All done via simple voice or text input.",
+                wStep2Title: "2. Get Instant Job Alerts",
+                wStep2Desc: "Receive real-time notifications for nearby jobs that match your profile. No more endless searching.",
+                wStep3Title: "3. Accept & Connect",
+                wStep3Desc: "View the job details and employer contact. Accept the job, and the employer will instantly receive your contact information to start work immediately.",
+                section3Title: "Why Choose UdyogSathi?",
+                benefit1Title: "Zero Commission",
+                benefit1Desc: "We take no cut from the worker's salary or the employer's payment. 100% of the agreed salary goes to the worker.",
+                benefit2Title: "Verified Profiles",
+                benefit2Desc: "All users (both workers and employers) are verified using secure methods to ensure a safe and trustworthy environment.",
+                benefit3Title: "Hyper-Local Focus",
+                benefit3Desc: "Our platform focuses only on jobs within a small radius of your location, ensuring fast response times and easy travel.",
+                ctaHeading: "Ready to Simplify Your Hiring or Job Search?",
+                ctaButton: "Get Started Now",
+                footerText: "UdyogSathi is committed to building a transparent and direct labor marketplace for the community.",
+            },
+            hi: {
+                pageTitle: "हमारी मैन्युअल श्रम प्रणाली",
+                selectLang: "भाषा चुने",
+                heroHeading: "स्थानीय नौकरियों को तुरंत जोड़ना।",
+                heroSubheading: "उद्योगसाथी आपके क्षेत्र में मैन्युअल, गिग और ब्लू-कॉलर काम पर रखने और खोजने के लिए सबसे तेज़, सबसे विश्वसनीय मंच है।",
+                section1Title: "यह कैसे काम करता है: नियोक्ताओं के लिए",
+                step1Title: "1. अपनी नौकरी पोस्ट करें",
+                step1Desc: "नौकरी (जैसे: घर की पेंटिंग, डिलीवरी सहायता, सफाई) और अपने वेतन प्रस्ताव का विवरण देने के लिए हमारे सरल फॉर्म का उपयोग करें। इसमें 60 सेकंड से भी कम समय लगता है।",
+                step2Title: "2. वास्तविक समय मिलान",
+                step2Desc: "हमारा सिस्टम तुरंत आपके इलाके में सत्यापित श्रमिकों को ढूंढता है जिनके कौशल और उपलब्धता आपकी जरूरतों से मेल खाती है।",
+                step3Title: "3. सीधा संपर्क",
+                step3Desc: "इच्छुक श्रमिकों के तत्काल सूचनाएं और संपर्क विवरण प्राप्त करें। विवरण को अंतिम रूप देने के लिए कॉल या संदेश के माध्यम से तुरंत जुड़ें।",
+                section2Title: "यह कैसे काम करता है: श्रमिकों के लिए",
+                wStep1Title: "1. अपनी प्रोफ़ाइल बनाएं",
+                wStep1Desc: "हमें अपने कौशल (जैसे: ड्राइवर, क्लीनर, प्लंबर), पसंदीदा कार्य क्षेत्र और न्यूनतम वांछित वेतन बताएं। यह सब सरल आवाज या पाठ इनपुट के माध्यम से किया जाता है।",
+                wStep2Title: "2. तत्काल नौकरी अलर्ट प्राप्त करें",
+                wStep2Desc: "अपने प्रोफ़ाइल से मेल खाने वाली आस-पास की नौकरियों के लिए वास्तविक समय की सूचनाएं प्राप्त करें। अब और अंतहीन खोज नहीं।",
+                wStep3Title: "3. स्वीकार करें और जुड़ें",
+                wStep3Desc: "नौकरी का विवरण और नियोक्ता संपर्क देखें। नौकरी स्वीकार करें, और नियोक्ता तुरंत काम शुरू करने के लिए आपका संपर्क विवरण प्राप्त करेगा।",
+                section3Title: "उद्योगसाथी क्यों चुनें?",
+                benefit1Title: "शून्य कमीशन",
+                benefit1Desc: "हम श्रमिक के वेतन या नियोक्ता के भुगतान से कोई कटौती नहीं लेते हैं। सहमत वेतन का 100% श्रमिक को जाता है।",
+                benefit2Title: "सत्यापित प्रोफाइल",
+                benefit2Desc: "सुरक्षित और भरोसेमंद माहौल सुनिश्चित करने के लिए सभी उपयोगकर्ताओं (श्रमिकों और नियोक्ताओं दोनों) को सुरक्षित तरीकों का उपयोग करके सत्यापित किया जाता है।",
+                benefit3Title: "अति-स्थानीय फोकस",
+                benefit3Desc: "हमारा मंच केवल आपके स्थान के एक छोटे से दायरे में नौकरियों पर ध्यान केंद्रित करता है, जिससे त्वरित प्रतिक्रिया समय और आसान यात्रा सुनिश्चित होती है।",
+                ctaHeading: "अपनी भर्ती या नौकरी की खोज को सरल बनाने के लिए तैयार हैं?",
+                ctaButton: "अभी शुरू करें",
+                footerText: "उद्योगसाथी समुदाय के लिए एक पारदर्शी और सीधा श्रम बाज़ार बनाने के लिए प्रतिबद्ध है।",
+            },
+            mr: {
+                pageTitle: "आमची मॅन्युअल श्रम प्रणाली",
+                selectLang: "भाषा निवडा",
+                heroHeading: "स्थानिक नोकऱ्या, त्वरित कनेक्ट करत आहे.",
+                heroSubheading: "तुमच्या परिसरात मॅन्युअल, गिग आणि ब्लू-कॉलर कामे भाड्याने घेण्यासाठी आणि शोधण्यासाठी उद्योगसाथी हे सर्वात वेगळे, सर्वात विश्वसनीय व्यासपीठ आहे.",
+                section1Title: "ते कसे कार्य करते: मालकांसाठी",
+                step1Title: "1. तुमची नोकरी पोस्ट करा",
+                step1Desc: "नोकरी (उदा. घर रंगवणे, डिलिव्हरी मदत, स्वच्छता) आणि तुमच्या पगाराच्या ऑफरचे तपशील देण्यासाठी आमच्या सोप्या फॉर्मचा वापर करा. यास 60 सेकंदांपेक्षा कमी वेळ लागतो.",
+                step2Title: "2. रिअल-टाइम जुळणी",
+                step2Desc: "आमची प्रणाली त्वरित तुमच्या परिसरातील सत्यापित कामगारांना शोधते, ज्यांचे कौशल्ये आणि उपलब्धता तुमच्या गरजांशी जुळतात.",
+                step3Title: "3. थेट संपर्क",
+                step3Desc: "इच्छुक कामगारांचे त्वरित सूचना आणि संपर्क तपशील प्राप्त करा. तपशील निश्चित करण्यासाठी कॉल किंवा संदेशाद्वारे त्वरित कनेक्ट व्हा.",
+                section2Title: "ते कसे कार्य करते: कामगारांसाठी",
+                wStep1Title: "1. तुमचे प्रोफाइल तयार करा",
+                wStep1Desc: "तुमची कौशल्ये (उदा. ड्रायव्हर, क्लीनर, प्लंबर), पसंतीचे कार्यक्षेत्र आणि किमान अपेक्षित वेतन आम्हाला सांगा. हे सर्व साधे आवाज किंवा मजकूर इनपुटद्वारे केले जाते.",
+                wStep2Title: "2. त्वरित नोकरी अलर्ट मिळवा",
+                wStep2Desc: "तुमच्या प्रोफाइलशी जुळणाऱ्या जवळपासच्या नोकऱ्यांसाठी रिअल-टाइम सूचना मिळवा. आता अंतहीन शोध नाही.",
+                wStep3Title: "3. स्वीकारा आणि कनेक्ट व्हा",
+                wStep3Desc: "नोकरीचे तपशील आणि मालकाचा संपर्क पहा. नोकरी स्वीकारा, आणि मालक त्वरित काम सुरू करण्यासाठी तुमचे संपर्क तपशील प्राप्त करेल.",
+                section3Title: "उद्योगसाथी का निवडा?",
+                benefit1Title: "शून्य कमिशन",
+                benefit1Desc: "आम्ही कामगारांच्या पगारात किंवा मालकाच्या पेमेंटमध्ये कोणताही वाटा घेत नाही. मान्य केलेल्या वेतनाचा 100% कामगाराला जातो.",
+                benefit2Title: "सत्यापित प्रोफाइल",
+                benefit2Desc: "सुरक्षित आणि विश्वासार्ह वातावरण सुनिश्चित करण्यासाठी सर्व वापरकर्त्यांची (कामगार आणि मालक दोन्ही) सुरक्षित पद्धती वापरून पडताळणी केली जाते.",
+                benefit3Title: "अति-स्थानिक लक्ष",
+                benefit3Desc: "आमचे व्यासपीठ केवळ तुमच्या ठिकाणाच्या लहान त्रिज्येतील नोकऱ्यांवर लक्ष केंद्रित करते, ज्यामुळे त्वरित प्रतिसाद वेळ आणि सोपे प्रवास सुनिश्चित होतो.",
+                ctaHeading: "तुमची भरती किंवा नोकरी शोध सोपे करण्यासाठी तयार आहात?",
+                ctaButton: "आता सुरू करा",
+                footerText: "उद्योगसाथी समुदायासाठी एक पारदर्शक आणि थेट श्रम बाज़ार तयार करण्यासाठी वचनबद्ध आहे.",
+            },
+            bn: {
+                pageTitle: "আমাদের ম্যানুয়াল শ্রম ব্যবস্থা",
+                selectLang: "ভাষা নির্বাচন করুন",
+                heroHeading: "স্থানীয় চাকরিগুলিকে দ্রুত সংযুক্ত করা।",
+                heroSubheading: "আপনার এলাকায় ম্যানুয়াল, গিগ এবং ব্লু-কলার কাজ নিয়োগ এবং খুঁজে পাওয়ার জন্য উদ্যোগসাথী হল দ্রুততম, সবচেয়ে নির্ভরযোগ্য প্ল্যাটফর্ম।",
+                section1Title: "এটি কিভাবে কাজ করে: নিয়োগকর্তাদের জন্য",
+                step1Title: "1. আপনার চাকরি পোস্ট করুন",
+                step1Desc: "চাকরির বিবরণ (যেমন: ঘর রং করা, ডেলিভারি সাহায্য, পরিষ্কার করা) এবং আপনার বেতনের অফার বিশদ জানাতে আমাদের সহজ ফর্মটি ব্যবহার করুন। এতে 60 সেকেন্ডেরও কম সময় লাগে।",
+                step2Title: "2. রিয়েল-টাইম ম্যাচিং",
+                step2Desc: "আমাদের সিস্টেম তাৎক্ষণিকভাবে আপনার এলাকায় যাচাইকৃত কর্মীদের খুঁজে বের করে যাদের দক্ষতা এবং প্রাপ্যতা আপনার প্রয়োজনের সাথে মেলে।",
+                step3Title: "3. সরাসরি যোগাযোগ",
+                step3Desc: "আগ্রহী কর্মীদের তাৎক্ষণিক বিজ্ঞপ্তি এবং যোগাযোগের বিশদ পান। বিশদ চূড়ান্ত করতে কল বা বার্তার মাধ্যমে দ্রুত সংযোগ করুন।",
+                section2Title: "এটি কিভাবে কাজ করে: কর্মীদের জন্য",
+                wStep1Title: "1. আপনার প্রোফাইল তৈরি করুন",
+                wStep1Desc: "আমাদের আপনার দক্ষতা (যেমন: ড্রাইভার, ক্লিনার, প্লাম্বার), পছন্দের কাজের ক্ষেত্র এবং সর্বনিম্ন কাঙ্ক্ষিত বেতন বলুন। এটি সব সহজ ভয়েস বা টেক্সট ইনপুটের মাধ্যমে করা হয়।",
+                wStep2Title: "2. তাৎক্ষণিক চাকরির সতর্কতা পান",
+                wStep2Desc: "আপনার প্রোফাইলের সাথে মেলে এমন কাছাকাছি চাকরির জন্য রিয়েল-টাইম বিজ্ঞপ্তি পান। আর অবিরাম খোঁজাখুঁজি নয়।",
+                wStep3Title: "3. গ্রহণ করুন এবং সংযোগ করুন",
+                wStep3Desc: "চাকরির বিবরণ এবং নিয়োগকর্তার যোগাযোগ দেখুন। চাকরিটি গ্রহণ করুন, এবং নিয়োগকর্তা অবিলম্বে কাজ শুরু করার জন্য আপনার যোগাযোগের তথ্য পাবেন।",
+                section3Title: "কেন উদ্যোগসাথী বেছে নেবেন?",
+                benefit1Title: "শূন্য কমিশন",
+                benefit1Desc: "আমরা শ্রমিকের বেতন বা নিয়োগকর্তার পেমেন্ট থেকে কোনো অংশ নিই না। সম্মত বেতনের 100% শ্রমিকের কাছে যায়।",
+                benefit2Title: "যাচাইকৃত প্রোফাইল",
+                benefit2Desc: "একটি নিরাপদ এবং বিশ্বস্ত পরিবেশ নিশ্চিত করতে সমস্ত ব্যবহারকারীকে (কর্মী এবং নিয়োগকর্তা উভয়ই) সুরক্ষিত পদ্ধতি ব্যবহার করে যাচাই করা হয়।",
+                benefit3Title: "অতি-স্থানীয় ফোকাস",
+                benefit3Desc: "আমাদের প্ল্যাটফর্ম শুধুমাত্র আপনার অবস্থানের ছোট ব্যাসার্ধের মধ্যে থাকা চাকরিগুলিতে ফোকাস করে, যা দ্রুত প্রতিক্রিয়ার সময় এবং সহজ ভ্রমণ নিশ্চিত করে।",
+                ctaHeading: "আপনার নিয়োগ বা চাকরির সন্ধান সহজ করতে প্রস্তুত?",
+                ctaButton: "এখনই শুরু করুন",
+                footerText: "উদ্যোগসাথী সম্প্রদায়ের জন্য একটি স্বচ্ছ এবং সরাসরি শ্রম বাজার তৈরির জন্য প্রতিশ্রুতিবদ্ধ।",
+            },
+            te: {
+                pageTitle: "మా మాన్యువల్ శ్రమ వ్యవస్థ",
+                selectLang: "భాషను ఎంచుకోండి",
+                heroHeading: "స్థానిక ఉద్యోగాలను తక్షణమే కనెక్ట్ చేస్తోంది.",
+                heroSubheading: "మీ ప్రాంతంలో మాన్యువల్, గిగ్ మరియు బ్లూ-కాలర్ పనిని నియమించడానికి మరియు కనుగొనడానికి ఉద్యాగ్సాథి అత్యంత వేగవంతమైన, అత్యంత విశ్వసనీయ వేదిక.",
+                section1Title: "ఇది ఎలా పనిచేస్తుంది: యజమానుల కోసం",
+                step1Title: "1. మీ ఉద్యోగాన్ని పోస్ట్ చేయండి",
+                step1Desc: "ఉద్యోగం (ఉదా: ఇంటి పెయింటింగ్, డెలివరీ సహాయం, శుభ్రపరచడం) మరియు మీ జీతం ఆఫర్‌ను వివరించడానికి మా సులభమైన ఫారమ్‌ను ఉపయోగించండి. దీనికి 60 సెకన్ల కంటే తక్కువ సమయం పడుతుంది.",
+                step2Title: "2. రియల్-టైమ్ మ్యాచింగ్",
+                step2Desc: "మీ నైపుణ్యాలు మరియు లభ్యత మీ అవసరాలకు సరిపోయే మీ ప్రాంతంలోని ధృవీకరించబడిన కార్మికులను మా సిస్టమ్ తక్షణమే కనుగొంటుంది.",
+                step3Title: "3. డైరెక్ట్ కాంటాక్ట్",
+                step3Desc: "ఆసక్తిగల కార్మికుల తక్షణ నోటిఫికేషన్‌లు మరియు సంప్రదింపు వివరాలను స్వీకరించండి. వివరాలను ఖరారు చేయడానికి కాల్ లేదా సందేశం ద్వారా తక్షణమే కనెక్ట్ అవ్వండి.",
+                section2Title: "ఇది ఎలా పనిచేస్తుంది: కార్మికుల కోసం",
+                wStep1Title: "1. మీ ప్రొఫైల్‌ను సృష్టించండి",
+                wStep1Desc: "మీ నైపుణ్యాలు (ఉదా: డ్రైవర్, క్లీనర్, ప్లంబర్), ఇష్టపడే పని ప్రాంతాలు మరియు కావలసిన కనీస జీతం మాకు చెప్పండి. ఇదంతా సాధారణ వాయిస్ లేదా టెక్స్ట్ ఇన్‌పుట్ ద్వారా జరుగుతుంది.",
+                wStep2Title: "2. తక్షణ ఉద్యోగ హెచ్చరికలను పొందండి",
+                wStep2Desc: "మీ ప్రొఫైల్‌కు సరిపోయే సమీప ఉద్యోగాల కోసం రియల్-టైమ్ నోటిఫికేషన్‌లను స్వీకరించండి. ఇక అంతులేని శోధన లేదు.",
+                wStep3Title: "3. అంగీకరించండి & కనెక్ట్ అవ్వండి",
+                wStep3Desc: "ఉద్యోగ వివరాలు మరియు యజమాని సంప్రదింపులను వీక్షించండి. ఉద్యోగాన్ని అంగీకరించండి, మరియు యజమాని వెంటనే పని ప్రారంభించడానికి మీ సంప్రదింపు సమాచారాన్ని అందుకుంటారు.",
+                section3Title: "ఉద్యాగ్సాథిని ఎందుకు ఎంచుకోవాలి?",
+                benefit1Title: "సున్నా కమిషన్",
+                benefit1Desc: "కార్మికుని జీతం లేదా యజమాని చెల్లింపు నుండి మేము ఎలాంటి కోత తీసుకోము. అంగీకరించిన జీతంలో 100% కార్మికుడికి వెళుతుంది.",
+                benefit2Title: "ధృవీకరించబడిన ప్రొఫైల్‌లు",
+                benefit2Desc: "సురక్షితమైన మరియు నమ్మదగిన వాతావరణాన్ని నిర్ధారించడానికి వినియోగదారులందరూ (కార్మికులు మరియు యజమానులు ఇద్దరూ) సురక్షిత పద్ధతులను ఉపయోగించి ధృవీకరించబడతారు.",
+                benefit3Title: "హైపర్-లోకల్ ఫోకస్",
+                benefit3Desc: "మా ప్లాట్‌ఫారమ్ మీ స్థానం యొక్క చిన్న వ్యాసార్థంలో ఉన్న ఉద్యోగాలపై మాత్రమే దృష్టి పెడుతుంది, వేగవంతమైన ప్రతిస్పందన సమయాలను మరియు సులభమైన ప్రయాణాన్ని నిర్ధారిస్తుంది.",
+                ctaHeading: "మీ నియామకం లేదా ఉద్యోగ శోధనను సులభతరం చేయడానికి సిద్ధంగా ఉన్నారా?",
+                ctaButton: "ఇప్పుడే ప్రారంభించండి",
+                footerText: "సమాజం కోసం పారదర్శకమైన మరియు ప్రత్యక్ష శ్రమ మార్కెట్‌ను నిర్మించడానికి ఉద్యాగ్సాథి కట్టుబడి ఉంది.",
+            },
+            ta: {
+                pageTitle: "எங்கள் கையேடு தொழிலாளர் அமைப்பு",
+                selectLang: "மொழியைத் தேர்ந்தெடுக்கவும்",
+                heroHeading: "உள்ளூர் வேலைகளை உடனடியாக இணைக்கிறது.",
+                heroSubheading: "உங்கள் பகுதியில் கையேடு, கிக் மற்றும் நீல காலர் வேலைகளை பணியமர்த்தவும் மற்றும் கண்டறியவும் உத்யோக்சாத்தி மிக விரைவான, நம்பகமான தளமாகும்.",
+                section1Title: "இது எவ்வாறு செயல்படுகிறது: முதலாளிகளுக்கு",
+                step1Title: "1. உங்கள் வேலையை இடுகையிடவும்",
+                step1Desc: "வேலை (எ.கா: வீடு வண்ணம் தீட்டுதல், டெலிவரி உதவி, சுத்தம் செய்தல்) மற்றும் உங்கள் சம்பள சலுகை பற்றி விரிவாக தெரிவிக்க எங்கள் எளிய படிவத்தைப் பயன்படுத்தவும். இதற்கு 60 வினாடிகளுக்கும் குறைவாகவே ஆகும்.",
+                step2Title: "2. நிகழ் நேர பொருத்தம்",
+                step2Desc: "உங்கள் திறன்கள் மற்றும் கிடைக்கும் தன்மை உங்கள் தேவைகளுடன் பொருந்தக்கூடிய உங்கள் பகுதியில் உள்ள சரிபார்க்கப்பட்ட தொழிலாளர்களை எங்கள் அமைப்பு உடனடியாகக் கண்டறிகிறது.",
+                step3Title: "3. நேரடி தொடர்பு",
+                step3Desc: "ஆர்வமுள்ள தொழிலாளர்களின் உடனடி அறிவிப்புகள் மற்றும் தொடர்பு விவரங்களைப் பெறுங்கள். விவரங்களை இறுதி செய்ய அழைப்பு அல்லது செய்தி மூலம் உடனடியாக இணையுங்கள்.",
+                section2Title: "இது எவ்வாறு செயல்படுகிறது: தொழிலாளர்களுக்கு",
+                wStep1Title: "1. உங்கள் சுயவிவரத்தை உருவாக்கவும்",
+                wStep1Desc: "உங்கள் திறன்கள் (எ.கா: டிரைவர், கிளீனர், பிளம்பர்), விருப்பமான வேலைப் பகுதிகள் மற்றும் விரும்பிய குறைந்தபட்ச சம்பளத்தை எங்களிடம் கூறுங்கள். அனைத்தும் எளிய குரல் அல்லது உரை உள்ளீடு மூலம் செய்யப்படுகிறது.",
+                wStep2Title: "2. உடனடி வேலை எச்சரிக்கைகளைப் பெறுங்கள்",
+                wStep2Desc: "உங்கள் சுயவிவரத்துடன் பொருந்தக்கூடிய அருகிலுள்ள வேலைகளுக்கான நிகழ்நேர அறிவிப்புகளைப் பெறுங்கள். இனி முடிவில்லாத தேடல்கள் இல்லை.",
+                wStep3Title: "3. ஏற்றுக்கொண்டு இணைக்கவும்",
+                wStep3Desc: "வேலை விவரங்கள் மற்றும் முதலாளியின் தொடர்பைக் காண்க. வேலையை ஏற்றுக் கொள்ளுங்கள், மற்றும் முதலாளி உடனடியாக வேலையைத் தொடங்க உங்கள் தொடர்புத் தகவலைப் பெறுவார்.",
+                section3Title: "ஏன் உத்யோக்சாத்தியைத் தேர்ந்தெடுக்க வேண்டும்?",
+                benefit1Title: "பூஜ்ஜிய கமிஷன்",
+                benefit1Desc: "தொழிலாளியின் சம்பளம் அல்லது முதலாளியின் கட்டணத்திலிருந்து நாங்கள் எந்த வெட்டையும் எடுக்கவில்லை. ஒப்புக்கொள்ளப்பட்ட சம்பளத்தில் 100% தொழிலாளிக்குச் செல்கிறது.",
+                benefit2Title: "சரிபார்க்கப்பட்ட சுயவிவரங்கள்",
+                benefit2Desc: "பாதுகாப்பான மற்றும் நம்பகமான சூழலை உறுதிப்படுத்த அனைத்து பயனர்களும் (தொழிலாளர்கள் மற்றும் முதலாளிகள் இருவரும்) பாதுகாப்பான முறைகளைப் பயன்படுத்தி சரிபார்க்கப்படுகிறார்கள்.",
+                benefit3Title: "அதி-உள்ளூர் கவனம்",
+                benefit3Desc: "எங்கள் தளம் உங்கள் இருப்பிடத்தின் சிறிய சுற்றளவுக்குள் உள்ள வேலைகளில் மட்டுமே கவனம் செலுத்துகிறது, இது விரைவான பதில் நேரங்களையும் எளிதான பயணத்தையும் உறுதி செய்கிறது.",
+                ctaHeading: "உங்கள் பணியமர்த்தல் அல்லது வேலை தேடலை எளிதாக்கத் தயாரா?",
+                ctaButton: "இப்போது தொடங்குங்கள்",
+                footerText: "சமூகத்திற்காக ஒரு வெளிப்படையான மற்றும் நேரடி தொழிலாளர் சந்தையை உருவாக்க உத்யோக்சாத்தி உறுதிபூண்டுள்ளது.",
+            }
+        };
+
+        let currentLang = 'en';
+
+        /**
+         * Updates all text content on the page based on the selected language.
+         */
+        const changeLanguage = (lang) => {
+            currentLang = lang;
+            const t = translations[lang];
+
+            // Update all text elements by ID
+            document.title = t.pageTitle + " | UdyogSathi";
+            document.getElementById('pageTitle').textContent = t.pageTitle;
+            document.getElementById('langSelectLabel').textContent = t.selectLang;
+            
+            document.getElementById('heroHeading').textContent = t.heroHeading;
+            document.getElementById('heroSubheading').textContent = t.heroSubheading;
+            
+            document.getElementById('section1Title').textContent = t.section1Title;
+            document.getElementById('step1Title').textContent = t.step1Title;
+            document.getElementById('step1Desc').textContent = t.step1Desc;
+            document.getElementById('step2Title').textContent = t.step2Title;
+            document.getElementById('step2Desc').textContent = t.step2Desc;
+            document.getElementById('step3Title').textContent = t.step3Title;
+            document.getElementById('step3Desc').textContent = t.step3Desc;
+
+            document.getElementById('section2Title').textContent = t.section2Title;
+            document.getElementById('wStep1Title').textContent = t.wStep1Title;
+            document.getElementById('wStep1Desc').textContent = t.wStep1Desc;
+            document.getElementById('wStep2Title').textContent = t.wStep2Title;
+            document.getElementById('wStep2Desc').textContent = t.wStep2Desc;
+            document.getElementById('wStep3Title').textContent = t.wStep3Title;
+            document.getElementById('wStep3Desc').textContent = t.wStep3Desc;
+
+            document.getElementById('section3Title').textContent = t.section3Title;
+            document.getElementById('benefit1Title').textContent = t.benefit1Title;
+            document.getElementById('benefit1Desc').textContent = t.benefit1Desc;
+            document.getElementById('benefit2Title').textContent = t.benefit2Title;
+            document.getElementById('benefit2Desc').textContent = t.benefit2Desc;
+            document.getElementById('benefit3Title').textContent = t.benefit3Title;
+            document.getElementById('benefit3Desc').textContent = t.benefit3Desc;
+
+            document.getElementById('ctaHeading').textContent = t.ctaHeading;
+            document.getElementById('ctaButton').textContent = t.ctaButton;
+            document.getElementById('footerText').textContent = t.footerText;
+        };
+
+        // --- Initialization ---
+        document.addEventListener('DOMContentLoaded', () => {
+            // Set up event listener for language change
+            const langSelect = document.getElementById('langSelect');
+            langSelect.addEventListener('change', (e) => changeLanguage(e.target.value));
+
+            // Set the initial language (English default)
+            changeLanguage(currentLang);
+        });
+
+    </script>
+
+    <style>
+        /* Custom styles for a modern, clean dark look */
+        body {
+            background-color: #161B22; /* bg-medium */
+            color: #F0F6FC; /* text-light */
+            font-family: 'Inter', sans-serif;
+        }
+        .header-bg {
+            background-color: #0D1117; /* bg-darkest */
+        }
+        .card {
+            background-color: #21262D; /* bg-light */
+            border: 1px solid #30363D;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+        }
+        .section-separator {
+            border-color: #30363D;
+        }
+        .step-icon {
+            color: #58A6FF; /* accent-blue */
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- Header & Language Selector -->
+    <header class="header-bg shadow-xl sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
+            
+            <!-- Logo/Title -->
+            <a href="#" class="flex items-center space-x-2 text-xl font-extrabold text-accent-blue tracking-tight">
+                <span id="pageTitle">Our Manual Labor System</span>
+            </a>
+
+            <!-- Language Dropdown -->
+            <div class="flex items-center space-x-2 text-text-light">
+                <label id="langSelectLabel" for="langSelect" class="text-sm font-medium text-gray-300 hidden sm:block">Select Language</label>
+                <select id="langSelect" class="block w-full py-2 px-3 border border-gray-600 bg-bg-light rounded-lg shadow-sm focus:outline-none focus:ring-accent-blue focus:border-accent-blue sm:text-sm">
+                    <option value="en">English</option>
+                    <option value="hi">हिन्दी (Hindi)</option>
+                    <option value="mr">मराठी (Marathi)</option>
+                    <option value="bn">বাংলা (Bengali)</option>
+                    <option value="te">తెలుగు (Telugu)</option>
+                    <option value="ta">தமிழ் (Tamil)</option>
+                </select>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow py-12 md:py-16 bg-bg-medium">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Hero Section -->
+            <div class="text-center mb-16">
+                <h1 id="heroHeading" class="text-4xl sm:text-5xl font-extrabold text-accent-blue mb-4">
+                    Connecting Local Jobs, Instantly.
+                </h1>
+                <p id="heroSubheading" class="text-xl text-gray-400 max-w-2xl mx-auto">
+                    UdyogSathi is the fastest, most reliable platform to hire and find manual, gig, and blue-collar work in your area.
+                </p>
+            </div>
+
+            <hr class="section-separator my-12">
+
+            <!-- Section 1: For Employers -->
+            <div class="mb-16">
+                <h2 id="section1Title" class="text-3xl font-bold text-text-light mb-8 border-b-2 border-accent-blue pb-3">
+                    How It Works: For Employers
+                </h2>
+                <div class="grid md:grid-cols-3 gap-8">
+                    
+                    <!-- Step 1 -->
+                    <div class="card p-6 rounded-xl space-y-3 hover:shadow-lg hover:border-accent-blue">
+                        <span class="text-3xl font-bold step-icon">1</span>
+                        <h3 id="step1Title" class="text-xl font-semibold text-text-light">1. Post Your Job</h3>
+                        <p id="step1Desc" class="text-gray-400">Use our simple form to detail the job (e.g., house painting, delivery help, cleaning) and your salary offer. It takes less than 60 seconds.</p>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="card p-6 rounded-xl space-y-3 hover:shadow-lg hover:border-accent-blue">
+                        <span class="text-3xl font-bold step-icon">2</span>
+                        <h3 id="step2Title" class="text-xl font-semibold text-text-light">2. Real-Time Matching</h3>
+                        <p id="step2Desc" class="text-gray-400">Our system instantly finds verified workers in your exact locality whose skills and availability match your needs.</p>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="card p-6 rounded-xl space-y-3 hover:shadow-lg hover:border-accent-blue">
+                        <span class="text-3xl font-bold step-icon">3</span>
+                        <h3 id="step3Title" class="text-xl font-semibold text-text-light">3. Direct Contact</h3>
+                        <p id="step3Desc" class="text-gray-400">Receive immediate notifications and contact details of interested workers. Connect instantly via call or message to finalize the details.</p>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="section-separator my-12">
+
+            <!-- Section 2: For Workers -->
+            <div class="mb-16">
+                <h2 id="section2Title" class="text-3xl font-bold text-text-light mb-8 border-b-2 border-secondary-gold pb-3">
+                    How It Works: For Workers
+                </h2>
+                <div class="grid md:grid-cols-3 gap-8">
+                    
+                    <!-- Worker Step 1 -->
+                    <div class="card p-6 rounded-xl space-y-3 hover:shadow-lg hover:border-secondary-gold">
+                        <span class="text-3xl font-bold text-secondary-gold">1</span>
+                        <h3 id="wStep1Title" class="text-xl font-semibold text-text-light">1. Create Your Profile</h3>
+                        <p id="wStep1Desc" class="text-gray-400">Tell us your skills (e.g., driver, cleaner, plumber), preferred work areas, and desired minimum salary. All done via simple voice or text input.</p>
+                    </div>
+
+                    <!-- Worker Step 2 -->
+                    <div class="card p-6 rounded-xl space-y-3 hover:shadow-lg hover:border-secondary-gold">
+                        <span class="text-3xl font-bold text-secondary-gold">2</span>
+                        <h3 id="wStep2Title" class="text-xl font-semibold text-text-light">2. Get Instant Job Alerts</h3>
+                        <p id="wStep2Desc" class="text-gray-400">Receive real-time notifications for nearby jobs that match your profile. No more endless searching.</p>
+                    </div>
+
+                    <!-- Worker Step 3 -->
+                    <div class="card p-6 rounded-xl space-y-3 hover:shadow-lg hover:border-secondary-gold">
+                        <span class="text-3xl font-bold text-secondary-gold">3</span>
+                        <h3 id="wStep3Title" class="text-xl font-semibold text-text-light">3. Accept & Connect</h3>
+                        <p id="wStep3Desc" class="text-gray-400">View the job details and employer contact. Accept the job, and the employer will instantly receive your contact information to start work immediately.</p>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="section-separator my-12">
+
+            <!-- Section 3: Key Benefits -->
+            <div class="mb-16">
+                <h2 id="section3Title" class="text-3xl font-bold text-text-light text-center mb-10">
+                    Why Choose UdyogSathi?
+                </h2>
+                <div class="grid md:grid-cols-3 gap-8">
+                    
+                    <!-- Benefit 1 -->
+                    <div class="card p-6 rounded-xl text-center space-y-3">
+                        <svg class="w-10 h-10 mx-auto text-success-green" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-6h-2v-2h4V17zm0-8h-2V7h2v2z"/></svg>
+                        <h3 id="benefit1Title" class="text-xl font-semibold text-success-green">Zero Commission</h3>
+                        <p id="benefit1Desc" class="text-gray-400 text-sm">We take no cut from the worker's salary or the employer's payment. 100% of the agreed salary goes to the worker.</p>
+                    </div>
+
+                    <!-- Benefit 2 -->
+                    <div class="card p-6 rounded-xl text-center space-y-3">
+                        <svg class="w-10 h-10 mx-auto text-accent-blue" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                        <h3 id="benefit2Title" class="text-xl font-semibold text-accent-blue">Verified Profiles</h3>
+                        <p id="benefit2Desc" class="text-gray-400 text-sm">All users (both workers and employers) are verified using secure methods to ensure a safe and trustworthy environment.</p>
+                    </div>
+
+                    <!-- Benefit 3 -->
+                    <div class="card p-6 rounded-xl text-center space-y-3">
+                        <svg class="w-10 h-10 mx-auto text-secondary-gold" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                        <h3 id="benefit3Title" class="text-xl font-semibold text-secondary-gold">Hyper-Local Focus</h3>
+                        <p id="benefit3Desc" class="text-gray-400 text-sm">Our platform focuses only on jobs within a small radius of your location, ensuring fast response times and easy travel.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Call to Action -->
+            <div class="card p-10 text-center rounded-xl bg-accent-blue/20 border-accent-blue/50">
+                <h2 id="ctaHeading" class="text-3xl font-bold text-accent-blue mb-5">
+                    Ready to Simplify Your Hiring or Job Search?
+                </h2>
+                <a href="manualjob.html" class="inline-block py-3 px-8 text-lg font-bold rounded-full text-bg-darkest bg-secondary-gold hover:bg-amber-500 transition duration-300 shadow-xl">
+                    <span id="ctaButton">Get Started Now</span>
+                </a>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="header-bg pt-8 pb-4 text-gray-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p id="footerText" class="text-sm text-gray-500">
+                UdyogSathi is committed to building a transparent and direct labor marketplace for the community.
+            </p>
+            <p class="text-xs text-gray-600 mt-4">&copy; 2025 UdyogSathi. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
