@@ -1,128 +1,144 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UdyogSathi Privacy Policy</title>
-    <!-- Load Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        /* Custom font import and application */
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f7f9fc; /* Light background */
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UdyogSathi | Privacy Policy</title>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Tailwind Config: Matching UdyogSathi Theme -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#a78bfa',
+            surface: '#1b1d2f',
+            base: '#0e0f1a',
+            border: '#2e3048',
+            textMain: '#e5e5f0',
+            textSub: '#b0b0d0'
+          }
         }
-    </style>
+      }
+    }
+  </script>
+
+  <!-- Custom Font -->
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+  </style>
 </head>
-<body class="text-gray-800">
 
-    <!-- Header Section -->
-    <header class="bg-white shadow-md">
-        <div class="container mx-auto px-4 py-8 md:py-12">
-            <h1 class="text-4xl font-extrabold text-blue-600 mb-2 md:text-5xl">Privacy Policy</h1>
-            <p class="text-xl text-gray-600">Protecting your data and trust is our highest priority.</p>
-        </div>
-    </header>
+<body class="bg-base text-textMain">
 
-    <!-- Policy Content Section -->
-    <main class="container mx-auto px-4 py-10 md:py-16 max-w-4xl bg-white rounded-xl shadow-lg mt-8 mb-16">
+  <!-- Header -->
+<header class="bg-[#141526] border-b border-border">
+  <div class="container mx-auto px-6 py-10">
+    <h1 class="text-4xl md:text-5xl font-extrabold text-primary">
+      Privacy Policy For <span class="text-primary">Udyog</span><span class="text-white">Sathi</span>
+    </h1>
+    <p class="text-textSub text-lg mt-2">
+      Protecting your data and trust is our highest priority.
+    </p>
+  </div>
+</header>
 
-        <section id="introduction" class="mb-8 pb-4 border-b border-gray-200">
-            <h2 class="text-2xl font-bold text-gray-900 mb-4">1. Introduction and Scope</h2>
-            <p class="text-lg text-gray-700">
-                This Privacy Policy describes how UdyogSathi ("we," "us," or "our") collects, uses, and shares your information when you use our platform and services. By using UdyogSathi, you agree to the collection and use of information in accordance with this policy.
-            </p>
-            <p class="text-sm text-gray-500 mt-2">
-                Last updated: October 18, 2025
-            </p>
-        </section>
 
-        <section id="data-collection" class="mb-8 pb-4 border-b border-gray-200">
-            <h2 class="text-2xl font-bold text-gray-900 mb-4">2. Information We Collect</h2>
+  <!-- Main Content -->
+  <main class="container mx-auto px-6 py-16 space-y-12">
 
-            <h3 class="text-xl font-semibold text-blue-600 mb-3 mt-6">Personal Data</h3>
-            <p class="text-base text-gray-700 mb-2">
-                We collect personal information that you voluntarily provide to us when you register for an account, post a job, or apply for a position. This may include:
-            </p>
-            <ul class="list-disc pl-5 space-y-2 text-base text-gray-700">
-                <li>**Authentication Data:** User IDs, email addresses (if provided), and temporary session tokens (managed by Firebase).</li>
-                <li>**Profile Data (Voluntary):** Name, contact number, employment history, skills, and current location.</li>
-                <li>**Content Data:** Any content you create, such as job descriptions, public messages, or job application details.</li>
-            </ul>
+    <!-- Section 1 -->
+    <section class="bg-surface border border-border rounded-xl p-8 shadow-lg">
+      <h2 class="text-2xl font-bold text-primary mb-4">1. Introduction and Scope</h2>
+      <p class="text-textSub mb-3">
+        This Privacy Policy describes how <span class="text-primary font-semibold">UdyogSathi</span> ("we," "us," or "our") collects, uses, and shares your information when you use our platform and services.By using UdyogSathi, you agree to the collection and use of information in accordance with this policy.
+      </p>
+      <p class="text-sm text-gray-400">Last updated: October 18, 2025</p>
+    </section>
 
-            <h3 class="text-xl font-semibold text-blue-600 mb-3 mt-6">Usage and Technical Data</h3>
-            <p class="text-base text-gray-700">
+    <!-- Section 2 -->
+    <section class="bg-surface border border-border rounded-xl p-8 shadow-lg">
+      <h2 class="text-2xl font-bold text-primary mb-6">2. Information We Collect</h2>
+
+      <h3 class="text-xl font-semibold text-primary mb-3">Personal Data</h3>
+      <p class="text-textSub mb-3">
+        We collect personal information that you voluntarily provide to us when you register for an account, post a job, or 
+        apply for a position. This may include:
+      </p>
+      <ul class="list-disc list-inside text-textSub space-y-2">
+        <li><strong class="text-primary">**Authentication Data:**</strong> User IDs, email addresses (if provided), and temporary session tokens (managed by Firebase).</li>
+        <li><strong class="text-primary">**Profile Data (Voluntary):**</strong> Name, contact number, employment history, skills, and current location.</li>
+        <li><strong class="text-primary">**Content Data:**</strong> Any content you create, such as job descriptions, public messages, or job application details.</li>
+      </ul>
+
+      <h3 class="text-xl font-semibold text-primary mb-3 mt-6">Usage & Technical Data</h3>
+      <p class="text-textSub mb-3">
                 When you access the platform, our service providers (like Firebase) may automatically collect certain information that your browser or device sends, such as:
             </p>
-            <ul class="list-disc pl-5 space-y-2 text-base text-gray-700">
-                <li>IP address, device type, browser type, and operating system.</li>
-                <li>Time and date of your visit, and pages viewed.</li>
-                <li>Data about your interactions with the platform (e.g., clicks, time spent on the app).</li>
-            </ul>
-        </section>
+      <ul class="list-disc list-inside text-textSub space-y-2">
+        <li>IP address, device type, browser, and operating system.</li>
+        <li>Time and date of your visit, and pages viewed.</li>
+        <li>Data about your interactions with the platform (e.g., clicks, time spent on the app).</li>
+      </ul>
+    </section>
 
-        <section id="data-use" class="mb-8 pb-4 border-b border-gray-200">
-            <h2 class="text-2xl font-bold text-gray-900 mb-4">3. How We Use Your Information</h2>
-            <p class="text-base text-gray-700 mb-4">
-                We use the information we collect for the following purposes:
-            </p>
-            <ul class="list-disc pl-5 space-y-2 text-base text-gray-700">
-                <li>**To Provide and Maintain the Service:** To operate the UdyogSathi platform, including authenticating users and managing data storage (using Firebase Firestore).</li>
-                <li>**To Connect Users:** To match job seekers with relevant job postings and vice-versa.</li>
-                <li>**Communication:** To send you service updates, security alerts, and support messages.</li>
-                <li>**Security:** To detect and prevent fraud, abuse, and security incidents.</li>
-                <li>**Improvement:** To analyze usage patterns and troubleshoot issues to improve the functionality and user experience of our application.</li>
-            </ul>
-        </section>
+    <!-- Section 3 -->
+    <section class="bg-surface border border-border rounded-xl p-8 shadow-lg">
+      <h2 class="text-2xl font-bold text-primary mb-6">3. How We Use Your Information</h2>
+      <ul class="list-disc list-inside text-textSub space-y-2">
+        <li><strong class="text-primary">**To Provide and Maintain the Service:**</strong> To operate the UdyogSathi platform, including authenticating users and managing data storage (using Firebase Firestore).</li>
+        <li><strong class="text-primary">**To Connect Users:**</strong> To match job seekers with relevant job postings and vice-versa.</li>
+        <li><strong class="text-primary">**Communication:**</strong> To send you service updates, security alerts, and support messages.</li>
+        <li><strong class="text-primary">**Security:**</strong> To detect and prevent fraud, abuse, and security incidents.</li>
+        <li><strong class="text-primary">**Improvement:** </strong> To analyze usage patterns and troubleshoot issues to improve the functionality and user experience of our application.</li>
+      </ul>
+    </section>
 
-        <section id="data-sharing" class="mb-8 pb-4 border-b border-gray-200">
-            <h2 class="text-2xl font-bold text-gray-900 mb-4">4. Sharing and Disclosure</h2>
-            <p class="text-base text-gray-700 mb-4">
-                We do not sell your Personal Data to third parties. We may share your information only in the following limited circumstances:
-            </p>
-            <ul class="list-disc pl-5 space-y-2 text-base text-gray-700">
-                <li>**With Other Users:** When you apply for a job, your profile data is shared with the potential employer. When you post a job, your contact information may be shared with applicants.</li>
-                <li>**Service Providers:** We rely on Google's **Firebase** for backend services, including Authentication, Firestore database, and possibly analytics. Their handling of data is governed by their own policies.</li>
-                <li>**Legal Requirements:** If required to do so by law or in response to valid requests by public authorities (e.g., a court or government agency).</li>
-            </ul>
-        </section>
+    <!-- Section 4 -->
+    <section class="bg-surface border border-border rounded-xl p-8 shadow-lg">
+      <h2 class="text-2xl font-bold text-primary mb-6">4. Sharing and Disclosure</h2>
+      <ul class="list-disc list-inside text-textSub space-y-2">
+        <li><strong class="text-primary">With Other Users:</strong> When applying or posting jobs, your data is shared as needed.</li>
+        <li><strong class="text-primary">Service Providers:</strong> We use Firebase for backend services, governed by their policies.</li>
+        <li><strong class="text-primary">Legal Requirements:</strong> Data may be shared to comply with legal requests.</li>
+      </ul>
+    </section>
 
-        <section id="security-retention" class="mb-8 pb-4 border-b border-gray-200">
-            <h2 class="text-2xl font-bold text-gray-900 mb-4">5. Data Security and Retention</h2>
+    <!-- Section 5 -->
+    <section class="bg-surface border border-border rounded-xl p-8 shadow-lg">
+      <h2 class="text-2xl font-bold text-primary mb-6">5. Data Security and Retention</h2>
+      <h3 class="text-xl font-semibold text-primary mb-3">Data Security</h3>
+      <p class="text-textSub mb-4">
+        We use commercially accepted security standards via Firebase. However, no online system is 100% secure.
+      </p>
+      <h3 class="text-xl font-semibold text-primary mb-3">Data Retention</h3>
+      <p class="text-textSub">
+        We retain your data as long as needed for this policy’s purposes or until your account is deleted.
+      </p>
+    </section>
 
-            <h3 class="text-xl font-semibold text-blue-600 mb-3 mt-6">Data Security</h3>
-            <p class="text-base text-gray-700">
-                We use commercially acceptable means to protect your Personal Data, leveraging the security infrastructure provided by **Firebase**. However, no method of transmission over the Internet or method of electronic storage is 100% secure, and we cannot guarantee its absolute security.
-            </p>
+    <!-- Section 6 -->
+    <section class="bg-surface border border-border rounded-xl p-8 shadow-lg">
+      <h2 class="text-2xl font-bold text-primary mb-6">6. Your Data Protection Rights</h2>
+      <ul class="list-disc list-inside text-textSub space-y-2">
+        <li><strong class="text-primary">Access:</strong> Request copies of your personal data.</li>
+        <li><strong class="text-primary">Rectification:</strong> Request correction of inaccurate info.</li>
+        <li><strong class="text-primary">Erasure:</strong> Request data deletion under conditions.</li>
+        <li><strong class="text-primary">Withdraw Consent:</strong> Withdraw consent anytime.</li>
+      </ul>
+    </section>
+  </main>
 
-            <h3 class="text-xl font-semibold text-blue-600 mb-3 mt-6">Data Retention</h3>
-            <p class="text-base text-gray-700">
-                We will retain your Personal Data only for as long as is necessary for the purposes set out in this Privacy Policy. This means we keep your profile and public content as long as your account is active. If you request account deletion, we will initiate the removal of your data, subject to legal obligations.
-            </p>
-        </section>
-
-        <section id="user-rights" class="mb-8">
-            <h2 class="text-2xl font-bold text-gray-900 mb-4">6. Your Data Protection Rights</h2>
-            <p class="text-base text-gray-700 mb-4">
-                Depending on your location, you may have the following rights regarding your Personal Data:
-            </p>
-            <ul class="list-disc pl-5 space-y-2 text-base text-gray-700">
-                <li>**The Right to Access:** You have the right to request copies of your Personal Data.</li>
-                <li>**The Right to Rectification:** You have the right to request that we correct any information you believe is inaccurate.</li>
-                <li>**The Right to Erasure:** You have the right to request that we erase your Personal Data, under certain conditions.</li>
-                <li>**The Right to Withdraw Consent:** Where we rely on consent to process your Personal Data, you have the right to withdraw that consent at any time.</li>
-            </ul>
-        </section>
-
-    </main>
-
-    <!-- Footer -->
-    <footer class="bg-gray-800 text-white p-6 mt-16">
-        <div class="container mx-auto text-center text-sm">
-            &copy; 2025 UdyogSathi. All rights reserved. For privacy inquiries, please contact us.
-        </div>
-    </footer>
+  <!-- Footer -->
+  <footer class="bg-[#141526] text-textSub py-8 mt-16 text-center border-t border-border">
+    <p>&copy; 2025 Udyog<span class="text-white">Sathi</span>. All rights reserved.</p>
+  </footer>
 
 </body>
 </html>
