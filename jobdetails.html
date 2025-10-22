@@ -3,214 +3,411 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Senior Frontend Developer - Job Detail</title>
-    <!-- Load Tailwind CSS -->
+    <title>Job Details: Senior Software Engineer (Animated)</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Load Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #F8FAFC; /* Light background */
-        }
-        .detail-section h2 {
-            border-bottom: 2px solid #E5E7EB;
-        }
-        /* Mobile-first sticky apply bar */
-        .apply-bar {
-            position: sticky;
-            bottom: 0;
-            z-index: 40;
-            background-color: white;
-            box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.05);
-        }
-        @media (min-width: 768px) {
-            .apply-bar {
-                box-shadow: none;
-                position: static;
-            }
-        }
-    </style>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        'primary-blue': '#1D4ED8',
-                        'accent-teal': '#0D9488',
+                        'primary': '#0070c0', // Dark Blue
+                        'secondary': '#f39c12', // Vibrant Orange
+                        'background-dark': '#0f172a', // Deeper Dark Blue/Gray
+                        'card-dark': '#1e293b', // Slightly lighter dark for cards
+                        'text-light': '#f3f4f6', // Light gray for primary text
+                        'text-muted': '#9ca3af' // Muted text color
                     },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    keyframes: {
+                        'pulse-glow': {
+                            '0%, 100%': { 'box-shadow': '0 0 0 0 rgba(243, 156, 18, 0.4)' },
+                            '50%': { 'box-shadow': '0 0 10px 5px rgba(243, 156, 18, 0.7)' },
+                        },
+                        'fade-slide-up': {
+                            'from': { opacity: '0', transform: 'translateY(20px)' },
+                            'to': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    },
+                    animation: {
+                        'pulse-glow': 'pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'fade-slide-up': 'fade-slide-up 0.7s ease-out forwards',
+                    }
                 }
             }
         }
     </script>
-</head>
-<body class="antialiased">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        
+        /* Custom scrollbar track */
+        #scroll-progress {
+            height: 4px;
+            width: 0%;
+            background-color: theme('colors.primary');
+            transition: width 0.1s;
+        }
 
-    <!-- Header / Navigation Bar (Mini Version) -->
-    <header class="bg-white border-b border-gray-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-            <a href="index.html" class="flex items-center space-x-2">
-                <i data-lucide="arrow-left" class="w-5 h-5 text-gray-600 hover:text-primary-blue transition duration-150"></i>
-                <span class="text-lg font-semibold text-gray-800 hidden sm:block">Back to Listings</span>
+        /* Custom shadow for cards */
+        .card-shadow {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .card-shadow:hover {
+            transform: scale(1.005);
+            box-shadow: 0 15px 25px -5px rgba(0, 0, 0, 0.5), 0 6px 10px -3px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Tech Stack Badges */
+        .tech-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            margin: 0.25rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: default;
+        }
+        .tech-badge:hover {
+            transform: translateY(-2px);
+            /* Apply custom glow on hover */
+            box-shadow: 0 0 15px rgba(243, 156, 18, 0.6); 
+        }
+
+        /* Custom animation for the CTA button glow */
+        .animation-pulse-glow {
+            animation: pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+    </style>
+</head>
+<body class="bg-background-dark font-sans min-h-screen flex flex-col text-text-light opacity-0 animate-fade-slide-up">
+
+    <!-- Scroll Progress Bar (Fixed) -->
+    <div class="fixed top-0 left-0 right-0 z-50 bg-card-dark shadow-lg">
+        <div id="scroll-progress"></div>
+    </div>
+    
+    <!-- Header & Navigation -->
+    <header class="bg-card-dark shadow-xl sticky top-0 z-10 border-b border-gray-700 pt-1">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-primary transition duration-300 hover:text-secondary">
+                Udyog<span class="text-secondary transition duration-300 hover:text-primary">Sathi</span>
             </a>
-            <span class="text-xl font-extrabold text-gray-900">UdyogSathi</span>
-            <button class="text-primary-blue font-semibold px-3 py-1.5 rounded-lg hover:bg-gray-100 transition duration-150">
-                <i data-lucide="bookmark" class="w-5 h-5"></i>
-            </button>
+            <nav class="space-x-4 font-medium text-gray-300">
+                <!-- If the user came from a jobs list, this link would be functional -->
+                <a href="#" class="hover:text-primary transition duration-150 hidden sm:inline">Jobs</a> 
+                <a href="#" class="hover:text-primary transition duration-150">Sign In</a>
+            </nav>
         </div>
     </header>
 
-    <!-- Main Content Area -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            
-            <!-- Left Column: Job Description and Details (2/3 width on desktop) -->
-            <div class="md:col-span-2 space-y-8">
-                
-                <!-- Job Header Card -->
-                <div class="bg-white p-6 sm:p-8 rounded-xl shadow-lg border border-gray-200">
-                    <!-- Company Logo/Placeholder (Using initials) -->
-                    <div class="flex items-center space-x-4 mb-4">
-                        <div class="w-12 h-12 bg-accent-teal/10 text-accent-teal flex items-center justify-center font-bold text-lg rounded-xl">
-                            TS
-                        </div>
-                        <div>
-                            <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 leading-tight">Senior Frontend Developer (React/TS)</h1>
-                            <p class="text-primary-blue font-medium hover:underline cursor-pointer">TechStack Solutions</p>
-                        </div>
-                    </div>
+    <!-- Job Details Content Section -->
+    <main id="main-content" class="flex-grow py-8 md:py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto flex flex-col lg:flex-row gap-8">
 
-                    <!-- Quick Details -->
-                    <div class="flex flex-wrap items-center text-sm text-gray-600 mt-4 space-y-2 sm:space-y-0 sm:space-x-6">
-                        <span class="flex items-center space-x-1">
-                            <i data-lucide="map-pin" class="w-4 h-4 text-gray-500"></i>
-                            <span>Remote (US Time Zones)</span>
-                        </span>
-                        <span class="flex items-center space-x-1">
-                            <i data-lucide="clock" class="w-4 h-4 text-gray-500"></i>
-                            <span>Full-Time</span>
-                        </span>
-                        <span class="flex items-center space-x-1">
-                            <i data-lucide="calendar" class="w-4 h-4 text-gray-500"></i>
-                            <span>Posted 2 days ago</span>
-                        </span>
-                    </div>
+            <!-- Left Column: Job Description and Requirements -->
+            <div class="lg:w-8/12 space-y-8">
 
-                    <!-- Salary Range Badge -->
-                    <div class="mt-4 flex flex-wrap gap-2">
-                        <span class="inline-flex items-center px-3 py-1 text-sm font-semibold rounded-full bg-yellow-100 text-yellow-800">
-                            ₹120,000 - ₹150,000 / Year
-                        </span>
-                        <span class="inline-flex items-center px-3 py-1 text-xs font-medium rounded-full bg-indigo-100 text-indigo-800">
-                            React
-                        </span>
-                        <span class="inline-flex items-center px-3 py-1 text-xs font-medium rounded-full bg-indigo-100 text-indigo-800">
-                            TypeScript
-                        </span>
-                    </div>
-                </div>
-                
-                <!-- Job Description (Detail Sections) -->
-                <div class="bg-white p-6 sm:p-8 rounded-xl shadow-lg border border-gray-200 space-y-8">
+                <!-- Job Header (Title, Company, Location) -->
+                <div class="bg-card-dark p-6 md:p-8 rounded-xl card-shadow border-l-4 border-primary transition duration-300 hover:border-secondary relative">
                     
-                    <!-- About the Role -->
-                    <div class="detail-section">
-                        <h2 class="text-xl font-bold text-gray-900 pb-3 mb-4">About the Role</h2>
-                        <p class="text-gray-700 leading-relaxed">
-                            TechStack Solutions is seeking a highly skilled Senior Frontend Developer to join our remote team. You will be responsible for leading the development of our flagship SaaS product's user interface, ensuring high performance, responsiveness, and clean code architecture. This role requires deep expertise in modern React principles and TypeScript.
+                    <!-- Back Button (New Feature) -->
+                    <button 
+                        onclick="window.history.back()" 
+                        class="absolute top-4 right-4 text-gray-400 hover:text-secondary transition duration-300 p-2 rounded-full bg-gray-700/50 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-secondary" 
+                        aria-label="Go back to previous page"
+                        title="Go back"
+                    >
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                    <!-- End Back Button -->
+
+                    <span class="inline-block bg-primary text-text-light text-xs font-semibold px-3 py-1 rounded-full mb-3 shadow-md">HIRING NOW</span>
+                    <h1 class="text-3xl md:text-4xl font-extrabold text-text-light mb-2">
+                        Senior Full Stack Engineer (Python/React)
+                    </h1>
+                    <div class="flex flex-wrap items-center text-lg text-text-muted space-y-2 md:space-y-0 md:space-x-6">
+                        <p class="flex items-center">
+                            <svg class="w-5 h-5 mr-2 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                            Tech Innovators Pvt. Ltd.
+                        </p>
+                        <p class="flex items-center">
+                            <svg class="w-5 h-5 mr-2 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.828 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                            Bangalore, Karnataka (Hybrid)
                         </p>
                     </div>
-
-                    <!-- Key Responsibilities -->
-                    <div class="detail-section">
-                        <h2 class="text-xl font-bold text-gray-900 pb-3 mb-4">Key Responsibilities</h2>
-                        <ul class="list-disc ml-5 text-gray-700 space-y-2">
-                            <li>Design and implement new user-facing features using React and functional components.</li>
-                            <li>Write robust, well-tested, and clean TypeScript code.</li>
-                            <li>Collaborate closely with UI/UX designers and backend engineers to define API contracts.</li>
-                            <li>Optimize application performance for maximum speed and scalability.</li>
-                            <li>Mentor junior developers and participate in code reviews.</li>
-                        </ul>
-                    </div>
-
-                    <!-- Required Skills and Experience -->
-                    <div class="detail-section">
-                        <h2 class="text-xl font-bold text-gray-900 pb-3 mb-4">Requirements</h2>
-                        <ul class="list-disc ml-5 text-gray-700 space-y-2">
-                            <li>5+ years of professional experience in Frontend Development.</li>
-                            <li>Expert proficiency in React.js, including Hooks and Context API.</li>
-                            <li>Strong command of TypeScript for large-scale applications.</li>
-                            <li>Experience with state management libraries (e.g., Redux, Zustand, or native Context).</li>
-                            <li>Solid understanding of RESTful APIs and modern authentication patterns.</li>
-                        </ul>
-                    </div>
-
-                    <!-- Benefits -->
-                    <div class="detail-section">
-                        <h2 class="text-xl font-bold text-gray-900 pb-3 mb-4">Benefits & Perks</h2>
-                        <div class="grid grid-cols-2 gap-4 text-gray-700">
-                            <span class="flex items-center space-x-2">
-                                <i data-lucide="heart" class="w-4 h-4 text-red-500"></i>
-                                <span>Health & Dental Insurance</span>
-                            </span>
-                            <span class="flex items-center space-x-2">
-                                <i data-lucide="briefcase" class="w-4 h-4 text-primary-blue"></i>
-                                <span>Unlimited PTO</span>
-                            </span>
-                            <span class="flex items-center space-x-2">
-                                <i data-lucide="laptop" class="w-4 h-4 text-accent-teal"></i>
-                                <span>₹1,000 WFH Stipend</span>
-                            </span>
-                            <span class="flex items-center space-x-2">
-                                <i data-lucide="book-open" class="w-4 h-4 text-orange-500"></i>
-                                <span>Annual Learning Budget</span>
-                            </span>
+                </div>
+                
+                <!-- Tech Stack & Tools Section -->
+                <section class="bg-card-dark p-6 md:p-8 rounded-xl card-shadow">
+                    <h2 class="text-2xl font-bold text-primary border-b border-gray-700 pb-3 mb-6">Our Core Technology Stack</h2>
+                    <div class="flex flex-wrap gap-4 justify-center md:justify-start">
+                        <!-- Python Badge -->
+                        <div class="tech-badge bg-green-900 text-green-300">
+                            <span class="text-xl mr-2">🐍</span>
+                            Python / Django
+                        </div>
+                        <!-- React Badge -->
+                        <div class="tech-badge bg-blue-900 text-blue-300">
+                            <span class="text-xl mr-2">⚛️</span>
+                            React / Redux
+                        </div>
+                        <!-- AWS Badge -->
+                        <div class="tech-badge bg-yellow-900 text-yellow-300">
+                            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24"><path d="M15 18H9V6h6zm-2-1H11v-1h2zm0-2H11v-1h2zm0-2H11v-1h2zm0-2H11v-1h2zm0-2H11V7h2z"/></svg>
+                            AWS Cloud
+                        </div>
+                        <!-- Docker Badge -->
+                        <div class="tech-badge bg-gray-900 text-cyan-300">
+                            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93h2c0 3.32 2.69 6 6 6v2zm-6-8.93c0-3.32 2.69-6 6-6V5c-3.95.49-7 3.85-7 7.93h2zm6 8v-2c3.32 0 6-2.69 6-6h2c0 4.08-3.05 7.44-7 7.93zm6-8h-2c0-3.32-2.69-6-6-6V5c3.95.49 7 3.85 7 7.93z"/></svg>
+                            Docker / K8s
                         </div>
                     </div>
-                </div>
-            </div>
-            
-            <!-- Right Column: Apply Widget (1/3 width on desktop) -->
-            <div class="md:col-span-1 md:block">
-                <div class="md:sticky md:top-24 bg-white p-6 rounded-xl shadow-lg border border-gray-200">
-                    <h3 class="text-xl font-bold text-gray-900 mb-4">Ready to Apply?</h3>
-                    <p class="text-gray-600 mb-6 text-sm">
-                        Take the next step in your career. Quick application process, requires a resume and cover letter.
+                </section>
+
+                <!-- Job Description Section -->
+                <section class="bg-card-dark p-6 md:p-8 rounded-xl card-shadow">
+                    <h2 class="text-2xl font-bold text-primary border-b border-gray-700 pb-3 mb-6">Role Details & Impact</h2>
+                    <p class="text-gray-300 leading-relaxed mb-6 border-l-4 border-secondary pl-4">
+                        We are seeking an experienced and motivated Senior Full Stack Engineer to join our core product team. You will be responsible for designing, developing, and deploying high-performance applications that scale to millions of users. **Your work will directly influence the roadmap of our flagship FinTech product.**
                     </p>
-                    
-                    <button onclick="console.log('Apply button clicked')" class="w-full bg-primary-blue text-white font-bold px-6 py-3 rounded-xl hover:bg-blue-700 transition duration-150 shadow-md">
-                        <span class="flex items-center justify-center space-x-2">
-                            <i data-lucide="send" class="w-5 h-5"></i>
-                            <a href="application.html">Apply Now</a>
-                        </span>
-                    </button>
 
-                    <div class="mt-6 pt-4 border-t border-gray-100 space-y-3">
-                        <p class="text-sm font-semibold text-gray-800">Hiring Manager Contact</p>
-                        <div class="flex items-center space-x-2 text-gray-600 text-sm">
-                            <i data-lucide="mail" class="w-4 h-4 text-gray-500"></i>
-                            <span>careers@techstack.com</span>
+                    <h3 class="text-xl font-semibold text-text-light mb-4 mt-6">Key Responsibilities</h3>
+                    <ul class="list-disc list-inside text-gray-300 space-y-2 ml-4">
+                        <li>Lead the design and implementation of new features using React and Python/Django.</li>
+                        <li>Optimize application performance, scalability, and security for high-traffic scenarios.</li>
+                        <li>Collaborate with product managers and designers to translate requirements into technical specifications.</li>
+                        <li>Mentor junior team members and conduct code reviews to ensure high code quality.</li>
+                        <li>Manage deployment pipelines and ensure continuous integration and delivery.</li>
+                    </ul>
+
+                    <h3 class="text-xl font-semibold text-text-light mb-4 mt-8">Required Qualifications</h3>
+                    <ul class="list-disc list-inside text-gray-300 space-y-2 ml-4">
+                        <li>**5+ years** of professional experience in software development.</li>
+                        <li>Expert proficiency in Python (preferably Django/Flask) and JavaScript (React/Redux).</li>
+                        <li>Deep understanding of relational databases (PostgreSQL/MySQL) and writing efficient SQL queries.</li>
+                        <li>Experience with cloud platforms (AWS, Azure, or GCP) and containerization (Docker/Kubernetes).</li>
+                        <li>Bachelor's or Master's degree in Computer Science or a related field.</li>
+                    </ul>
+                </section>
+                
+                <!-- Company Culture and Overview -->
+                <section class="bg-card-dark p-6 md:p-8 rounded-xl card-shadow">
+                    <h2 class="text-2xl font-bold text-primary border-b border-gray-700 pb-3 mb-6">About Tech Innovators Pvt. Ltd.</h2>
+                    <p class="text-gray-300 leading-relaxed mb-6">
+                        We are a fast-growing FinTech company dedicated to simplifying personal finance through cutting-edge technology. Founded in 2018, we have rapidly expanded and now serve over 5 million users globally.
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="font-bold text-secondary mb-2 flex items-center">
+                                <span class="text-xl mr-2">💡</span> Our Mission
+                            </h4>
+                            <p class="text-gray-400 text-sm">To empower every individual with the tools they need to achieve financial freedom, making complex data accessible and actionable.</p>
                         </div>
-                        <div class="flex items-center space-x-2 text-gray-600 text-sm">
-                            <i data-lucide="phone" class="w-4 h-4 text-gray-500"></i>
-                            <span>(555) 555-1234</span>
+                        <div>
+                            <h4 class="font-bold text-secondary mb-2 flex items-center">
+                                <span class="text-xl mr-2">🤝</span> Our Culture
+                            </h4>
+                            <p class="text-gray-400 text-sm">We believe in radical ownership, continuous learning, and celebrating failures as much as successes. We are remote-first and highly collaborative.</p>
                         </div>
                     </div>
+                </section>
+
+            </div>
+
+            <!-- Right Column: Quick Stats, Compensation, and Perks -->
+            <div class="lg:w-4/12 space-y-8 sticky top-24 self-start">
+
+                <!-- Application Panel (Primary CTAs) -->
+                <div id="cta-panel" class="bg-card-dark p-6 rounded-xl card-shadow border-t-4 border-secondary transition duration-300 hover:scale-[1.005]">
+                    <h2 class="text-2xl font-bold text-text-light mb-4">Ready to Apply?</h2>
+                    
+                    <!-- Quick Details -->
+                    <div class="space-y-4 text-gray-300">
+                        <div class="flex justify-between items-center border-b border-gray-700 pb-2">
+                            <span class="font-medium text-primary">Job ID:</span>
+                            <span class="font-bold text-text-light">SFE-0824-A</span>
+                        </div>
+                        <div class="flex justify-between items-center border-b border-gray-700 pb-2">
+                            <span class="font-medium text-primary">Experience:</span>
+                            <span class="font-bold text-text-light">5 - 8 Years</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="font-medium text-primary">Job Type:</span>
+                            <span class="font-bold text-text-light">Full-time, Hybrid</span>
+                        </div>
+                    </div>
+
+                    <!-- Call to Action Button with Pulse Glow -->
+                    <button onclick="document.getElementById('application-modal').classList.remove('hidden')" class="w-full mt-6 bg-secondary text-background-dark py-3 rounded-lg shadow-2xl hover:bg-orange-600 transition duration-300 transform hover:scale-[1.01] font-extrabold text-lg uppercase flex items-center justify-center space-x-2 animation-pulse-glow" aria-label="Apply Now for Senior Full Stack Engineer">
+                        <span>Apply Now</span>
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </button>
+                    <p class="text-xs text-center text-gray-400 mt-2">Applications close in 7 days.</p>
                 </div>
+
+                <!-- Compensation Breakdown -->
+                <section class="bg-card-dark p-6 rounded-xl card-shadow">
+                    <h2 class="text-2xl font-bold text-primary border-b border-gray-700 pb-3 mb-6">Compensation & Equity</h2>
+                    <div class="space-y-4">
+                        <!-- Component 1 -->
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-400">Base Salary (CTC)</span>
+                            <span class="font-bold text-text-light">₹18L - ₹20L</span>
+                        </div>
+                         <!-- Component 2 -->
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-400">Performance Bonus (up to)</span>
+                            <span class="font-bold text-secondary">10% of Base</span>
+                        </div>
+                         <!-- Component 3 -->
+                        <div class="flex justify-between items-center border-t border-gray-700 pt-3">
+                            <span class="text-gray-400">Stock Options (ESOPs)</span>
+                            <span class="font-bold text-green-400">0.05% - 0.1%</span>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Company Perks & Benefits Section -->
+                <section class="bg-card-dark p-6 rounded-xl card-shadow">
+                    <h2 class="text-2xl font-bold text-primary border-b border-gray-700 pb-3 mb-6">Exceptional Benefits</h2>
+                    <div class="space-y-4">
+                        <!-- Perk 1 -->
+                        <div class="flex items-start transition transform hover:translate-x-1 duration-300">
+                            <svg class="w-6 h-6 flex-shrink-0 mt-1 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c1.657 0 3 .895 3 2s-1.343 2-3 2-3-.895-3-2 1.343-2 3-2zM9 14h6m-6 4h6"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21v-2a4 4 0 00-4-4H9a4 4 0 00-4 4v2"></path></svg>
+                            <div class="ml-3">
+                                <p class="font-semibold text-text-light">Premium Health Cover</p>
+                                <p class="text-sm text-gray-400">Zero deductible health coverage for employee and dependents.</p>
+                            </div>
+                        </div>
+                        <!-- Perk 2 -->
+                        <div class="flex items-start transition transform hover:translate-x-1 duration-300">
+                            <svg class="w-6 h-6 flex-shrink-0 mt-1 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            <div class="ml-3">
+                                <p class="font-semibold text-text-light">Annual Learning Budget</p>
+                                <p class="text-sm text-gray-400">₹1,00,000 for courses, certifications, and conferences.</p>
+                            </div>
+                        </div>
+                        <!-- Perk 3 -->
+                        <div class="flex items-start transition transform hover:translate-x-1 duration-300">
+                            <svg class="w-6 h-6 flex-shrink-0 mt-1 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2zm10 0v-4"></path></svg>
+                            <div class="ml-3">
+                                <p class="font-semibold text-text-light">Generous PTO & WFH</p>
+                                <p class="text-sm text-gray-400">25 days paid time off plus flexible/hybrid work arrangements.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </div>
         </div>
     </main>
-    
-    <!-- Mobile Sticky Apply Bar (Hidden on Desktop) -->
-    <div class="apply-bar md:hidden p-4">
-        <button onclick="console.log('Apply button clicked from sticky bar')" class="w-full bg-primary-blue text-white font-bold px-6 py-3 rounded-xl hover:bg-blue-700 transition duration-150 shadow-lg">
-            Apply Now
+
+    <!-- Sticky Floating Apply Button (Visible only when main CTA scrolls past) -->
+    <div id="floating-cta" class="fixed bottom-0 left-0 right-0 bg-card-dark p-3 z-40 shadow-[0_0_20px_rgba(0,0,0,0.5)] border-t border-gray-700 transition-transform duration-300 transform translate-y-full lg:hidden">
+        <button onclick="document.getElementById('application-modal').classList.remove('hidden')" class="w-full bg-secondary text-background-dark py-3 rounded-lg shadow-xl hover:bg-orange-600 transition duration-300 font-extrabold text-lg uppercase flex items-center justify-center space-x-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            Apply Now (Sticky)
         </button>
     </div>
+    
+    <!-- Modal for Application -->
+    <div id="application-modal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-90 z-50 flex items-center justify-center p-4">
+        <div class="bg-gray-800 p-8 rounded-xl shadow-2xl max-w-lg w-full transform transition-all duration-300 scale-100 border border-primary">
+            <h3 class="text-2xl font-bold text-primary mb-4">Confirm Application</h3>
+            <p class="text-gray-200 mb-6">
+                You are about to apply for the **Senior Full Stack Engineer** position. This is where the dedicated application form page would load.
+            </p>
+            <div class="space-y-4">
+                <p class="font-medium text-sm text-secondary">
+                    Note: A real application form would appear here to capture your details!
+                </p>
+            </div>
+            <div class="mt-6 flex justify-end space-x-3">
+                <button onclick="document.getElementById('application-modal').classList.add('hidden')" class="px-4 py-2 bg-gray-700 text-gray-200 font-medium rounded-lg hover:bg-gray-600 transition duration-150">
+                    Cancel
+                </button>
+                <button onclick="mockAlert('Application Submitted Successfully! Our team will review your profile shortly.')" class="px-4 py-2 bg-primary text-white font-medium rounded-lg hover:bg-blue-700 transition duration-150">
+                    Submit Application
+                </button>
+            </div>
+        </div>
+    </div>
 
-    <!-- Initialize Lucide Icons -->
+    <!-- Footer -->
+    <footer class="bg-card-dark border-t border-gray-700 text-gray-400 py-4 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-xs">
+            &copy; 2024 UdyogSathi Job Portal. All Rights Reserved.
+        </div>
+    </footer>
+
     <script>
-        lucide.createIcons();
+        // --- Core JavaScript Logic ---
+
+        // 1. Progress Bar Logic
+        const progressBar = document.getElementById('scroll-progress');
+
+        function updateProgress() {
+            const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPosition = window.scrollY;
+            const progress = (scrollPosition / totalHeight) * 100;
+            
+            progressBar.style.width = progress + '%';
+        }
+
+        // 2. Sticky Floating CTA Logic (Mobile/Small Screens)
+        const ctaPanel = document.getElementById('cta-panel');
+        const floatingCta = document.getElementById('floating-cta');
+
+        function updateFloatingCta() {
+            if (ctaPanel) {
+                const rect = ctaPanel.getBoundingClientRect();
+                // Show floating CTA when the main CTA panel is scrolled entirely out of view (past the top of the viewport)
+                if (rect.bottom < 0 && window.innerWidth < 1024) { // 1024px is Tailwind's 'lg' breakpoint
+                    floatingCta.classList.remove('translate-y-full');
+                } else {
+                    floatingCta.classList.add('translate-y-full');
+                }
+            }
+        }
+
+        // 3. Combined Scroll Listener
+        window.addEventListener('scroll', () => {
+            updateProgress();
+            updateFloatingCta();
+        });
+
+        // 4. Initialization on load
+        window.onload = () => {
+            updateProgress();
+            updateFloatingCta();
+            // Start the fade-in animation by removing initial opacity setting from the body via Tailwind class
+            document.body.classList.remove('opacity-0'); 
+        };
+
+        // 5. Mock Alert Function (Replaces window.alert/confirm)
+        function mockAlert(message) {
+            const modal = document.getElementById('application-modal');
+            
+            // Set success state
+            modal.querySelector('h3').textContent = 'Application Sent!';
+            modal.querySelector('p').textContent = message;
+            
+            // Hide submit button, update cancel button
+            const submitButton = modal.querySelector('.flex.justify-end > button:last-child');
+            const cancelButton = modal.querySelector('.flex.justify-end > button:first-child');
+
+            submitButton.classList.add('hidden');
+            cancelButton.textContent = 'Close';
+            cancelButton.onclick = () => {
+                modal.classList.add('hidden');
+            };
+            
+            modal.classList.remove('hidden');
+        }
     </script>
+
 </body>
 </html>
