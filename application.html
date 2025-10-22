@@ -3,205 +3,423 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Job Application Form</title>
-    <!-- Load Tailwind CSS -->
+    <title>UDYOG SATHI Application Form</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Load Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+        
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #F0F4F8; /* Soft blue-gray background */
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f0f0;
         }
-        .form-card {
-            max-width: 800px;
+
+        /* Custom styles for input underlines and sections */
+        .input-underline {
+            border: none;
+            border-bottom: 1px solid #ccc;
+            padding: 2px 0;
+            outline: none;
+            background: transparent;
         }
-        /* Custom file input styling */
-        .file-input-label {
-            cursor: pointer;
-            border: 2px dashed #D1D5DB;
-            transition: all 0.2s;
+
+        .input-underline-date {
+            width: 1.5rem;
+            text-align: center;
+            margin: 0 1px;
+            border: 1px solid #ccc;
+            height: 1.5rem;
+            line-height: 1.5rem;
+            padding: 0;
         }
-        .file-input-label:hover {
-            border-color: #9CA3AF;
-            background-color: #F9FAFB;
+
+        .section-header {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #3b82f6;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        /* Modified to single block layout */
+        .form-container {
+            width: 8.5in;
+            min-height: 11in;
+            margin: 1rem auto;
+            background: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            box-sizing: border-box;
+            display: block;
+            
+            & > div {
+                margin-bottom: 1.5rem; 
+            }
+        }
+
+        .grid-2-col-dense {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.5rem 1rem;
+            align-items: end;
+        }
+        
+        .grid-3-col {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+
+        .sub-label {
+            font-size: 0.75rem;
+            color: #555;
+            margin-top: 0.25rem;
+            display: block;
+        }
+        
+        /* Photo Container Styling for interaction */
+        #photoContainer {
+            width: 90px;
+            height: 100px;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        #photoContainer label {
+             border: 2px dashed #a0aec0;
+             transition: all 0.2s;
+        }
+        
+        #photoContainer label:hover {
+            background-color: #f0f4ff;
+            border-color: #3b82f6;
+        }
+
+        /* Instructions box style */
+        .instructions-box {
+            border: 2px solid #ffcc00;
+            background-color: #fffde7;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            border-radius: 6px;
+        }
+
+        /* Signature Canvas Style */
+        .signature-canvas {
+            touch-action: none; /* Prevents scroll/zoom on drawing */
+            background-color: #ffffff;
         }
     </style>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'primary-blue': '#1D4ED8',
-                        'accent-teal': '#0D9488',
-                    },
-                }
-            }
-        }
-
-        /**
-         * Simple function to handle form submission (client-side only for this template)
-         */
-        function handleApplicationSubmit(event) {
-            event.preventDefault();
-            const form = event.target;
-            const statusMessage = document.getElementById('status-message');
-            
-            // Show loading state
-            statusMessage.innerHTML = '<span class="text-primary-blue flex items-center space-x-2"><i data-lucide="loader-circle" class="w-5 h-5 animate-spin"></i><span>Submitting Application...</span></span>';
-            lucide.createIcons();
-
-            // Simulate network delay
-            setTimeout(() => {
-                // Check if all required fields are filled (simple validation)
-                const isValid = form.checkValidity();
-                
-                if (isValid) {
-                    statusMessage.innerHTML = '<span class="text-accent-teal font-semibold flex items-center space-x-2"><i data-lucide="check-circle" class="w-5 h-5"></i><span>Application Submitted Successfully!</span></span>';
-                    form.reset();
-                    // Reset file display names
-                    document.getElementById('resume-filename').textContent = 'No file chosen';
-                    document.getElementById('cover-filename').textContent = 'No file chosen';
-                } else {
-                    statusMessage.innerHTML = '<span class="text-red-500 font-semibold flex items-center space-x-2"><i data-lucide="x-circle" class="w-5 h-5"></i><span>Please fill out all required fields.</span></span>';
-                    // Trigger browser default error display
-                    form.reportValidity();
-                }
-                lucide.createIcons();
-
-            }, 2000);
-        }
-
-        /**
-         * Updates the displayed filename for a file input
-         */
-        function updateFileName(inputId, displayId) {
-            const input = document.getElementById(inputId);
-            const display = document.getElementById(displayId);
-            if (input.files.length > 0) {
-                display.textContent = input.files[0].name;
-            } else {
-                display.textContent = 'No file chosen';
-            }
-        }
-    </script>
 </head>
-<body class="antialiased p-4 sm:p-8">
+<body class="selection:bg-blue-200">
 
-    <!-- Application Form Container -->
-    <div class="form-card mx-auto bg-white p-6 sm:p-10 rounded-2xl shadow-2xl border border-gray-200">
+    <div class="form-container">
         
-        <!-- Form Header -->
-        <div class="mb-8 border-b pb-4">
-            <h1 class="text-3xl font-extrabold text-gray-900 mb-2">Apply for Senior Frontend Developer</h1>
-            <p class="text-lg text-primary-blue font-medium">at TechStack Solutions</p>
-            <p class="text-gray-600 mt-2 text-sm">Fill out the form below to submit your application. Fields marked with * are required.</p>
+        <!-- INSTRUCTIONS BLOCK -->
+        <div class="instructions-box">
+            <h2 class="text-lg font-bold text-yellow-700 border-b pb-2 mb-3">FORM FILLING INSTRUCTIONS</h2>
+            <ol class="list-decimal list-inside text-sm text-gray-700 space-y-2">
+                <li>Please **read all sections carefully** before entering any data. Use a pen with blue or black ink for physical submissions.</li>
+                <li>Ensure all mandatory fields, marked with (**), are completed. Leaving mandatory fields blank may lead to rejection.</li>
+                <li>The **Applicant Photo** must be a recent (not older than 6 months) passport-sized photograph. Click the photo box to upload a digital copy.</li>
+                <li>Provide your **Aadhaar/National ID** and **Tax ID (GST/PAN)** details accurately for verification purposes.</li>
+                <li>Dates (Date of Birth/Incorporation) should be entered in the **DD/MM/YYYY** format using the provided boxes.</li>
+                <li>The **Declaration & Terms** must be read, understood, and signed by the applicant. Use the **Doodle Pad** below to provide your signature.</li>
+            </ol>
         </div>
 
-        <!-- The Form -->
-        <form id="job-application-form" onsubmit="handleApplicationSubmit(event)" class="space-y-6">
-
-            <!-- Contact Information Section -->
-            <fieldset class="space-y-4 border p-6 rounded-xl">
-                <legend class="text-xl font-semibold text-gray-800 px-2">Contact Information</legend>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <!-- First Name -->
-                    <div>
-                        <label for="first-name" class="block text-sm font-medium text-gray-700 mb-1">First Name *</label>
-                        <input type="text" id="first-name" name="first-name" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-primary-blue focus:border-primary-blue transition duration-150" placeholder="John">
-                    </div>
-                    <!-- Last Name -->
-                    <div>
-                        <label for="last-name" class="block text-sm font-medium text-gray-700 mb-1">Last Name *</label>
-                        <input type="text" id="last-name" name="last-name" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-primary-blue focus:border-primary-blue transition duration-150" placeholder="Doe">
-                    </div>
-                </div>
-
-                <!-- Email Address -->
-                <div>
-                    <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address *</label>
-                    <input type="email" id="email" name="email" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-primary-blue focus:border-primary-blue transition duration-150" placeholder="john.doe@example.com">
-                </div>
-                
-                <!-- Phone Number -->
-                <div>
-                    <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
-                    <input type="tel" id="phone" name="phone" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-primary-blue focus:border-primary-blue transition duration-150" placeholder="(555) 123-4567">
-                </div>
-            </fieldset>
-
-            <!-- Documents Section -->
-            <fieldset class="space-y-4 border p-6 rounded-xl">
-                <legend class="text-xl font-semibold text-gray-800 px-2">Documents</legend>
-                <p class="text-sm text-gray-600">Accepted formats: PDF, DOCX (Max 5MB)</p>
-
-                <!-- Resume Upload -->
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Upload Resume *</label>
-                    <input type="file" id="resume-upload" name="resume-upload" accept=".pdf,.doc,.docx" required class="hidden" onchange="updateFileName('resume-upload', 'resume-filename')">
-                    <label for="resume-upload" id="resume-input-label" class="file-input-label flex flex-col items-center justify-center p-6 rounded-lg text-gray-500 hover:text-gray-700">
-                        <i data-lucide="upload-cloud" class="w-8 h-8 mb-2"></i>
-                        <span class="text-sm font-semibold">Click to upload or drag and drop</span>
-                        <span id="resume-filename" class="text-xs mt-1 text-gray-500">No file chosen</span>
-                    </label>
-                </div>
-
-                <!-- Cover Letter Upload -->
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Upload Cover Letter (Optional)</label>
-                    <input type="file" id="cover-upload" name="cover-upload" accept=".pdf,.doc,.docx" class="hidden" onchange="updateFileName('cover-upload', 'cover-filename')">
-                    <label for="cover-upload" id="cover-input-label" class="file-input-label flex flex-col items-center justify-center p-6 rounded-lg text-gray-500 hover:text-gray-700">
-                        <i data-lucide="file-text" class="w-8 h-8 mb-2"></i>
-                        <span class="text-sm font-semibold">Click to upload or drag and drop</span>
-                        <span id="cover-filename" class="text-xs mt-1 text-gray-500">No file chosen</span>
-                    </label>
-                </div>
-            </fieldset>
-
-            <!-- Additional Questions Section -->
-            <fieldset class="space-y-4 border p-6 rounded-xl">
-                <legend class="text-xl font-semibold text-gray-800 px-2">Additional Information</legend>
-                
-                <!-- Notice Period -->
-                <div>
-                    <label for="notice-period" class="block text-sm font-medium text-gray-700 mb-1">What is your required notice period? *</label>
-                    <select id="notice-period" name="notice-period" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-primary-blue focus:border-primary-blue transition duration-150">
-                        <option value="">Select an option</option>
-                        <option value="immediate">Immediately available</option>
-                        <option value="1-week">1 week</option>
-                        <option value="2-weeks">2 weeks</option>
-                        <option value="1-month">1 month</option>
-                        <option value="more">More than 1 month</option>
-                    </select>
-                </div>
-
-                <!-- Desired Salary -->
-                <div>
-                    <label for="salary-expectation" class="block text-sm font-medium text-gray-700 mb-1">Desired Annual Salary (₹IND) *</label>
-                    <input type="number" id="salary-expectation" name="salary-expectation" required min="0" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-primary-blue focus:border-primary-blue transition duration-150" placeholder="e.g., 135000">
-                </div>
-            </fieldset>
-
-            <!-- Submission Area -->
-            <div class="pt-6 space-y-4">
-                <div id="status-message" class="text-center h-6">
-                    <!-- Status message will appear here -->
-                </div>
-                
-                <button type="submit" class="w-full bg-accent-teal text-white font-bold px-6 py-3 rounded-xl hover:bg-teal-700 transition duration-150 shadow-lg flex items-center justify-center space-x-2">
-                    <i data-lucide="send" class="w-5 h-5"></i>
-                    <span>Submit Application</span>
-                </button>
-                
-                <p class="text-xs text-gray-500 text-center">By submitting, you agree to our <a href="#" class="text-primary-blue hover:underline">Terms and Conditions</a>.</p>
+        <!-- UDYOG SATHI Header -->
+        <div class="flex items-start bg-gray-900 text-white p-4 relative overflow-hidden rounded-md">
+            
+            <!-- Background Accents -->
+            <div class="absolute inset-y-0 right-0 w-1/4 transform skew-x-12 bg-yellow-500 z-0 opacity-20"></div>
+            <div class="absolute inset-y-0 right-0 w-1/5 transform skew-x-12 bg-blue-500 z-10 opacity-40"></div>
+            
+            <div class="relative z-20 flex-shrink-0">
+                <img src="https://via.placeholder.com/40x40/1e40af/ffffff?text=U" alt="Logo" class="h-10 w-10 mr-3 rounded-full border-2 border-white">
             </div>
-        </form>
+            <div class="flex-grow relative z-20">
+                <h1 class="text-xl font-bold text-yellow-300">UDYOG SATHI</h1>
+                <p class="text-xs text-gray-300">INDUSTRIAL DEVELOPMENT SCHEME</p>
+                <div class="mt-2 text-xs">
+                    <div class="flex items-center mt-1">
+                        <svg class="w-3 h-3 mr-1 text-green-400" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06L6.22 9.22a1 1 0 00-.28 1.474l.033.034a1.002 1.002 0 001.385.253l1.787-.714a1 1 0 011.23-.197l1.787.714a1.002 1.002 0 001.385-.253l.033-.034a1.002 1.002 0 00-.28-1.474l-.622-.622a1 1 0 01-.54-1.06l.74-4.435A1 1 0 0115.847 2H18a1 1 0 011 1v14a1 1 0 01-1 1H2a1 1 0 01-1-1V3z"></path></svg>
+                        +91 (XXX) XXX XXXX
+                    </div>
+                    <div class="flex items-center mt-1">
+                        <svg class="w-3 h-3 mr-1 text-green-400" fill="currentColor" viewBox="0 0 20 20"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0018 4H2a2 2 0 00-.003 1.884zM18 8H2v10a2 2 0 002 2h16a2 2 0 002-2V8zm-10 4h.01v.01H10V12zm-3 0h.01v.01H7V12zm-3 0h.01v.01H4V12zm14 0h.01v.01H18V12z"></path></svg>
+                        contact@udyogsathi.gov
+                    </div>
+                    <div class="flex items-center mt-1">
+                        <svg class="w-3 h-3 mr-1 text-green-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path></svg>
+                        Ministry of Industry, Department of MSME
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Applicant Photo Box with Upload Functionality -->
+            <div class="relative z-20 flex-shrink-0 ml-4 -mt-2 bg-white rounded-md border-2 border-white flex items-center justify-center overflow-hidden" id="photoContainer">
+                <input type="file" id="photoUpload" accept="image/*" class="hidden">
+                <label for="photoUpload" class="absolute inset-0 flex flex-col items-center justify-center text-xs text-gray-500 cursor-pointer p-1 transition-all duration-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mb-1 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" /></svg>
+                    <span class="text-center font-medium">Add Applicant Photo</span>
+                    <span class="text-xs text-gray-400">(90x100, Passport Size)</span>
+                </label>
+                <img id="photoPreview" src="#" alt="Applicant Photo Preview" class="absolute inset-0 w-full h-full object-cover hidden">
+            </div>
+            
+        </div>
+
+        
+
+        <div class="text-center mt-2">
+            <h2 class="text-2xl font-bold text-gray-800">UDYOG SATHI APPLICATION FORM</h2>
+        </div>
+
+        
+
+        <div class="flex items-center text-sm mt-4">
+            <span class="font-medium mr-2">Reference ID.</span>
+            <div class="flex-grow flex justify-between space-x-1">
+                <input type="text" class="input-underline-date text-sm" maxlength="1">
+                <input type="text" class="input-underline-date text-sm" maxlength="1">
+                <input type="text" class="input-underline-date text-sm" maxlength="1">
+                <input type="text" class="input-underline-date text-sm" maxlength="1">
+                <input type="text" class="input-underline-date text-sm" maxlength="1">
+                <input type="text" class="input-underline-date text-sm" maxlength="1">
+                <input type="text" class="input-underline-date text-sm" maxlength="1">
+                <input type="text" class="input-underline-date text-sm" maxlength="1">
+                <input type="text" class="input-underline-date text-sm" maxlength="1">
+                <input type="text" class="input-underline-date text-sm" maxlength="1">
+            </div>
+            <span class="font-medium ml-4 mr-2">Date</span>
+            <div class="flex justify-between space-x-1">
+                <input type="text" class="input-underline-date text-sm" maxlength="1">
+                <input type="text" class="input-underline-date text-sm" maxlength="1">
+                <input type="text" class="input-underline-date text-sm" maxlength="1">
+                <span class="mx-1">/</span>
+                <input type="text" class="input-underline-date text-sm" maxlength="1">
+                <input type="text" class="input-underline-date text-sm" maxlength="1">
+                <span class="mx-1">/</span>
+                <input type="text" class="input-underline-date text-sm" maxlength="1">
+                <input type="text" class="input-underline-date text-sm" maxlength="1">
+                <input type="text" class="input-underline-date text-sm" maxlength="1">
+                <input type="text" class="input-underline-date text-sm" maxlength="1">
+            </div>
+        </div>
+
+        <p class="text-xs text-gray-600 mt-4 leading-relaxed">
+            To the UdyogSathi Committee,<br>
+            I, the undersigned, hereby submit my application for registration under the Industrial Development Scheme, affirming the following details are true and correct.
+        </p>
+
+        <div class="mt-4 text-sm flex items-center">
+            <span class="font-medium mr-2">Application Submitted To</span>
+            <input type="text" class="input-underline flex-grow" placeholder="e.g., Regional Development Officer">
+        </div>
+
+        
+
+        <div class="mt-6">
+            <h3 class="section-header">Applicant Details (Individual/Proprietor)</h3>
+            <div class="space-y-4 text-sm">
+                <div class="grid-2-col-dense">
+                    <label>Full Name</label> <input type="text" class="input-underline">
+                    <label>Place of Business/Residence</label> <input type="text" class="input-underline">
+                    <label>Date of Birth / Incorporation</label>
+                    <div class="flex items-center space-x-1 flex-wrap">
+                        <input type="text" class="input-underline-date text-xs" maxlength="1"><input type="text" class="input-underline-date text-xs" maxlength="1"> /
+                        <input type="text" class="input-underline-date text-xs" maxlength="1"><input type="text" class="input-underline-date text-xs" maxlength="1"> /
+                        <input type="text" class="input-underline-date text-xs" maxlength="1"><input type="text" class="input-underline-date text-xs" maxlength="1"><input type="text" class="input-underline-date text-xs" maxlength="1"><input type="text" class="input-underline-date text-xs" maxlength="1">
+                    </div>
+                </div>
+
+                <div class="grid-3-col">
+                    <div class="flex items-center">
+                        <label class="mr-2">Gender</label>
+                        <input type="radio" id="male" name="gender" class="mr-1"><label for="male" class="mr-2">M</label>
+                        <input type="radio" id="female" name="gender" class="mr-1"><label for="female">F</label>
+                    </div>
+                    <div class="flex items-center">
+                        <label class="mr-2">Industry Type</label> <input type="text" class="input-underline flex-grow">
+                    </div>
+                    <div class="flex items-center">
+                        <label class="mr-2">Business Type</label> <input type="text" class="input-underline flex-grow" placeholder="e.g., MSME, Startup">
+                    </div>
+                </div>
+
+                <div class="grid-2-col-dense">
+                    <label>Nationality</label> <input type="text" class="input-underline">
+                    <label>Annual Turnover (₹)</label> <input type="text" class="input-underline">
+                    <label>Aadhaar / National ID No.</label> <input type="text" class="input-underline">
+                    <label>GST / PAN / Tax ID</label> <input type="text" class="input-underline">
+                    <label>Official Email</label> <input type="email" class="input-underline">
+                    <label>Contact Phone</label> <input type="tel" class="input-underline">
+                </div>
+            </div>
+        </div>
+
+        
+
+        <div class="mt-6">
+            <h3 class="section-header">Contact & Address Details</h3>
+            <div class="space-y-4 text-sm">
+                <div class="grid-2-col-dense">
+                    <label>Present Business Address</label> <input type="text" class="input-underline">
+                    <label>Permanent Correspondence Address</label> <input type="text" class="input-underline">
+                    <label>State / Province</label> <input type="text" class="input-underline">
+                    <label>State / Province</label> <input type="text" class="input-underline">
+                    <label>City / District</label> <input type="text" class="input-underline">
+                    <label>City / District</label> <input type="text" class="input-underline">
+                    <label>Pincode / Zip Code</label> <input type="text" class="input-underline">
+                    <label>Pincode / Zip Code</label> <input type="text" class="input-underline">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Declaration and Signatures Section (Now full width) -->
+        <div class="mt-6">
+            <h3 class="section-header">Declaration & Terms</h3>
+            <div class="space-y-4 text-sm text-gray-700">
+                <p><strong>01.</strong> I/We confirm that the information provided in this application is true, complete, and accurate to the best of my/our knowledge and belief.</p>
+                <p><strong>02.</strong> I/We understand that any false declaration may result in the rejection of this application and legal action under the relevant government laws.</p>
+                <p><strong>03.</strong> I/We agree to abide by all the rules, regulations, and terms and conditions set forth by the Udyog Sathi Industrial Development Scheme.</p>
+                <p><strong>04.</strong> I/We authorize Udyog Sathi to verify the information and documents provided in this application from any source deemed necessary.</p>
+            </div>
+
+            <div class="grid grid-cols-2 gap-8 mt-8 text-sm">
+                
+                <!-- Applicant Signature Doodle Pad -->
+                <div>
+                    <div class="relative border border-gray-300 rounded-md shadow-inner">
+                        <canvas id="applicantSignatureCanvas" class="signature-canvas w-full rounded-md" height="100"></canvas>
+                        <button onclick="clearCanvas('applicantSignatureCanvas')" class="absolute top-1 right-1 px-2 py-0.5 text-xs bg-red-500 text-white font-medium rounded hover:bg-red-600 transition duration-150">Clear</button>
+                    </div>
+                    <span class="sub-label">Signature of Applicant / Proprietor</span>
+                </div>
+                
+                <!-- Witness Signature Doodle Pad -->
+                <div>
+                    <div class="relative border border-gray-300 rounded-md shadow-inner">
+                        <canvas id="witnessSignatureCanvas" class="signature-canvas w-full rounded-md" height="100"></canvas>
+                        <button onclick="clearCanvas('witnessSignatureCanvas')" class="absolute top-1 right-1 px-2 py-0.5 text-xs bg-red-500 text-white font-medium rounded hover:bg-red-600 transition duration-150">Clear</button>
+                    </div>
+                    <span class="sub-label">Witness Signature</span>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- Initialize Lucide Icons -->
     <script>
-        lucide.createIcons();
+        // Global state for drawing
+        let isDrawing = false;
+        let lastX = 0;
+        let lastY = 0;
+
+        // Function to initialize drawing on a canvas
+        function setupSignatureCanvas(canvasId) {
+            const canvas = document.getElementById(canvasId);
+            if (!canvas) return;
+
+            const ctx = canvas.getContext('2d');
+            
+            // Set drawing properties
+            ctx.lineWidth = 3;
+            ctx.lineCap = 'round';
+            ctx.strokeStyle = '#000000';
+
+            // Function to get accurate coordinates based on event type
+            function getCoords(event) {
+                const rect = canvas.getBoundingClientRect();
+                let x, y;
+
+                if (event.touches && event.touches.length > 0) {
+                    x = event.touches[0].clientX - rect.left;
+                    y = event.touches[0].clientY - rect.top;
+                } else {
+                    x = event.clientX - rect.left;
+                    y = event.clientY - rect.top;
+                }
+                return { x, y };
+            }
+
+            // Start drawing function
+            function startDrawing(event) {
+                event.preventDefault(); // Prevent scrolling/default touch behavior
+                isDrawing = true;
+                const { x, y } = getCoords(event);
+                [lastX, lastY] = [x, y];
+                ctx.beginPath(); // Start a new path
+                ctx.moveTo(lastX, lastY);
+            }
+
+            // Draw function
+            function draw(event) {
+                if (!isDrawing) return;
+                event.preventDefault();
+                
+                const { x, y } = getCoords(event);
+                
+                ctx.lineTo(x, y);
+                ctx.stroke();
+                
+                [lastX, lastY] = [x, y];
+            }
+
+            // Stop drawing function
+            function stopDrawing() {
+                isDrawing = false;
+            }
+
+            // Mouse event listeners
+            canvas.addEventListener('mousedown', startDrawing);
+            canvas.addEventListener('mousemove', draw);
+            canvas.addEventListener('mouseup', stopDrawing);
+            canvas.addEventListener('mouseout', stopDrawing);
+
+            // Touch event listeners
+            canvas.addEventListener('touchstart', startDrawing);
+            canvas.addEventListener('touchmove', draw);
+            canvas.addEventListener('touchend', stopDrawing);
+            canvas.addEventListener('touchcancel', stopDrawing);
+        }
+
+        // Function to clear a specific canvas
+        window.clearCanvas = function(canvasId) {
+            const canvas = document.getElementById(canvasId);
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize photo upload preview
+            const photoUpload = document.getElementById('photoUpload');
+            const photoPreview = document.getElementById('photoPreview');
+            const photoLabel = document.querySelector('label[for="photoUpload"]');
+
+            photoUpload.addEventListener('change', function(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        photoPreview.src = e.target.result;
+                        photoPreview.classList.remove('hidden');
+                        photoLabel.classList.add('hidden');
+                    }
+                    reader.readAsDataURL(file);
+                } else {
+                    photoPreview.classList.add('hidden');
+                    photoLabel.classList.remove('hidden');
+                }
+            });
+
+            // Initialize signature canvases
+            setupSignatureCanvas('applicantSignatureCanvas');
+            setupSignatureCanvas('witnessSignatureCanvas');
+        });
     </script>
 </body>
 </html>
