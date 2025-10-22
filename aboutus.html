@@ -1,122 +1,154 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UdyogSathi: Our Mission and Leadership</title>
-    <!-- Load Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        /* Custom font import and application */
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f7f9fc; /* Light background for contrast */
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UdyogSathi: Our Mission and Leadership</title>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Tailwind Config: Custom Colors -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#a78bfa',  /* soft purple accent */
+            surface: '#1b1d2f',  /* card background */
+            base: '#0e0f1a',     /* main background */
+            border: '#2e3048',
+            textMain: '#e5e5f0',
+            textSub: '#b0b0d0'
+          }
         }
-    </style>
+      }
+    }
+  </script>
+
+  <!-- Custom Font -->
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+  </style>
 </head>
-<body class="text-gray-800">
+<body class="bg-base text-textMain">
 
-    <!-- Header & Core Mission Section -->
-    <header class="bg-white shadow-md">
-        <div class="container mx-auto px-4 py-8 md:py-12">
-            <h1 class="text-4xl font-extrabold text-blue-600 mb-2 md:text-5xl">UdyogSathi</h1>
-            <p class="text-xl text-gray-600">Your trusted partner in employment and economic mobility.</p>
+  <!-- Header -->
+  <header class="bg-[#141526] border-b border-border">
+    <div class="container mx-auto px-6 py-10">
+     <h1 class="text-4xl md:text-5xl font-extrabold">
+      <span class="text-primary">Udyog</span><span class="text-white">Sathi</span>
+    </h1>
+      <p class="text-textSub text-lg mt-2">Your trusted partner in employment and economic mobility.</p>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container mx-auto px-6 py-16">
+
+    <!-- Mission Section -->
+    <section class="mb-20">
+      <h2 class="text-3xl font-bold mb-8 text-primary flex items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mr-3 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+        </svg>
+        Our Mission: Opportunity for All
+      </h2>
+
+      <div class="bg-surface border border-border rounded-xl p-8 shadow-lg">
+        <p class="text-textSub leading-relaxed mb-6">
+          In many economies, the job search process is broken, particularly for those in the informal sector or those without formal education. 
+          <span class="text-primary font-semibold">UdyogSathi</span> was founded to solve this digital divide. 
+          We create a <strong>dual-track platform</strong> that respects the need for formal applications (for skilled roles) 
+          while simplifying connectivity (for unskilled/manual roles) using intuitive interfaces and local support structures.
+        </p>
+        <p class="text-textSub leading-relaxed">
+          Our goal is simple: ensure that every person, regardless of their background, can easily find 
+          <strong class="text-primary">meaningful, dignified work</strong> — and every employer can find the reliable 
+          <strong class="text-primary">“Sathi”</strong> (partner) they need.
+        </p>
+      </div>
+
+      <!-- Vision -->
+      <div class="mt-10 bg-surface border border-border rounded-xl p-8 shadow-lg">
+        <h3 class="text-2xl font-bold text-primary mb-4 flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M12 20h9M3 20h9M9 16H5v-4H3m0-4h2m0 0h2m10 0h2m-6 0h2m-2 8h2m2 0h2" />
+          </svg>
+          Our Vision & Core Values
+        </h3>
+        <ul class="space-y-3 text-textSub">
+          <li><span class="text-primary font-semibold">Inclusive Growth:</span> To become the largest and most trusted employment hub that measures success not just by volume, but by the social and economic mobility created for marginalized workers.</li>
+          <li><span class="text-primary font-semibold">Technology for Empowerment:</span> To leverage technology to make job access universal, eliminating barriers like literacy and complex documentation.</li>
+          <li><span class="text-primary font-semibold">Dignity of Labor:</span> We champion fair wages and safe working conditions for every job posted on our platform. Integrity is at our core.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Leadership -->
+    <section class="mt-20">
+      <h2 class="text-3xl font-bold text-primary mb-6 flex items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mr-3 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a1 1 0 001 1h16a1 1 0 001-1V7M16 3h5v4M3 3h5v4M8 21h8" />
+        </svg>
+        Our Leadership Team
+      </h2>
+      <p class="text-textSub text-lg mb-10">Meet the dedicated individuals guiding UdyogSathi’s mission for inclusive growth.</p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Leader Card -->
+        <div class="bg-surface border border-border rounded-xl p-6 hover:shadow-xl hover:border-primary transition">
+          <img src="https://placehold.co/100x100/8b5cf6/ffffff" class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-base object-cover">
+          <h3 class="text-xl font-bold text-center text-textMain">AVIK MITRA</h3>
+          <p class="text-primary font-semibold text-center mb-3">Founder & Visionary</p>
+          <p class="text-center text-textSub text-sm">Engineered the dual-track model, combining technology and community development to solve the digital divide.</p>
         </div>
-    </header>
 
-    <main class="container mx-auto px-4 py-10 md:py-16">
-
-        <!-- Mission & Values Content Block -->
-        <section id="mission-vision" class="mb-16">
-            <h2 class="text-3xl font-bold text-gray-900 mb-6 border-b-2 border-blue-500 pb-2">Our Mission: Opportunity for All</h2>
-
-            <div class="space-y-6 text-lg text-gray-700">
-                <p>In many economies, the job search process is broken, particularly for those in the informal sector or those without formal education. UdyogSathi was founded to solve this digital divide. We create a **dual-track platform** that respects the need for formal applications (for skilled roles) while simplifying connectivity (for unskilled/manual roles) using intuitive interfaces and local support structures.</p>
-
-                <p>Our goal is simple: ensure that every person, regardless of their background, can easily find **meaningful, dignified work**—and every employer can find the reliable "Sathi" (partner) they need.</p>
-
-                <h3 class="text-2xl font-semibold text-blue-600 mt-8 mb-4">Our Vision & Core Values</h3>
-                <ul class="list-disc pl-5 space-y-2">
-                    <li>**Inclusive Growth:** To become the largest and most trusted employment hub that measures success not just by volume, but by the social and economic mobility created for marginalized workers.</li>
-                    <li>**Technology for Empowerment:** To leverage technology to make job access universal, eliminating barriers like literacy and complex documentation.</li>
-                    <li>**Dignity of Labor:** We champion fair wages and safe working conditions for every job posted on our platform. Integrity is at our core.</li>
-                </ul>
-            </div>
-        </section>
-
-        <!-- Leadership Team Section (Six Tiles) -->
-        <section id="leadership" class="mt-16 pt-8 border-t border-gray-200">
-            <h2 class="text-3xl font-bold text-gray-900 mb-8 border-b-2 border-blue-500 pb-2">Our Leadership Team</h2>
-            <p class="text-xl text-gray-600 mb-10">Meet the dedicated individuals guiding UdyogSathi's mission for inclusive growth.</p>
-
-            <!-- Leadership Grid Container -->
-            <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-
-                <!-- Tile 1: Founder -->
-                <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:scale-[1.02] border-t-4 border-blue-600">
-                    <!-- Image Placeholder: Solid color, no initials -->
-                    <img src="XYZ" onerror="this.onerror=null;this.src='https://placehold.co/100x100/3b82f6/ffffff';" alt="Rohan Sharma" class="w-24 h-24 rounded-full mx-auto mb-4 object-cover border-4 border-white shadow-md">
-                    <h3 class="text-xl font-bold text-gray-900 text-center">ABC</h3>
-                    <p class="text-blue-600 font-semibold text-center mb-4">Founder & Visionary</p>
-                    <p class="text-gray-600 text-sm text-center">ABC engineered the dual-track model, combining technology and community development to solve the digital divide for millions.</p>
-                </div>
-
-                <!-- Tile 2: Co-Founder -->
-                <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:scale-[1.02] border-t-4 border-indigo-600">
-                    <!-- Image Placeholder: Solid color, no initials -->
-                    <img src="https://placehold.co/100x100/4f46e5/ffffff" onerror="this.onerror=null;this.src='https://placehold.co/100x100/4f46e5/ffffff';" alt="Priya Singh" class="w-24 h-24 rounded-full mx-auto mb-4 object-cover border-4 border-white shadow-md">
-                    <h3 class="text-xl font-bold text-gray-900 text-center">ABC</h3>
-                    <p class="text-indigo-600 font-semibold text-center mb-4">Co-Founder & Chief Technology Officer</p>
-                    <p class="text-gray-600 text-sm text-center">ABC leads the tech development, ensuring the platform remains ultra-light, mobile-first, and deeply accessible through voice integration.</p>
-                </div>
-
-                <!-- Tile 3: CEO -->
-                <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:scale-[1.02] border-t-4 border-green-600">
-                    <!-- Image Placeholder: Solid color, no initials -->
-                    <img src="https://placehold.co/100x100/10b981/ffffff" onerror="this.onerror=null;this.src='https://placehold.co/100x100/10b981/ffffff';" alt="Sameer Khan" class="w-24 h-24 rounded-full mx-auto mb-4 object-cover border-4 border-white shadow-md">
-                    <h3 class="text-xl font-bold text-gray-900 text-center">ABCn</h3>
-                    <p class="text-green-600 font-semibold text-center mb-4">Chief Executive Officer</p>
-                    <p class="text-gray-600 text-sm text-center">ABC drives organizational strategy and execution, focusing on scaling operations and maximizing social impact across all geographies.</p>
-                </div>
-
-                <!-- Tile 4: Executive Member 1 -->
-                <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:scale-[1.02] border-t-4 border-yellow-600">
-                    <!-- Image Placeholder: Solid color, no initials -->
-                    <img src="https://placehold.co/100x100/d97706/ffffff" onerror="this.onerror=null;this.src='https://placehold.co/100x100/d97706/ffffff';" alt="Dr. Anjali Rao" class="w-24 h-24 rounded-full mx-auto mb-4 object-cover border-4 border-white shadow-md">
-                    <h3 class="text-xl font-bold text-gray-900 text-center">ABC</h3>
-                    <p class="text-yellow-600 font-semibold text-center mb-4">Head of Social Impact</p>
-                    <p class="text-gray-600 text-sm text-center">ABC oversees ethical guidelines and quality control, ensuring that every placement promotes the dignity and well-being of the worker.</p>
-                </div>
-
-                <!-- Tile 5: Executive Member 2 -->
-                <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:scale-[1.02] border-t-4 border-red-600">
-                    <!-- Image Placeholder: Solid color, no initials -->
-                    <img src="https://placehold.co/100x100/ef4444/ffffff" onerror="this.onerror=null;this.src='https://placehold.co/100x100/ef4444/ffffff';" alt="Vivek Menon" class="w-24 h-24 rounded-full mx-auto mb-4 object-cover border-4 border-white shadow-md">
-                    <h3 class="text-xl font-bold text-gray-900 text-center">ABC</h3>
-                    <p class="text-red-600 font-semibold text-center mb-4">Chief Financial Officer</p>
-                    <p class="text-gray-600 text-sm text-center">ABC manages financial sustainability, ensuring responsible growth to support the platform's long-term mission and expansion goals.</p>
-                </div>
-
-                <!-- Tile 6: Executive Member 3 -->
-                <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 transform hover:scale-[1.02] border-t-4 border-purple-600">
-                    <!-- Image Placeholder: Solid color, no initials -->
-                    <img src="https://placehold.co/100x100/9333ea/ffffff" onerror="this.onerror=null;this.src='https://placehold.co/100x100/9333ea/ffffff';" alt="Sara Joseph" class="w-24 h-24 rounded-full mx-auto mb-4 object-cover border-4 border-white shadow-md">
-                    <h3 class="text-xl font-bold text-gray-900 text-center">ABC</h3>
-                    <p class="text-purple-600 font-semibold text-center mb-4">VP, Partnerships & Outreach</p>
-                    <p class="text-gray-600 text-sm text-center">ABC builds key relationships with employers, NGOs, and government bodies to widen the reach and impact of UdyogSathi's services.</p>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- Footer -->
-    <footer class="bg-gray-800 text-white p-6 mt-16">
-        <div class="container mx-auto text-center text-sm">
-            &copy; 2025 UdyogSathi. Championing Dignity of Labor.
+        <div class="bg-surface border border-border rounded-xl p-6 hover:shadow-xl hover:border-primary transition">
+          <img src="https://placehold.co/100x100/7c3aed/ffffff" class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-base object-cover">
+          <h3 class="text-xl font-bold text-center text-textMain">ADIL MUKHTAR</h3>
+          <p class="text-primary font-semibold text-center mb-3">Co-Founder & CTO</p>
+          <p class="text-center text-textSub text-sm">Leads tech development, ensuring the platform remains mobile-first and accessible through voice integration.</p>
         </div>
-    </footer>
+
+        <div class="bg-surface border border-border rounded-xl p-6 hover:shadow-xl hover:border-primary transition">
+          <img src="https://placehold.co/100x100/10b981/ffffff" class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-base object-cover">
+          <h3 class="text-xl font-bold text-center text-textMain">ABUSINA HOSSAIN</h3>
+          <p class="text-primary font-semibold text-center mb-3">Chief Executive Officer</p>
+          <p class="text-center text-textSub text-sm">Drives strategy and execution, focusing on scaling operations and maximizing social impact globally.</p>
+        </div>
+
+        <div class="bg-surface border border-border rounded-xl p-6 hover:shadow-xl hover:border-primary transition">
+          <img src="https://placehold.co/100x100/f59e0b/ffffff" class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-base object-cover">
+          <h3 class="text-xl font-bold text-center text-textMain">ABC</h3>
+          <p class="text-primary font-semibold text-center mb-3">Head of Social Impact</p>
+          <p class="text-center text-textSub text-sm">Oversees ethical standards and ensures placements promote worker dignity and well-being.</p>
+        </div>
+
+        <div class="bg-surface border border-border rounded-xl p-6 hover:shadow-xl hover:border-primary transition">
+          <img src="https://placehold.co/100x100/ef4444/ffffff" class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-base object-cover">
+          <h3 class="text-xl font-bold text-center text-textMain">SUPARNA KUNDU</h3>
+          <p class="text-primary font-semibold text-center mb-3">Chief Financial Officer</p>
+          <p class="text-center text-textSub text-sm">Manages financial sustainability, ensuring responsible growth to support long-term mission goals.</p>
+        </div>
+
+        <div class="bg-surface border border-border rounded-xl p-6 hover:shadow-xl hover:border-primary transition">
+          <img src="https://placehold.co/100x100/9333ea/ffffff" class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-base object-cover">
+          <h3 class="text-xl font-bold text-center text-textMain">ABC</h3>
+          <p class="text-primary font-semibold text-center mb-3">VP, Partnerships & Outreach</p>
+          <p class="text-center text-textSub text-sm">Builds partnerships with employers, NGOs, and governments to expand reach and impact.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-[#141526] text-textSub py-8 mt-16 text-center border-t border-border">
+    <p>&copy; 2025 UdyogSathi. Championing Dignity of Labor.</p>
+  </footer>
 
 </body>
 </html>
-i
